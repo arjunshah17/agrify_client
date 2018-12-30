@@ -6,7 +6,7 @@
         android:title="@string/store">
     </item>
     <item
-        android:id="@+id/wiselistItem"
+        android:id="@+id/wishlistItem"
         android:icon="@drawable/ic_wiselist_black_24dp"
         android:title="@string/wishlist">
 

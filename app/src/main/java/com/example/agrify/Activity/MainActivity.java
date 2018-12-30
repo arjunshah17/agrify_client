@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new storeFragment();
                         break;
 
-                    case R.id.wiselistItem:
+                    case R.id.wishlistItem:
 
                         break;
 
