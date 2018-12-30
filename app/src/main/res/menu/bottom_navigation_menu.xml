@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/storeItem"
+        android:icon="@drawable/ic_store_black_24dp"
+        android:title="@string/store">
+    </item>
+    <item
+        android:id="@+id/wiselistItem"
+        android:icon="@drawable/ic_wiselist_black_24dp"
+        android:title="@string/wishlist">
+
+    </item>
+    <item
+        android:id="@+id/chatItem"
+        android:icon="@drawable/ic_chat_black_24dp"
+        android:title="@string/chat" />
+    <item
+        android:id="@+id/notificationItem"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/notification" />
+    <item
+        android:id="@+id/aboutItem"
+        android:icon="@drawable/ic_about"
+        android:title="@string/about" />
+</menu>
