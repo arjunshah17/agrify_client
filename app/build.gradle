@@ -38,5 +38,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.0'
     implementation 'com.firebaseui:firebase-ui-storage:4.3.0'
+    //Circle Image
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }
 apply plugin: 'com.google.gms.google-services'
