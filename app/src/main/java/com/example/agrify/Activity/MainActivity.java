@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.example.agrify.Activity.fragments.profileFragment;
 import com.example.agrify.Activity.fragments.storeFragment;
 import com.example.agrify.R;
 import com.example.agrify.databinding.ActivityMainBinding;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.aboutItem:
+                        fragment = new profileFragment();
                         break;
                 }
 

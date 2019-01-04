@@ -58,7 +58,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="+91 87584 75673"
-                android:textSize="25dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -80,7 +80,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="arjun@gmail.com"
-                android:textSize="25dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -102,7 +102,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="Ahmedabad"
-                android:textSize="25dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -115,11 +115,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary"
         android:padding="15dp"
         android:text="Edit Profile"
         android:textColor="#fff"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:cornerRadius="100dp" />
 </LinearLayout>
