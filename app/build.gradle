@@ -32,7 +32,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:4.3.0'
-
+    implementation 'com.google.firebase:firebase-storage:16.0.5'
     implementation 'com.facebook.shimmer:shimmer:0.3.0'
 
     implementation 'com.google.firebase:firebase-core:16.0.6'
@@ -40,5 +40,8 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-storage:4.3.0'
     //Circle Image
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+    implementation 'com.github.paolorotolo:appintro:v5.1.0' //intro slider
+
 }
 apply plugin: 'com.google.gms.google-services'

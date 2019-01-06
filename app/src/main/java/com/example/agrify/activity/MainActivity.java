@@ -1,4 +1,4 @@
-package com.example.agrify.Activity;
+package com.example.agrify.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.example.agrify.Activity.fragments.profileFragment;
-import com.example.agrify.Activity.fragments.storeFragment;
+import com.example.agrify.activity.fragments.profileFragment;
+import com.example.agrify.activity.fragments.storeFragment;
 import com.example.agrify.R;
 import com.example.agrify.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -66,5 +66,16 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    public static class editProfile extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_edit_profile);
+
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.agrify.Activity.model;
+package com.example.agrify.activity.model;
 
 public class Store {
     private String name,des;

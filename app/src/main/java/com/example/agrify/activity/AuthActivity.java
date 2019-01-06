@@ -1,4 +1,4 @@
-package com.example.agrify.Activity;
+package com.example.agrify.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +25,7 @@ public class AuthActivity extends AppCompatActivity {
         }
         else {
 
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, introSlider.class));
         }
 
     }
@@ -49,9 +49,10 @@ public class AuthActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
+
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, introSlider.class));
                 finish();
             } else {
                 // Sign in failed
