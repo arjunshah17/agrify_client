@@ -25,7 +25,7 @@ public class AuthActivity extends AppCompatActivity {
         }
         else {
 
-            startActivity(new Intent(this, introSlider.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
 
     }
@@ -52,7 +52,7 @@ public class AuthActivity extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                startActivity(new Intent(this, introSlider.class));
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
             } else {
                 // Sign in failed

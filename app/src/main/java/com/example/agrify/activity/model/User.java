@@ -1,11 +1,22 @@
 package com.example.agrify.activity.model;
 
-public class User {
-String name,userProfilePhoto;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
-    public User(String name, String userProfilePhoto) {
+public class User {
+String name,userProfilePhoto,email,phone;
+
+    public User() {
+    }
+
+
+    public User(String name, String userProfilePhoto, String email, String phone) {
+
         this.name = name;
         this.userProfilePhoto = userProfilePhoto;
+        this.email = email;
+        this.phone = phone;
     }
 
     public String getName() {
@@ -23,4 +34,29 @@ String name,userProfilePhoto;
     public void setUserProfilePhoto(String userProfilePhoto) {
         this.userProfilePhoto = userProfilePhoto;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+  public Map<String,String> toUserMap()
+   {
+       Map<String,String> user=new HashMap<>();
+       user.put("name",name);
+       user.put("userProfilePhoto",userProfilePhoto);
+       user.put("phone",phone);
+       return user;
+
+   }
 }

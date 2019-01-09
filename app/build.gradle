@@ -36,12 +36,13 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.3.0'
 
     implementation 'com.google.firebase:firebase-core:16.0.6'
-    implementation 'com.firebaseui:firebase-ui-auth:4.3.0'
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
     implementation 'com.firebaseui:firebase-ui-storage:4.3.0'
     //Circle Image
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
     implementation 'com.github.paolorotolo:appintro:v5.1.0' //intro slider
+    implementation 'id.zelory:compressor:2.1.0'//image compressor
 
 }
 apply plugin: 'com.google.gms.google-services'
