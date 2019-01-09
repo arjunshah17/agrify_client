@@ -14,4 +14,8 @@
     <string name="title_activity_intro_slider">introSlider</string>
     <string name="contact_no">contact no</string>
     <string name="email">email</string>
+    <string name="email_hint">Email</string>
+    <string name="phone_hint">Phone Number</string>
+    <string name="username">Name</string>
+    <string name="saveProfile">Save Profile</string>
 </resources>

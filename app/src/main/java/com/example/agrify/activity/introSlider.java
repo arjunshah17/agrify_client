@@ -33,6 +33,7 @@ public class introSlider extends AppIntro2 {
         super.onDonePressed(currentFragment);
         // Do something when users tap on Done button.
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 }
