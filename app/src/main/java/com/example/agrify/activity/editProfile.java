@@ -25,8 +25,11 @@ import com.example.agrify.R;
 import com.example.agrify.activity.model.User;
 import com.example.agrify.databinding.ActivityEditProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,6 +37,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -43,16 +48,17 @@ import java.io.IOException;
 
 public class editProfile extends AppCompatActivity {
     private static final int SELECTED_PIC = 1;
-    ImageView imageView;
+
     ActivityEditProfileBinding bind;
     User user;
-    private StorageReference storageReference;
+
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private String user_id;
+    FirebaseUser firebaseUser;
     private Uri mainImageURI = null;
     private boolean isChanged = false;
-    private Bitmap compressedImageFile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,33 +67,31 @@ public class editProfile extends AppCompatActivity {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         user = new User();
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         user_id = firebaseAuth.getCurrentUser().getUid();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
+
         stateLoading(true);
         bind.progressLoading.setVisibility(View.VISIBLE);
+
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                user.setName(firebaseUser.getDisplayName());
+                user.setEmail(firebaseUser.getEmail());
                 if (task.isSuccessful()) {
                     if (task.getResult().exists()) {
-                        user.setName(task.getResult().getString("name"));
                         user.setPhone(task.getResult().getString("phone"));
-                        user.setUserProfilePhoto(task.getResult().getString("userProfilePhoto"));
-                        user.setEmail(firebaseAuth.getCurrentUser().getEmail());
-
-                        if (user.getUserProfilePhoto()!=null) {
-                            Toast.makeText(editProfile.this,user.getUserProfilePhoto(),Toast.LENGTH_LONG).show();
-                            mainImageURI = Uri.parse(user.getUserProfilePhoto());
-
-                            RequestOptions placeholderRequest = new RequestOptions();
 
 
-                            Glide.with(bind.userProfilePhoto.getContext()).load(user.getUserProfilePhoto()).into(bind.userProfilePhoto);
-                        }
-                        bind.setUser(user);
                     }
+                    if (firebaseUser.getPhotoUrl() != null) {
+                        GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl()).into(bind.userProfilePhoto);
+                        }
+
+                        bind.setUser(user);
+
                 } else {
                     String error = task.getException().getMessage();
                     Toast.makeText(editProfile.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
@@ -95,6 +99,8 @@ public class editProfile extends AppCompatActivity {
                 stateLoading(false);
             }
         });
+
+
         bind.userProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +109,7 @@ public class editProfile extends AppCompatActivity {
 
                     if (ContextCompat.checkSelfPermission(editProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                        Toast.makeText(editProfile.this, "Permission Denied", Toast.LENGTH_LONG).show();
+                        Toast.makeText(editProfile.this, "Permission granted", Toast.LENGTH_LONG).show();
                         ActivityCompat.requestPermissions(editProfile.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
                     } else {
@@ -125,43 +131,14 @@ public class editProfile extends AppCompatActivity {
         bind.saveProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final User user = bind.getUser();
-                if (isChanged) {
-                    File newImageFile = new File(mainImageURI.getPath());
-                    try {
+                final User user = new User();
+                user.setName(bind.name.getText().toString());
+                user.setPhone(bind.phone.getText().toString());
 
-                        compressedImageFile = new Compressor(editProfile.this)
-                                .setMaxHeight(125)
-                                .setMaxWidth(125)
-                                .setQuality(50)
-                                .compressToBitmap(newImageFile);
+                if (user.getName() != null && user.getPhone() != null) {
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] thumbData = baos.toByteArray();
-                    UploadTask image_path = storageReference.child("profile_images").child(user_id + ".jpg").putBytes(thumbData);
 
-                    image_path.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-
-                            if (task.isSuccessful()) {
-                                storeFirestore(task,user);
-
-                            } else {
-
-                                String error = task.getException().getMessage();
-                                Toast.makeText(editProfile.this, "(IMAGE Error) : " + error, Toast.LENGTH_LONG).show();
-
-                               
-
-                            }
-                        }
-                    });
-
+                    storeData(user);
                 }
             }
             
@@ -171,22 +148,47 @@ public class editProfile extends AppCompatActivity {
 
     }
 
-    private void storeFirestore(Task<UploadTask.TaskSnapshot> task, User user) {
-        Uri download_uri;
-        if(task != null) {
+    private void storeData(final User user) {
+        UserProfileChangeRequest profileUpdates;
+        if (isChanged) {
+            profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(user.getName())
 
-            download_uri = task.getResult().getUploadSessionUri();
-
+                    .setPhotoUri(Uri.parse(mainImageURI.toString()))
+                    .build();
         } else {
+            profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(user.getName())
 
-            download_uri = mainImageURI;
+
+                    .build();
 
         }
-        user.setUserProfilePhoto(download_uri.toString());
+
+        firebaseUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    storeFirestoreData(user);
+                } else {
+                    Toast.makeText(editProfile.this, "error in storing image", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+        stateLoading(true);
+
+
+
+    }
+
+    private void storeFirestoreData(User user) {
+
         firebaseFirestore.collection("Users").document(user_id).set(user.toUserMap()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
                     Toast.makeText(editProfile.this, "The user Settings are updated.", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(editProfile.this, MainActivity.class);
@@ -222,10 +224,6 @@ public class editProfile extends AppCompatActivity {
         }
     }
 
-    public void changeprofile(View v) {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, SELECTED_PIC);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

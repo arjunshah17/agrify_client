@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class User {
-String name,userProfilePhoto,email,phone;
+    String name, email, phone;
 
     public User() {
     }
@@ -14,7 +14,7 @@ String name,userProfilePhoto,email,phone;
     public User(String name, String userProfilePhoto, String email, String phone) {
 
         this.name = name;
-        this.userProfilePhoto = userProfilePhoto;
+
         this.email = email;
         this.phone = phone;
     }
@@ -27,13 +27,7 @@ String name,userProfilePhoto,email,phone;
         this.name = name;
     }
 
-    public String getUserProfilePhoto() {
-        return userProfilePhoto;
-    }
 
-    public void setUserProfilePhoto(String userProfilePhoto) {
-        this.userProfilePhoto = userProfilePhoto;
-    }
 
     public String getEmail() {
         return email;
@@ -54,7 +48,7 @@ String name,userProfilePhoto,email,phone;
    {
        Map<String,String> user=new HashMap<>();
        user.put("name",name);
-       user.put("userProfilePhoto",userProfilePhoto);
+
        user.put("phone",phone);
        return user;
 

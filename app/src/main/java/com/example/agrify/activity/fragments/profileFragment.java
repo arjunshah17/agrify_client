@@ -4,48 +4,114 @@ package com.example.agrify.activity.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.agrify.R;
+import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.editProfile;
+import com.example.agrify.activity.model.User;
+import com.example.agrify.databinding.FragmentProfileBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class profileFragment extends Fragment {
 
+    User user;
 
+    private FirebaseFirestore firebaseFirestore;
+
+    private FirebaseUser firebaseUser;
     public profileFragment() {
         // Required empty public constructor
     }
 
+    private FragmentProfileBinding bind;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.fragment_profile,
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_profile,
                 container, false);
-        Button button = (Button) rootView.findViewById(R.id.EditButton);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        stateLoading(true);
+        loadData();
+
+
+        bind.EditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editprofileDetails();
+                Intent intent = new Intent(getActivity(), editProfile.class);
+                startActivity(intent);
             }
         });
-        return rootView;
+        return bind.getRoot();
     }
 
-    public void editprofileDetails() {
-        Intent intent = new Intent(getActivity(), editProfile.class);
-        startActivity(intent);
+    private void loadData() {
+        user = new User();
+        firebaseFirestore.collection("Users").document(firebaseUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                user.setName(firebaseUser.getDisplayName());
+                user.setEmail(firebaseUser.getEmail());
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
+                        user.setPhone(task.getResult().getString("phone"));
+
+
+                    }
+                    if (firebaseUser.getPhotoUrl() != null) {
+                        GlideApp.with(getActivity()).load(firebaseUser.getPhotoUrl()).into(bind.userProfilePhoto);
+                    }
+
+                    bind.setUser(user);
+                    stateLoading(false);
+
+                } else {
+                    String error = task.getException().getMessage();
+                    Toast.makeText(getActivity(), "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+
     }
+
+    private void stateLoading(boolean stateStatus) {
+        if (stateStatus) {
+            bind.ProfileLayout.setVisibility(View.GONE);
+            bind.progressLoading.setVisibility(View.VISIBLE);
+        } else {
+            bind.ProfileLayout.setVisibility(View.VISIBLE);
+            bind.progressLoading.setVisibility(View.GONE);
+        }
+    }
+
 }
 
 
