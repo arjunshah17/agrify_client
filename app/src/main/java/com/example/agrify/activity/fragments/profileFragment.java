@@ -2,6 +2,7 @@ package com.example.agrify.activity.fragments;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.RequestListener;
 import com.example.agrify.R;
 import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.editProfile;
@@ -61,6 +63,7 @@ public class profileFragment extends Fragment {
         loadData();
 
 
+
         bind.EditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,16 +88,19 @@ public class profileFragment extends Fragment {
 
                     }
                     if (firebaseUser.getPhotoUrl() != null) {
-                        GlideApp.with(getActivity()).load(firebaseUser.getPhotoUrl()).into(bind.userProfilePhoto);
+                        GlideApp.with(getActivity()).load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).into(bind.userProfilePhoto);
                     }
 
                     bind.setUser(user);
-                    stateLoading(false);
+
 
                 } else {
                     String error = task.getException().getMessage();
                     Toast.makeText(getActivity(), "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
+
                 }
+                stateLoading(false);
+
 
             }
         });

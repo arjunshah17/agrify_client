@@ -7,9 +7,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,15 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import id.zelory.compressor.Compressor;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.agrify.R;
 import com.example.agrify.activity.model.User;
 import com.example.agrify.databinding.ActivityEditProfileBinding;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,12 +34,11 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import id.zelory.compressor.Compressor;
 
 
 public class editProfile extends AppCompatActivity {
@@ -51,14 +46,14 @@ public class editProfile extends AppCompatActivity {
 
     ActivityEditProfileBinding bind;
     User user;
-
+    FirebaseUser firebaseUser;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private String user_id;
-    FirebaseUser firebaseUser;
     private Uri mainImageURI = null;
     private boolean isChanged = false;
-
+    private StorageReference storageReference;
+    private Bitmap compressedImageFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +62,13 @@ public class editProfile extends AppCompatActivity {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         user = new User();
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        firebaseUser = firebaseAuth.getCurrentUser();
         user_id = firebaseAuth.getCurrentUser().getUid();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-
+        storageReference = FirebaseStorage.getInstance().getReference();
         stateLoading(true);
 
 
@@ -89,13 +86,10 @@ public class editProfile extends AppCompatActivity {
                     if (firebaseUser.getPhotoUrl() != null) {
                         Toast.makeText(editProfile.this, firebaseUser.getPhotoUrl().toString(), Toast.LENGTH_LONG).show();
 
-                        GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl().toString()).placeholder(R.drawable.ic_add_a_photo_black_24dp).
+                        GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).
                                 into(bind.userProfilePhoto);
-                        } else {
-                        Toast.makeText(editProfile.this, "null" + firebaseUser.getPhotoUrl(), Toast.LENGTH_LONG).show();
                     }
-
-                        bind.setUser(user);
+                    bind.setUser(user);
 
                 } else {
                     String error = task.getException().getMessage();
@@ -117,11 +111,10 @@ public class editProfile extends AppCompatActivity {
                         Toast.makeText(editProfile.this, "Permission granted", Toast.LENGTH_LONG).show();
                         ActivityCompat.requestPermissions(editProfile.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
-                    } else {
-
-                        BringImagePicker();
 
                     }
+                    BringImagePicker();
+
 
                 } else {
 
@@ -140,26 +133,82 @@ public class editProfile extends AppCompatActivity {
                 user.setName(bind.name.getText().toString());
                 user.setPhone(bind.phone.getText().toString());
 
+
+                UserProfileChangeRequest profileUpdates;
                 if (user.getName() != null && user.getPhone() != null) {
+                    stateLoading(true);
+                    if (isChanged) {
 
 
-                    storeData(user);
+                        File newImageFile = new File(mainImageURI.getPath());
+                        try {
+
+                            compressedImageFile = new Compressor(editProfile.this)
+                                    .setMaxHeight(125)
+                                    .setMaxWidth(125)                                             //compressing image
+                                    .setQuality(50)
+                                    .compressToBitmap(newImageFile);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 40, baos);   //converting into bitmap
+                        byte[] thumbData = baos.toByteArray();
+
+                        final StorageReference ref = storageReference.child("profile_images").child(user_id + ".jpg");
+                        UploadTask image_path = ref.putBytes(thumbData);                                                         //uploading image
+
+                        Task<Uri> urlTask = image_path.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                            //getting image reference
+
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if (!task.isSuccessful()) {
+                                    throw task.getException();
+                                }
+
+                                // Continue with the task to get the download URL
+                                return ref.getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if (task.isSuccessful()) {
+                                    Uri downloadUri = task.getResult();
+                                    user.setProfilePhotoUrl(downloadUri.toString());
+
+                                    storeData(user);
+                                    Log.i("image uploaded", user.getProfilePhotoUrl());
+
+                                } else {
+                                    // Handle failures
+                                    Toast.makeText(editProfile.this, "error on uploading image", Toast.LENGTH_LONG).show();
+
+                                    // ...
+                                }
+                            }
+                        });
+                    } else {
+                        storeData(user);
+                    }
+
+
                 }
             }
-            
         });
-        
-
-
     }
+
 
     private void storeData(final User user) {
         UserProfileChangeRequest profileUpdates;
-        if (isChanged) {
+        if (isChanged && user.getProfilePhotoUrl() != null) {
             profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(user.getName())
 
-                    .setPhotoUri(Uri.parse(mainImageURI.toString()))
+                    .setPhotoUri(Uri.parse(user.getProfilePhotoUrl()))
                     .build();
         } else {
             profileUpdates = new UserProfileChangeRequest.Builder()
@@ -239,6 +288,8 @@ public class editProfile extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 mainImageURI = result.getUri();
+                Log.i("onactresultresult", "mainurl:" + mainImageURI.toString());
+
                 bind.userProfilePhoto.setImageURI(mainImageURI);
 
                 isChanged = true;
@@ -246,6 +297,7 @@ public class editProfile extends AppCompatActivity {
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
 
                 Exception error = result.getError();
+                Toast.makeText(editProfile.this, error.toString(), Toast.LENGTH_LONG).show();
 
             }
         }
