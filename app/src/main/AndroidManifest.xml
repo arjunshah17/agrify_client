@@ -27,11 +27,13 @@
         <activity
             android:name=".activity.MainActivity$editProfile"
             android:label="@string/title_activity_edit_profile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.MainActivity" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AuthActivity"
-            android:noHistory="true"
             android:theme="@style/AppTheme.Launcher">
 
             <intent-filter>

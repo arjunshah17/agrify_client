@@ -73,7 +73,7 @@ public class editProfile extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         stateLoading(true);
-        bind.progressLoading.setVisibility(View.VISIBLE);
+
 
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -87,8 +87,13 @@ public class editProfile extends AppCompatActivity {
 
                     }
                     if (firebaseUser.getPhotoUrl() != null) {
-                        GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl()).into(bind.userProfilePhoto);
-                        }
+                        Toast.makeText(editProfile.this, firebaseUser.getPhotoUrl().toString(), Toast.LENGTH_LONG).show();
+
+                        GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl().toString()).placeholder(R.drawable.ic_add_a_photo_black_24dp).
+                                into(bind.userProfilePhoto);
+                        } else {
+                        Toast.makeText(editProfile.this, "null" + firebaseUser.getPhotoUrl(), Toast.LENGTH_LONG).show();
+                    }
 
                         bind.setUser(user);
 

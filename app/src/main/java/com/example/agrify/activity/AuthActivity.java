@@ -26,6 +26,7 @@ public class AuthActivity extends AppCompatActivity {
         else {
 
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         }
 
     }
@@ -37,7 +38,7 @@ public class AuthActivity extends AppCompatActivity {
                         .setAvailableProviders(Arrays.asList(
                                 new AuthUI.IdpConfig.GoogleBuilder().build(),
                                 new AuthUI.IdpConfig.EmailBuilder().build()
-                             )).setIsSmartLockEnabled(false).setTheme(R.style.AppTheme)
+                        )).setIsSmartLockEnabled(false).setTheme(R.style.AppTheme_Launcher)
                         .build(),
                 RC_SIGN_IN);
     }

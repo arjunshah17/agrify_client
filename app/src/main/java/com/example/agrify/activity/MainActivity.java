@@ -15,22 +15,25 @@ import com.example.agrify.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
+    storeFragment store;
+    profileFragment profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        loadFragment(new storeFragment());      //default load Store fragment
+        store = new storeFragment();
+        profile = new profileFragment();
+        loadFragment(store);      //default load Store fragment
 
         bind.bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment fragment = null;
 
+
                 switch (menuItem.getItemId()) {
                     case R.id.storeItem:
-                        fragment = new storeFragment();
+                        fragment = store;
                         break;
 
                     case R.id.wishlistItem:
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case R.id.aboutItem:
-                        fragment = new profileFragment();
+                        fragment = profile;
                         break;
                 }
 
