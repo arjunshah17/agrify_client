@@ -1,16 +1,9 @@
 package com.example.agrify.activity.model;
 
 public class Store {
-    private String name,des;
-   private  Double lowPrice;
-    private int sellerCount;
-
-    public Store(String name, String des, Double lowPrice, int sellerCount) {
-        this.name = name;
-        this.des = des;
-        this.lowPrice = lowPrice;
-        this.sellerCount = sellerCount;
-    }
+    private String name,des,productImageUrl;
+  // private  String lowPrice;
+public Store(){}
 
     public String getName() {
         return name;
@@ -28,19 +21,11 @@ public class Store {
         this.des = des;
     }
 
-    public Double getLowPrice() {
-        return lowPrice;
+    public String getProductImageUrl() {
+        return productImageUrl;
     }
 
-    public void setLowPrice(Double lowPrice) {
-        this.lowPrice = lowPrice;
-    }
-
-    public int getSellerCount() {
-        return sellerCount;
-    }
-
-    public void setSellerCount(int sellerCount) {
-        this.sellerCount = sellerCount;
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
     }
 }
