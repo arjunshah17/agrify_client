@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@drawable/store_item_background"
         android:visibility="visible">
 
 
@@ -66,6 +67,7 @@
                     android:text="Change Profile"
                     android:textColor="#fff"
                     android:textSize="30sp"
+                    android:background="@drawable/store_item_background"
                     android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>

@@ -12,11 +12,13 @@ android {
         dataBinding {
             enabled = true
         }
+        vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,7 +41,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
     implementation 'com.firebaseui:firebase-ui-storage:4.3.0'
     //Circle Image
-    implementation 'android.arch.paging:runtime:1.x.x'
+    implementation 'android.arch.paging:runtime:1.0.1'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
     implementation 'com.github.paolorotolo:appintro:v5.1.0' //intro slider

@@ -8,4 +8,7 @@
     <color name="grayLight">#b3cccc</color>
     <color name="white">#FFFFFF</color>
     <color name="store_back_ground_color">#e8f5e9</color>
+    <color name="greyPrimary">#DE000000</color>
+    <color name="greySecondary">#8B000000</color>
+    <color name="greyDisabled">#61000000</color>
 </resources>

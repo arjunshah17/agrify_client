@@ -18,4 +18,29 @@
     <string name="phone_hint">Phone Number</string>
     <string name="username">Name</string>
     <string name="saveProfile">save</string>
+    <string name="header_filters">filter</string>
+    <string name="value_any_category">category</string>
+    <string name="apply">appy</string>
+    <string name="cancel">cancel</string>
+
+
+    <string-array name="categories">
+
+
+        <item>friuts</item>
+        <item>vegetables</item>
+        <item>seeds</item>
+        <item>flowers</item>
+        <item>grains</item>
+        <item>pulses</item>
+        <item>cereals</item>
+        <item>dairy products</item>
+
+    </string-array>
+    <string-array name="sort_by">
+        <item>name</item>
+        <item>price</item>
+    </string-array>
+
 </resources>
+

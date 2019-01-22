@@ -22,6 +22,7 @@ import com.example.agrify.activity.model.User;
 import com.example.agrify.databinding.ActivityEditProfileBinding;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,32 +71,17 @@ public class editProfile extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         stateLoading(true);
-
-
-        firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.disableNetwork().addOnCompleteListener(new OnCompleteListener<Void>() {//loading data from cache
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                user.setName(firebaseUser.getDisplayName());
-                user.setEmail(firebaseUser.getEmail());
-                if (task.isSuccessful()) {
-                    if (task.getResult().exists()) {
-                        user.setPhone(task.getResult().getString("phone"));
-
-
+            public void onComplete(@NonNull Task<Void> task) {
+                loadData(); //lo
+                firebaseFirestore.enableNetwork().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    //loading data from network
+                    public void onSuccess(Void aVoid) {
+                        loadData();
                     }
-                    if (firebaseUser.getPhotoUrl() != null) {
-                        Toast.makeText(editProfile.this, firebaseUser.getPhotoUrl().toString(), Toast.LENGTH_LONG).show();
-
-                        GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).
-                                into(bind.userProfilePhoto);
-                    }
-                    bind.setUser(user);
-
-                } else {
-                    String error = task.getException().getMessage();
-                    Toast.makeText(editProfile.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
-                }
-                stateLoading(false);
+                });
             }
         });
 
@@ -197,6 +183,35 @@ public class editProfile extends AppCompatActivity {
 
 
                 }
+            }
+        });
+    }
+
+    private void loadData() {
+        firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                user.setName(firebaseUser.getDisplayName());
+                user.setEmail(firebaseUser.getEmail());
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
+                        user.setPhone(task.getResult().getString("phone"));
+
+
+                    }
+                    if (firebaseUser.getPhotoUrl() != null) {
+                        Toast.makeText(editProfile.this, firebaseUser.getPhotoUrl().toString(), Toast.LENGTH_LONG).show();
+
+                        GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).
+                                into(bind.userProfilePhoto);
+                    }
+                    bind.setUser(user);
+
+                } else {
+                    String error = task.getException().getMessage();
+                    Toast.makeText(editProfile.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
+                }
+                stateLoading(false);
             }
         });
     }

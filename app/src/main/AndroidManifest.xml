@@ -16,35 +16,32 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.storeDetail"></activity>
         <activity
             android:name=".activity.editProfile"
-            android:label="@string/title_activity_edit_profile"
-            ></activity>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/AppTheme.Actionbar"/>
+            android:label="@string/title_activity_edit_profile" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/AppTheme.Actionbar" />
         <activity
             android:name=".activity.introSlider"
-            android:label="@string/title_activity_intro_slider"
-            />
+            android:label="@string/title_activity_intro_slider" />
         <activity
             android:name=".activity.MainActivity$editProfile"
             android:label="@string/title_activity_edit_profile"
-            android:screenOrientation="portrait"
-          />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AuthActivity"
             android:theme="@style/AppTheme.Launcher">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

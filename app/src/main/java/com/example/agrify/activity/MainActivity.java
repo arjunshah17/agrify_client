@@ -8,20 +8,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.example.agrify.activity.fragments.profileFragment;
-import com.example.agrify.activity.fragments.storeFragment;
 import com.example.agrify.R;
+import com.example.agrify.activity.fragments.StoreFragment;
+import com.example.agrify.activity.fragments.profileFragment;
 import com.example.agrify.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    storeFragment store;
+    StoreFragment store;
     profileFragment profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        store = new storeFragment();
+        store = new StoreFragment();
         profile = new profileFragment();
         loadFragment(store);      //default load Store fragment
 
