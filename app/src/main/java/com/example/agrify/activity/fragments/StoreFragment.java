@@ -1,7 +1,9 @@
 package com.example.agrify.activity.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +15,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.Filters;
+import com.example.agrify.activity.StoreDetailActivity;
+import com.example.agrify.activity.adapter.FirestoreAdapter;
 import com.example.agrify.activity.adapter.StoreAdapter;
 import com.example.agrify.activity.model.Store;
+
 import com.example.agrify.databinding.FragmentStoreBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StoreFragment extends Fragment {
+public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelectedListener {
     FragmentStoreBinding bind;
-    private FirebaseFirestore db;
-    int LIMIT = 50;
-    LinearLayoutManager linearLayoutManager;
+    private FirebaseFirestore mFirestore;
     private Query mQuery;
-    filterDialogFragment dialogFragment;
-    private StoreAdapter adapter;
+    private static final String TAG = "MainActivity";
+    private static final int LIMIT = 50;
+    private StoreAdapter mAdapter;
+
 
     public StoreFragment() {
         // Required empty public constructor
@@ -42,85 +50,60 @@ public class StoreFragment extends Fragment {
         // Inflate the layout for this fragment
 
         bind= DataBindingUtil.inflate(inflater,R.layout.fragment_store,container,false);
-        dialogFragment = new filterDialogFragment();
 
-        init();
-        getProductList();
-        bind.filterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Query query = db.collection("store")
-                        .orderBy("name", Query.Direction.ASCENDING)
-                        .limit(3);
-                FirestoreRecyclerOptions<Store> options = new FirestoreRecyclerOptions.Builder<Store>()
-                        .setQuery(mQuery, Store.class)
-                        .build();
-                ;
-                setNewOption(options);
-
-                Toast.makeText(getActivity(), "hello", Toast.LENGTH_LONG).show();
+        initFirestore();
+        initRecyclerView();
 
 
-            }
-        });
 
         return bind.getRoot();
     }
 
-    private void getProductList() {
-        mQuery = db.collection("store")
+    private void initFirestore() {
+        // TODO(developer): Implement
+        mFirestore = FirebaseFirestore.getInstance();
+        mQuery = mFirestore.collection("store")
                 .orderBy("name", Query.Direction.DESCENDING)
                 .limit(LIMIT);
-        FirestoreRecyclerOptions<Store> storeResponse = new FirestoreRecyclerOptions.Builder<Store>()
-                .setQuery(mQuery, Store.class)
-                .build();
-
-        adapter = new StoreAdapter(storeResponse, getActivity());
-
-
-        adapter.notifyDataSetChanged();
-        bind.storeRecyclerView.setAdapter(adapter);
     }
-
-    private void init() {
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-
-        bind.storeRecyclerView.setLayoutManager(linearLayoutManager);
-        db = FirebaseFirestore.getInstance();
-
-
-    }
-
-    void setNewOption(final FirestoreRecyclerOptions<Store> options) {
-        if (adapter != null) {
-            adapter.stopListening();
+    private void initRecyclerView() {
+        if (mQuery == null) {
+            Log.w(TAG, "No query, not initializing RecyclerView");
         }
 
-        adapter.notifyDataSetChanged();
-        bind.storeRecyclerView.setAdapter(adapter);
-        adapter.startListening();
+        mAdapter = new StoreAdapter(mQuery, this,getActivity())
+        {
+
+            @Override
+            protected void onDataChanged() {
+                // Show/hide content if the query returns empty.
+
+            }
 
 
+        };
+
+        bind.storeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+       bind.storeRecyclerView.setAdapter(mAdapter);
     }
 
-    interface FilterListener {
+    @Override
+    public void onStoreSelected(DocumentSnapshot store) {
+        Intent intent = new Intent(getActivity(), StoreDetailActivity.class);
+        intent.putExtra(StoreDetailActivity.KEY_STORE_ID, store.getId());
 
-        void onFilter(Filters filters);
-
+        startActivity(intent);
     }
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
+
+        // Start sign in if necessary
+
+        // Start listening for Firestore updates
+        if (mAdapter != null) {
+            mAdapter.startListening();
+        }
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
-
-
-
-
 }

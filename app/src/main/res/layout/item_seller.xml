@@ -1,7 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-</LinearLayout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <data>
+      <variable
+          name="seller"
+          type="com.example.agrify.activity.model.Seller" />
+  </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePhoto"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_photo" />
+
+        <LinearLayout
+            android:id="@+id/item_seller_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{seller.name}"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200/kg"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="100dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/phone_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_call" />
+
+            <ImageButton
+                android:id="@+id/location_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_location" />
+
+            <ImageButton
+                android:id="@+id/chat_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_chat" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

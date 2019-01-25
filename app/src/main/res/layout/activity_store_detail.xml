@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="store"
+            type="com.example.agrify.activity.model.Store"/>
     </data>
 
 
@@ -29,7 +31,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="6dp"
-            android:text="wheat"
+            android:text="@{store.name}"
             android:textSize="30sp" />
 
         <TextView
@@ -42,12 +44,20 @@
         <TextView
             android:id="@+id/productDes"
             android:layout_width="match_parent"
-            android:layout_height="354dp"
+            android:layout_height="118dp"
             android:inputType="textMultiLine"
             android:overScrollMode="ifContentScrolls"
             android:padding="10dp"
             android:scrollbars="vertical"
-            android:text="Cultivation and repeated harvesting and sowing of the grains of wild grasses led to the creation of domestic strains, as mutant forms ('sports') of wheat were preferentially chosen by farmers. In domesticated wheat, grains are larger, and the seeds (inside the spikelets) remain attached to the ear by a toughened rachis during harvesting. In wild strains, a more fragile rachis allows the ear to easily shatter and disperse the spikelets.[15] Selection for these traits by farmers might not have been deliberately intended, but simply have occurred because these traits made gathering the seeds easier; nevertheless such 'incidental' selection was an important part of crop domestication. As the traits that improve wheat as a food source also involve the loss of the plant's natural seed dispersal mechanisms, highly domesticated strains of wheat cannot survive in the wild.  Cultivation of wheat began to spread beyond the Fertile Crescent after about 8000 BCE. Jared Diamond traces the spread of cultivated emmer wheat starting in the Fertile Crescent sometime before 8800 BCE. Archaeological analysis of wild emmer indicates that it was first cultivated in the southern Levant, with finds dating back as far as 9600 BCE.[16][17] Genetic analysis of wild einkorn wheat suggests that it was first grown in the Karacadag Mountains in southeastern Turkey. Dated archeological remains of einkorn wheat in settlement sites near this region, including those at Abu Hureyra in Syria, suggest the domestication of einkorn near the Karacadag Mountain Range.[18] With the anomalous exception of two grains from Iraq ed-Dubb, the earliest carbon-14 date for einkorn wheat remains at Abu Hureyra is 7800 to 7500 years BCE.[19]  Remains of harvested emmer from several sites near the Karacadag Range have been dated to between 8600 (at Cayonu) and 8400 BCE (Abu Hureyra), that is, in the Neolithic period. With the exception of Iraq ed-Dubb, the earliest carbon-14 dated remains of domesticated emmer wheat were found in the earliest levels of Tell Aswad, in the Damascus basin, near Mount Hermon in Syria. These remains were dated by Willem van Zeist and his assistant Johanna Bakker-Heeres to 8800 BCE. They also concluded that the settlers of Tell Aswad did not develop this form of emmer themselves, but brought the domesticated grains with them from an as yet unidentified location elsewhere.[20]  The cultivation of emmer reached Greece, Cyprus and India by 6500 BCE, Egypt shortly after 6000 BCE, and Germany and Spain by 5000 BCE.[21] &quot;The early Egyptians were developers of bread and the use of the oven and developed baking into one of the first large-scale food production industries.&quot; [22] By 3000 BCE, wheat had reached the British Isles and Scandinavia. A millennium later it reached China.  The oldest evidence for hexaploid wheat has been confirmed through DNA analysis of wheat seeds, dating to around 6400-6200 BCE, recovered from Çatalhöyük.[23] The first identifiable bread wheat (Triticum aestivum) with sufficient gluten for yeasted breads has been identified using DNA analysis in samples from a granary dating to approximately 1350 BCE at Assiros in Macedonia.[24]  From Asia, wheat continued to spread across Europe. In the British Isles, wheat straw (thatch) was used for roofing in the Bronze Age, and was in common use until the late 19th century.[25]  Farming techniques  Green wheat a month before harvest  Wheat harvest on the Palouse, Idaho, United States  Young wheat crop in a field near Solapur, Maharashtra, India Technological advances in soil preparation and seed placement at planting time, use of crop rotation and fertilizers to improve plant growth, and advances in harvesting methods have all combined to promote wheat as a viable crop. When the use of seed drills replaced broadcasting sowing of seed in the 18th century, another great increase in productivity occurred.  Yields of pure wheat per unit area increased as methods of crop rotation were applied to long cultivated land, and the use of fertilizers became widespread. Improved agricultural husbandry has more recently included threshing machines and reaping machines (the 'combine harvester'), tractor-drawn cultivators and planters, and better varieties (see Green Revolution and Norin 10 wheat). Great expansion of wheat production occurred as new arable land was farmed in the Americas and Australia in the 19th and 20th centuries.  Genetics Wheat genetics is more complicated than that of most other domesticated species. Some wheat species are diploid, with two sets of chromosomes, but many are stable polyploids, with four sets of chromosomes (tetraploid) or six (hexaploid).[26]  Einkorn wheat (T. monococcum) is diploid (AA, two complements of seven chromosomes, 2n=14).[3] Most tetraploid wheats (e.g. emmer and durum wheat) are derived from wild emmer, T. dicoccoides. Wild emmer is itself the result of a hybridization between two diploid wild grasses, T. urartu and a wild goatgrass such as Aegilops searsii or Ae. speltoides. The unknown grass has never been identified among now surviving wild grasses, but the closest living relative is Aegilops speltoides.[27] The hybridization that formed wild emmer (AABB) occurred in the wild, long before domestication,[26] and was driven by natural selection. Hexaploid wheats evolved in farmers' fields. Either domesticated emmer or durum wheat hybridized with yet another wild diploid grass (Aegilops tauschii) to make the hexaploid wheats, spelt wheat and bread wheat.[26] These have three sets of paired chromosomes, three times as many as in diploid wheat. The presence of certain versions of wheat genes has been important for crop yields. Apart from mutant versions of genes selected in antiquity during domestication, there has been more recent deliberate selection of alleles that affect growth characteristics. Genes for the 'dwarfing' trait, first used by Japanese wheat breeders to produce short-stalked wheat, have had a huge effect on wheat yields worldwide, and were major factors in the success of the Green Revolution in Mexico and Asia, an initiative led by Norman Borlaug. Dwarfing genes enable the carbon that is fixed in the plant during photosynthesis to be diverted towards seed production, and they also help prevent the problem of lodging. 'Lodging' occurs when an ear stalk falls over in the wind and rots on the ground, and heavy nitrogenous fertilization of wheat makes the grass grow taller and become more susceptible to this problem. By 1997, 81% of the developing world's wheat area was planted to semi-dwarf wheats, giving both increased yields and better response to nitrogenous fertilizer." />
+            android:text="@{store.des}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sellerListRecycleView">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 

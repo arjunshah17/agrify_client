@@ -16,53 +16,41 @@ import com.example.agrify.activity.viewHolder.StoreHolder;
 import com.example.agrify.databinding.ItemStoreProductBinding;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 
 import java.util.List;
 
-public class StoreAdapter extends FirestoreRecyclerAdapter<Store, StoreHolder> {
+public class StoreAdapter extends FirestoreAdapter<StoreHolder> {
     Activity activity;
-    List<Store> itemList;
+    public interface OnStoreSelectedListener {
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public StoreAdapter(@NonNull FirestoreRecyclerOptions<Store> options, Activity activity) {
-
-        super(options);
-        this.activity = activity;
-
+        void onStoreSelected(DocumentSnapshot store);
 
     }
+    private OnStoreSelectedListener mListener;
 
-
-    @Override
-    protected void onBindViewHolder(@NonNull final StoreHolder storeHolder, int i, @NonNull Store store) {
-        storeHolder.binding.setStore(store);
-        GlideApp.with(activity)
-                .load(store.getProductImageUrl())
-                .into(storeHolder.binding.productImage);
-        storeHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, "clicked", Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
+    public StoreAdapter(Query query ,OnStoreSelectedListener listener,Activity activity) {
+        super(query);
+       mListener=listener;
+        this.activity=activity;
     }
+
 
     @NonNull
     @Override
     public StoreHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+
         ItemStoreProductBinding itemStoreProductBinding = DataBindingUtil.
                 inflate(LayoutInflater.from(parent.getContext()), R.layout.item_store_product, parent, false);
 
 
         return new StoreHolder(itemStoreProductBinding);
-
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull StoreHolder holder, int position) {
+        holder.bind(getSnapshot(position), mListener,activity);
+    }
 }
