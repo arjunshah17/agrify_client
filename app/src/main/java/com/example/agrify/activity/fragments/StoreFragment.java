@@ -30,13 +30,13 @@ import com.google.firebase.firestore.Query;
  * A simple {@link Fragment} subclass.
  */
 public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelectedListener {
-    FragmentStoreBinding bind;
-    private FirebaseFirestore mFirestore;
+    private FragmentStoreBinding bind;
+    public FirebaseFirestore mFirestore;
     private Query mQuery;
     private static final String TAG = "MainActivity";
     private static final int LIMIT = 50;
     private StoreAdapter mAdapter;
-    NavigationIconClickListener navigationIconClickListener;
+    private NavigationIconClickListener navigationIconClickListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,6 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
         setHasOptionsMenu(true);
 
     }
-
 
     public StoreFragment() {
         // Required empty public constructor
@@ -55,51 +54,42 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        bind= DataBindingUtil.inflate(inflater,R.layout.fragment_store,container,false);
+        bind = DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             bind.productGrid.setBackground(getContext().getDrawable(R.drawable.shr_product_grid_background_shape));
         }
-
         setUpToolbar();
         initFirestore();
         initRecyclerView();
-
-
-
         return bind.getRoot();
     }
 
     private void initFirestore() {
-        // TODO(developer): Implement
         mFirestore = FirebaseFirestore.getInstance();
         mQuery = mFirestore.collection("store").orderBy("name", Query.Direction.ASCENDING);
     }
+
     private void initRecyclerView() {
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
 
-        mAdapter = new StoreAdapter(mQuery, this,getActivity())
-        {
+        mAdapter = new StoreAdapter(mQuery, this, getActivity()) {
 
             @Override
             protected void onDataChanged() {
                 // Show/hide content if the query returns empty.
-
             }
-
-
         };
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         bind.storeRecycleView.setHasFixedSize(true);
         bind.storeRecycleView.setLayoutManager(gridLayoutManager);
-
-
         bind.storeRecycleView.setAdapter(mAdapter);
 
         //TODO call category listener here
+        categoryButtonListener();
     }
 
     @Override
@@ -109,6 +99,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
         startActivity(intent);
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -148,11 +139,48 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
                 navigationIconClickListener.closeMenu();
             }
         });
-
         // TODO add above code for all buttons
-
-
+        bind.vegetablesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationIconClickListener.closeMenu();
+            }
+        });
+        bind.seedsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationIconClickListener.closeMenu();
+            }
+        });
+        bind.flowersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationIconClickListener.closeMenu();
+            }
+        });
+        bind.grainsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationIconClickListener.closeMenu();
+            }
+        });
+        bind.pulsesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationIconClickListener.closeMenu();
+            }
+        });
+        bind.cerealsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationIconClickListener.closeMenu();
+            }
+        });
+        bind.dairyProductsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationIconClickListener.closeMenu();
+            }
+        });
     }
-
-
 }

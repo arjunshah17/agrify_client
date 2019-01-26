@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<data>
 
-    
-</data>
+    <data>
+
+
+    </data>
 
 
     <!--
@@ -45,48 +46,53 @@
             <!-- TODO: add id to all button just  like above  -->
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/vegetablesButton"
                 style="@style/Widget.Shrine.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="vegetables" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/seedsButton"
                 style="@style/Widget.Shrine.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="seeds" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/flowersButton"
                 style="@style/Widget.Shrine.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="flowers" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/grainsButton"
                 style="@style/Widget.Shrine.Button.TextButton"
-                    android:layout_width="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="grains" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/pulsesButton"
                 style="@style/Widget.Shrine.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="pulses" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/cerealsButton"
                 style="@style/Widget.Shrine.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="cereals" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/dairyProductsButton"
                 style="@style/Widget.Shrine.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="dairy products" />
-
-
         </LinearLayout>
 
         <com.google.android.material.appbar.AppBarLayout
@@ -101,9 +107,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="center"
                 app:navigationIcon="@drawable/shr_menu"
-                app:title="@string/app_name"
-
-                />
+                app:title="@string/app_name" />
         </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -112,7 +116,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="56dp"
-
             android:background="@color/productGridBackgroundColor"
             android:elevation="8dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -123,13 +126,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/shr_list_margin"
-
                 android:layout_marginTop="@dimen/shr_list_margin"
-
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </FrameLayout>
-
-
     </FrameLayout>
 
 
