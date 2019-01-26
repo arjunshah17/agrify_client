@@ -8,7 +8,7 @@
     <string name="notification">Notification</string>
     <string name="about">Profile</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_edit_profile">editProfile</string>
     <string name="title_activity_intro_slider">introSlider</string>
@@ -47,5 +47,26 @@
     <string name="shr_product_description">
         Choose fun, exciting, and unique gifts food that your family love.</string>
 
+
+    <string name="shr_hint_username">Username</string>
+    <string name="shr_hint_password">Password</string>
+    <string name="shr_button_next">Next</string>
+    <string name="shr_button_cancel">Cancel</string>
+    <string name="shr_error_password">Password must contain at least 8 characters.</string>
+    <string name="shr_filter_title">Filter</string>
+    <string name="shr_search_title">Search</string>
+    <string name="shr_product_title">Title</string>
+
+
+    <!-- Shrine backdrop menu labels -->
+    <string name="shr_featured_label">Featured</string>
+    <string name="shr_apartment_label">Apartment</string>
+    <string name="shr_accessories_label">Accessories</string>
+    <string name="shr_shoes_label">Shoes</string>
+    <string name="shr_tops_label">Tops</string>
+    <string name="shr_bottoms_label">Bottoms</string>
+    <string name="shr_dresses_label">Dresses</string>
+    <string name="shr_account_label">My Account</string>
+    <string name="button_fruits">fruits</string>
 </resources>
 

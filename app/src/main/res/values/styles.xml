@@ -1,12 +1,14 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#ffffff</item>
-        <item name="colorPrimaryDark">#e0e0e0</item>
-        <item name="colorAccent">#607d8b</item>
-        <item name="toolbarStyle">@style/Widget.Shrine.Toolbar</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="colorControlActivated">@color/colorControlActivated</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
     </style>
 
     <style name="AppTheme.Actionbar" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -21,44 +23,49 @@
         <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
     </style>
 
+    <style name="Widget.Shrine.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextAppearance">@style/TextAppearance.Shrine.TextInputLayout.HintText</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="TextAppearance.Shrine.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="Widget.Shrine.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="backgroundTint">?attr/colorPrimaryDark</item>
+        <item name="android:stateListAnimator" tools:ignore="NewApi">
+            @animator/shr_next_button_state_list_anim
+        </item>
+    </style>
+
+    <style name="Widget.Shrine.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="cornerRadius">25dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
     <style name="Widget.Shrine.Toolbar" parent="Widget.AppCompat.Toolbar">
-        <item name="contentInsetStart">12dp</item>
-
+        <item name="android:background">?attr/colorAccent</item>
+        <item name="android:theme">@style/AppTheme</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="titleTextAppearance">@style/TextAppearance.Shrine.Toolbar</item>
     </style>
 
-    <style name="Widget.Shrine.CollapsingToolbar" parent="Widget.Design.CollapsingToolbar">
-
-        <item name="contentScrim">?attr/colorPrimary</item>
-        <item name="expandedTitleGravity">top</item>
-        <item name="expandedTitleMarginStart">124dp</item>
-        <item name="expandedTitleMarginTop">140dp</item>
-
-        <item name="scrimVisibleHeightTrigger">140dp</item>
+    <style name="TextAppearance.Shrine.Toolbar" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Widget.Shrine.CollapsingToolbarImage" parent="">
-        <item name="android:layout_marginTop">48dp</item>
-        <item name="android:layout_marginLeft">-124dp</item>
-        <item name="android:adjustViewBounds">true</item>
+    <style name="TextAppearance.Shrine.Title" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="Widget.Shrine.CollapsingToolbarContent" parent="">
-        <item name="android:layout_marginTop">160dp</item>
-        <item name="android:layout_marginLeft">124dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-        <item name="android:layout_gravity">top</item>
-        <item name="android:orientation">vertical</item>
+    <style name="Widget.Shrine.Backdrop" parent="">
+        <item name="android:background">?attr/colorAccent</item>
     </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 
 </resources>
 

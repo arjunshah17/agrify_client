@@ -6,28 +6,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.agrify.R;
-import com.example.agrify.activity.Filters;
 import com.example.agrify.activity.StoreDetailActivity;
-import com.example.agrify.activity.adapter.FirestoreAdapter;
 import com.example.agrify.activity.adapter.StoreAdapter;
-import com.example.agrify.activity.model.Store;
-
+import com.example.agrify.activity.listener.NavigationIconClickListener;
 import com.example.agrify.databinding.FragmentStoreBinding;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 /**
@@ -40,7 +36,14 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     private static final String TAG = "MainActivity";
     private static final int LIMIT = 50;
     private StoreAdapter mAdapter;
+    NavigationIconClickListener navigationIconClickListener;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }
 
 
     public StoreFragment() {
@@ -54,8 +57,11 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
         bind= DataBindingUtil.inflate(inflater,R.layout.fragment_store,container,false);
 
-            getActivity().setActionBar(bind.appBar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            bind.productGrid.setBackground(getContext().getDrawable(R.drawable.shr_product_grid_background_shape));
+        }
 
+        setUpToolbar();
         initFirestore();
         initRecyclerView();
 
@@ -85,11 +91,13 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
 
         };
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         bind.storeRecycleView.setHasFixedSize(true);
         bind.storeRecycleView.setLayoutManager(gridLayoutManager);
 
-       bind.storeRecycleView.setAdapter(mAdapter);
+
+        bind.storeRecycleView.setAdapter(mAdapter);
     }
 
     @Override
@@ -110,4 +118,39 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             mAdapter.startListening();
         }
     }
+
+
+    private void setUpToolbar() {
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.setSupportActionBar(bind.appBar);
+        }
+        navigationIconClickListener = new NavigationIconClickListener(getContext(), bind.productGrid, new AccelerateDecelerateInterpolator(), getContext().getDrawable(R.drawable.shr_menu), getContext().getDrawable(R.drawable.shr_close_menu));
+
+        bind.appBar.setNavigationOnClickListener(navigationIconClickListener);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.shr_toolbar_menu, menu);
+        super.onCreateOptionsMenu(menu, menuInflater);
+    }
+
+    void categoryButtonListener() {
+
+        bind.friutsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationIconClickListener.closeMenu();
+            }
+        });
+
+        // TODO add above code for all buttons
+
+
+    }
+
+
 }

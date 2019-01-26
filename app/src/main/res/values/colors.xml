@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00c853</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="startGreen">#00e660</color>
-    <color name="endGreen">#b3ffd2</color>
-    <color name="grayLight">#b3cccc</color>
-    <color name="white">#FFFFFF</color>
-    <color name="store_back_ground_color">#e8f5e9</color>
-    <color name="greyPrimary">#DE000000</color>
-    <color name="greySecondary">#8B000000</color>
-    <color name="greyDisabled">#61000000</color>
+    <color name="colorPrimary">#00e676</color>
+    <color name="colorPrimaryDark">#69f0ae</color>
+    <color name="colorAccent">#9fffe0</color>
+    <color name="textColorPrimary">#442C2E</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#FFFBFA</color>
+    <color name="colorControlActivated">#FBB8AC</color>
+    <color name="white">#ffffff</color>
 </resources>
