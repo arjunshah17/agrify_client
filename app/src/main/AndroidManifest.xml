@@ -16,7 +16,8 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.StoreDetailActivity"></activity>
+
+        <activity android:name=".activity.StoreDetailActivity" />
         <activity
             android:name=".activity.editProfile"
             android:label="@string/title_activity_edit_profile" />

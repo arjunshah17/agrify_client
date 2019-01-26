@@ -3,9 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#e0e0e0</item>
+        <item name="colorAccent">#607d8b</item>
+        <item name="toolbarStyle">@style/Widget.Shrine.Toolbar</item>
     </style>
 
     <style name="AppTheme.Actionbar" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -20,23 +21,43 @@
         <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
     </style>
 
-    <style name="AppTheme.FilterIcon">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
+    <style name="Widget.Shrine.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">12dp</item>
+
     </style>
 
-    <style name="AppTheme.FilterSpinner" parent="Base.Widget.AppCompat.Spinner.Underlined">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingBottom">16dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
+    <style name="Widget.Shrine.CollapsingToolbar" parent="Widget.Design.CollapsingToolbar">
+
+        <item name="contentScrim">?attr/colorPrimary</item>
+        <item name="expandedTitleGravity">top</item>
+        <item name="expandedTitleMarginStart">124dp</item>
+        <item name="expandedTitleMarginTop">140dp</item>
+
+        <item name="scrimVisibleHeightTrigger">140dp</item>
     </style>
 
-    <style name="ThemeOverlay.FilterButton" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="colorButtonNormal">@color/colorPrimary</item>
+    <style name="Widget.Shrine.CollapsingToolbarImage" parent="">
+        <item name="android:layout_marginTop">48dp</item>
+        <item name="android:layout_marginLeft">-124dp</item>
+        <item name="android:adjustViewBounds">true</item>
     </style>
+
+    <style name="Widget.Shrine.CollapsingToolbarContent" parent="">
+        <item name="android:layout_marginTop">160dp</item>
+        <item name="android:layout_marginLeft">124dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

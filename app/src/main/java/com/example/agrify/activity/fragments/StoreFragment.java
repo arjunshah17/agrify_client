@@ -2,6 +2,7 @@ package com.example.agrify.activity.fragments;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.agrify.R;
@@ -40,6 +42,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     private StoreAdapter mAdapter;
 
 
+
     public StoreFragment() {
         // Required empty public constructor
     }
@@ -50,6 +53,8 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
         // Inflate the layout for this fragment
 
         bind= DataBindingUtil.inflate(inflater,R.layout.fragment_store,container,false);
+
+            getActivity().setActionBar(bind.appBar);
 
         initFirestore();
         initRecyclerView();
@@ -62,9 +67,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     private void initFirestore() {
         // TODO(developer): Implement
         mFirestore = FirebaseFirestore.getInstance();
-        mQuery = mFirestore.collection("store")
-                .orderBy("name", Query.Direction.DESCENDING)
-                .limit(LIMIT);
+        mQuery = mFirestore.collection("store").orderBy("name", Query.Direction.ASCENDING);
     }
     private void initRecyclerView() {
         if (mQuery == null) {
@@ -82,10 +85,11 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
 
         };
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+        bind.storeRecycleView.setHasFixedSize(true);
+        bind.storeRecycleView.setLayoutManager(gridLayoutManager);
 
-        bind.storeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-       bind.storeRecyclerView.setAdapter(mAdapter);
+       bind.storeRecycleView.setAdapter(mAdapter);
     }
 
     @Override

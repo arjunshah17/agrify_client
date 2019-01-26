@@ -42,5 +42,10 @@
         <item>price</item>
     </string-array>
 
+
+    <string name="shr_product_category">Best food for your family</string>
+    <string name="shr_product_description">
+        Choose fun, exciting, and unique gifts food that your family love.</string>
+
 </resources>
 
