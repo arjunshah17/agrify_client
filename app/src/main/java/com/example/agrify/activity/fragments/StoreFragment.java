@@ -98,6 +98,8 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
 
         bind.storeRecycleView.setAdapter(mAdapter);
+
+        //TODO call category listener here
     }
 
     @Override
