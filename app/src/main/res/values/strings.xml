@@ -71,5 +71,6 @@
     <string name="button_fruits">fruits</string>
     <string name="username">user name</string>
     <string name="editProfileBtn">edit profile</string>
+    <string name="profile_menu_save">save</string>
 </resources>
 
