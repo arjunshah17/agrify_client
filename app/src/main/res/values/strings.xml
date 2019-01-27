@@ -10,7 +10,8 @@
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_edit_profile">editProfile</string>
+    <string name="title_activity_edit_profile">Edit Profile</string>
+    <string name="editProfileBtn">Edit Profile</string>
     <string name="title_activity_intro_slider">introSlider</string>
     <string name="contact_no">contact no</string>
     <string name="email">email</string>
@@ -22,6 +23,8 @@
     <string name="value_any_category">category</string>
     <string name="apply">appy</string>
     <string name="cancel">cancel</string>
+    <string name="logoutButton">Logout</string>
+    <string name="changeProfile">Change Profile</string>
 
 
     <string-array name="categories">

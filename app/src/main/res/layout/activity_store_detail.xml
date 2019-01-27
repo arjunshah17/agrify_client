@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="store"
-            type="com.example.agrify.activity.model.Store"/>
+            type="com.example.agrify.activity.model.Store" />
     </data>
 
 
@@ -15,51 +16,49 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        />
-
-
         <ImageView
             android:id="@+id/productImageUrl"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:padding="8dp"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/add_photo" />
 
-        <TextView
-            android:id="@+id/productName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="6dp"
-            android:text="@{store.name}"
-            android:textSize="30sp" />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_margin="10dp">
+           <TextView
+               android:id="@+id/productName"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:padding="6dp"
+               android:text="@{store.name}"
+               android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/productPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:text="start from ₹200/kg" />
+           <TextView
+               android:id="@+id/productPrice"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="1dp"
+               android:text="start from ₹200/kg" />
 
-        <TextView
-            android:id="@+id/productDes"
-            android:layout_width="match_parent"
-            android:layout_height="118dp"
-            android:inputType="textMultiLine"
-            android:overScrollMode="ifContentScrolls"
-            android:padding="10dp"
-            android:scrollbars="vertical"
-            android:text="@{store.des}" />
+           <TextView
+               android:id="@+id/productDes"
+               android:layout_width="match_parent"
+               android:layout_height="118dp"
+               android:overScrollMode="ifContentScrolls"
+               android:padding="10dp"
+               android:scrollbars="vertical"
+               android:text="@{store.des}" />
 
+       </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sellerListRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/sellerListRecycleView">
-
-
-        </androidx.recyclerview.widget.RecyclerView>
-
+            android:elevation="10dp"/>
     </LinearLayout>
-
-
 </layout>

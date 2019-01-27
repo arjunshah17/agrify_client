@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.model.User;
@@ -55,6 +58,7 @@ public class editProfile extends AppCompatActivity {
     private boolean isChanged = false;
     private StorageReference storageReference;
     private Bitmap compressedImageFile;
+    private ImageButton backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,16 @@ public class editProfile extends AppCompatActivity {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         user = new User();
         firebaseAuth = FirebaseAuth.getInstance();
+        backBtn=findViewById(R.id.backBtn);
+
+        //toolbar backbtn
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(editProfile.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         firebaseUser = firebaseAuth.getCurrentUser();
