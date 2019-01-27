@@ -16,12 +16,14 @@
     <string name="email">email</string>
     <string name="email_hint">Email</string>
     <string name="phone_hint">Phone Number</string>
-    <string name="username">Name</string>
+
     <string name="saveProfile">save</string>
     <string name="header_filters">filter</string>
     <string name="value_any_category">category</string>
     <string name="apply">appy</string>
     <string name="cancel">cancel</string>
+    <string name="logoutButton">Logout</string>
+    <string name="changeProfile">Change Profile</string>
 
 
     <string-array name="categories_names">
@@ -67,5 +69,7 @@
     <string name="shr_dresses_label">Dresses</string>
     <string name="shr_account_label">My Account</string>
     <string name="button_fruits">fruits</string>
+    <string name="username">user name</string>
+    <string name="editProfileBtn">edit profile</string>
 </resources>
 

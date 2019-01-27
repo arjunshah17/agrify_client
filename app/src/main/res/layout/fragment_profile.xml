@@ -10,128 +10,136 @@
             type="com.example.agrify.activity.model.User" />
     </data>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ProgressBar
-            android:id="@+id/progressLoading"
-            style="@android:style/Widget.Material.ProgressBar.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            tools:ignore="NewApi" />
-
-
-        <LinearLayout
-            android:id="@+id/ProfileLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.fragments.profileFragment">
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:background="@drawable/profile_bg"
-            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userProfilePhoto"
-                android:layout_width="150dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/half_circle_profile_bg"
+                android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:src="@drawable/add_photo" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/half_circle_profile_bg" />
 
-            <TextView
-                android:id="@+id/name"
+            <ProgressBar
+                android:id="@+id/progressLoading"
+                style="@android:style/Widget.Material.ProgressBar.Large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="@{user.name}"
-                android:textColor="#fff"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </RelativeLayout>
+                android:layout_centerInParent="true"
+                tools:ignore="NewApi" />
 
-    <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_phone_android_black_24dp" />
-
-            <TextView
-                android:id="@+id/contactNo"
-                android:layout_width="wrap_content"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ProfileLayout"
+                style="@style/Widget.MaterialComponents.CardView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
+                android:layout_below="@id/half_circle_profile_bg"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="-80dp"
+                android:layout_marginEnd="30dp"
+                android:elevation="0dp"
 
-                android:text="@{user.phone}"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                app:cardCornerRadius="30dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_email_black_24dp" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userProfilePhoto"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="50dp"
+                        android:src="@drawable/add_photo" />
 
-            <TextView
-                android:id="@+id/emailId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:text="@{user.email}"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="@{user.name}"
+                        android:textColor="#000000"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_phone_android_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/contactNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:text="@{user.phone}"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="25dp"
+                        android:paddingEnd="25dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_email_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/emailId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:text="@{user.email}"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
 
-
-    </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/EditButton"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:padding="15dp"
-        android:text="Edit Profile"
-        android:textColor="#fff"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/colorPrimary"
-        app:cornerRadius="100dp" />
-</LinearLayout>
-    </RelativeLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/EditButton"
+                        style="@style/Widget.MaterialComponents.Button.Icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginBottom="20dp"
+                        android:padding="15dp"
+                        android:text="@string/editProfileBtn"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/colorPrimaryDark"
+                        app:cornerRadius="25dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
+    </ScrollView>
 </layout>

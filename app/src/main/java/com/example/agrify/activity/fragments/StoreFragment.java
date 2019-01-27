@@ -48,8 +48,6 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     private Query mQuery;
     NavigationIconClickListener navigationIconClickListener;
     private StoreAdapter mAdapter;
-    private Query CatQuery;
-
     public StoreFragment() {
         // Required empty public constructor
     }
@@ -64,7 +62,6 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         CATEGORES_NAMES = getResources().getStringArray(R.array.categories_names);//add category from array
 
 
@@ -118,6 +115,8 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             selectedCategory = text;
             mQuery = mFirestore.collection("store").orderBy("name").whereEqualTo("category", text);
         }
+
+
         mAdapter.setQuery(mQuery);
         mAdapter.notifyDataSetChanged();
 

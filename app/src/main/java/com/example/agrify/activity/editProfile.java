@@ -185,6 +185,15 @@ public class editProfile extends AppCompatActivity {
                 }
             }
         });
+        bind.backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stateLoading(true);
+                Intent intent = new Intent(editProfile.this, MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void loadData() {
