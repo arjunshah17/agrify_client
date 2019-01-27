@@ -24,13 +24,12 @@
     <string name="cancel">cancel</string>
 
 
-    <string-array name="categories">
+    <string-array name="categories_names">
 
-
-        <item>friuts</item>
+        <item>all</item>
+        <item>fruits</item>
         <item>vegetables</item>
         <item>seeds</item>
-        <item>flowers</item>
         <item>grains</item>
         <item>pulses</item>
         <item>cereals</item>
