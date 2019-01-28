@@ -12,12 +12,12 @@
 
 
     <RelativeLayout
-            style="@style/Platform.MaterialComponents.Light"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/store_item_background"
-            android:orientation="vertical"
-            android:visibility="visible">
+        style="@style/Platform.MaterialComponents.Light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/store_item_background"
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <LinearLayout
             style="@style/Widget.Shrine.Backdrop"
@@ -29,14 +29,14 @@
             android:paddingBottom="100dp"></LinearLayout>
 
         <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/app_bar"
                 style="@style/Widget.Shrine.Toolbar"
-                    android:layout_width="match_parent"
+                android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="center"
                 app:navigationIcon="@drawable/shr_close_menu"
@@ -47,19 +47,19 @@
 
 
         <ProgressBar
-                android:id="@+id/progressLoading"
-                style="@android:style/Widget.Material.ProgressBar.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                tools:ignore="NewApi" />
+            android:id="@+id/progressLoading"
+            style="@android:style/Widget.Material.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            tools:ignore="NewApi" />
 
         <ScrollView
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="60dp"
-                
+
             >
 
 
@@ -180,6 +180,6 @@
             </LinearLayout>
 
         </ScrollView>
-        </RelativeLayout>
+    </RelativeLayout>
 
 </layout>

@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="store"
-            type="com.example.agrify.activity.model.Store"/>
+            type="com.example.agrify.activity.model.Store" />
     </data>
 
 
@@ -15,14 +16,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/app_bar"
+                style="@style/Widget.Shrine.Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center"
+                app:navigationIcon="@drawable/shr_close_menu"
+                app:title="@{store.name}" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <ImageView
             android:id="@+id/productImageUrl"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:padding="8dp"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/add_photo" />
 
         <TextView
@@ -31,6 +44,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="6dp"
+            android:textStyle="bold"
             android:text="@{store.name}"
             android:textSize="30sp" />
 
@@ -52,10 +66,9 @@
             android:text="@{store.des}" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sellerListRecycleView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/sellerListRecycleView">
-
+            android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
 
