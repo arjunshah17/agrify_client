@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         //switching fragment
 
         if (fragment != null) {
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, fragment)

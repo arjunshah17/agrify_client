@@ -30,9 +30,11 @@ public class SellerHolder extends RecyclerView.ViewHolder {
         binding.setSeller(seller);
 
         // Load image
-        GlideApp.with(activity)
-                .load(seller.getProfilePhotoUrl())
-                .into(binding.profilePhoto);
+        if (activity != null) {
+            GlideApp.with(activity)
+                    .load(seller.getProfilePhotoUrl())
+                    .into(binding.profilePhoto);
+        }
  final String phoneNumber=seller.getPhone();
         binding.phoneButton.setOnClickListener(new View.OnClickListener() {
             @Override

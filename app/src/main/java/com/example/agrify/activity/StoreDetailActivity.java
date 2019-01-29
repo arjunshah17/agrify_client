@@ -55,6 +55,7 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
         mStoreRef = mFirestore.collection("store").document(storeId);
         getSellerList();
 
+
         bind.appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,12 +87,14 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
         GlideApp.with(this)
                 .load(store.getProductImageUrl())
                 .into(bind.productImageUrl);
-
+        bind.appBar.setTitle(store.getName());
+        stateLoading(false);
 
     }
 
 
     void getSellerList() {
+        stateLoading(true);
         sellerQuery = mStoreRef
                 .collection("sellerList")
                 .orderBy("name", Query.Direction.DESCENDING);
@@ -102,5 +105,14 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
 
     }
 
+    private void stateLoading(boolean stateStatus) {
+        if (stateStatus) {
+            bind.acitvityDetailLayout.setVisibility(View.GONE);
+            bind.progressLoading.setVisibility(View.VISIBLE);
+        } else {
+            bind.acitvityDetailLayout.setVisibility(View.VISIBLE);
+            bind.progressLoading.setVisibility(View.GONE);
+        }
+    }
 
 }
