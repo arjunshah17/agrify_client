@@ -1,6 +1,6 @@
 package com.example.agrify.activity;
 
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.adapter.SellerAdapter;
-import com.example.agrify.activity.adapter.StoreAdapter;
-import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.Store;
 import com.example.agrify.databinding.ActivityStoreDetailBinding;
 import com.google.firebase.firestore.DocumentReference;
@@ -41,7 +39,10 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
         super.onCreate(savedInstanceState);
         bind = DataBindingUtil.setContentView(this, R.layout.activity_store_detail);
         bind.productDes.setMovementMethod(new ScrollingMovementMethod());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
+            bind.acitvityDetailLayout.setBackground(this.getDrawable(R.drawable.store_item_background));//set curve background
+        }
 
         String storeId = getIntent().getExtras().getString(KEY_STORE_ID);
         if (storeId == null) {

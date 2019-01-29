@@ -10,11 +10,22 @@
     </data>
 
 
-    <LinearLayout
-        android:id="@+id/productdetails"
+    <RelativeLayout
+        style="@style/Platform.MaterialComponents.Light"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@drawable/store_item_background"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            style="@style/Widget.Shrine.Backdrop"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="100dp"
+            android:paddingBottom="100dp"></LinearLayout>
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -28,51 +39,73 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="center"
                 app:navigationIcon="@drawable/shr_close_menu"
-                app:title="@{store.name}" />
+                app:title="edit profile"
+
+                />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageView
-            android:id="@+id/productImageUrl"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/add_photo" />
 
-        <TextView
-            android:id="@+id/productName"
+        <ProgressBar
+            android:id="@+id/progressLoading"
+            style="@android:style/Widget.Material.ProgressBar.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="6dp"
-            android:textStyle="bold"
-            android:text="@{store.name}"
-            android:textSize="30sp" />
+            android:layout_centerInParent="true" />
 
-        <TextView
-            android:id="@+id/productPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:text="start from ₹200/kg" />
-
-        <TextView
-            android:id="@+id/productDes"
+        <LinearLayout
+            android:id="@+id/acitvity_detailLayout"
             android:layout_width="match_parent"
-            android:layout_height="118dp"
-            android:inputType="textMultiLine"
-            android:overScrollMode="ifContentScrolls"
-            android:padding="10dp"
-            android:scrollbars="vertical"
-            android:text="@{store.des}" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:background="@color/productGridBackgroundColor"
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sellerListRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <ImageView
+                android:layout_width="200dp"
+                android:id="@+id/productImageUrl"
+                android:layout_gravity="center"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/productGridBackgroundColor"
+                android:cropToPadding="true"
+                android:scaleType="fitCenter" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="6dp"
+                android:textStyle="bold"
+                android:text="@{store.name}"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:text="start from ₹200/kg" />
+
+            <TextView
+                android:id="@+id/productDes"
+                android:layout_width="match_parent"
+                android:layout_height="118dp"
+                android:inputType="textMultiLine"
+                android:overScrollMode="ifContentScrolls"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                android:text="@{store.des}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sellerListRecycleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </RelativeLayout>
 
 
 </layout>

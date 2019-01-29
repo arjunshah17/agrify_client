@@ -2,7 +2,6 @@ package com.example.agrify.activity.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class User {
     private String name, email, phone, profilePhotoUrl;
@@ -53,7 +52,6 @@ public class User {
    {
        Map<String,String> user=new HashMap<>();
        user.put("name",name);
-       user.put("profilePhotoUrl", profilePhotoUrl);
        user.put("phone",phone);
        return user;
 

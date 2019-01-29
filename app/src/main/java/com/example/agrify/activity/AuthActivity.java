@@ -1,12 +1,11 @@
 package com.example.agrify.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.agrify.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +37,7 @@ public class AuthActivity extends AppCompatActivity {
                         .setAvailableProviders(Arrays.asList(
                                 new AuthUI.IdpConfig.GoogleBuilder().build(),
                                 new AuthUI.IdpConfig.EmailBuilder().build()
-                        )).setIsSmartLockEnabled(false).setTheme(R.style.AppTheme_Launcher)
+                        )).setIsSmartLockEnabled(false)
                         .build(),
                 RC_SIGN_IN);
     }
