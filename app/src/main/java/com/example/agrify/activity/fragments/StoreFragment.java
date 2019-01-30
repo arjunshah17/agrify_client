@@ -31,8 +31,15 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import javax.annotation.Nullable;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,6 +115,8 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     }
 
     void loadStoreProducts(String text) {
+
+        productLoading(true);
         if (text.equals("all")) {
             mQuery = mFirestore.collection("store").orderBy("name");
             selectedCategory = text;
@@ -145,6 +154,8 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
                 // Show/hide content if the query returns empty.
 
             }
+
+
         };
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
@@ -154,7 +165,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
         bind.storeRecycleView.setAdapter(mAdapter);
 
-        //TODO call category listener here
+
     }
 
     @Override
@@ -207,6 +218,20 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
         }
 
+    }
+
+    void productLoading(Boolean state)
+    {
+        if(state)
+        {
+            //TODO start shrimmer effect
+            Toasty.info(getActivity(),"loading",Toasty.LENGTH_SHORT).show();
+        }
+        else
+        {
+            // TODO stop shrimmer effect
+            Toasty.info(getActivity(),"loaded",Toasty.LENGTH_SHORT).show();
+        }
     }
 
 }
