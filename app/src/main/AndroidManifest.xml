@@ -34,8 +34,12 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.auth.LoginActivity"/>
+        <activity android:name=".activity.auth.PWresetActivity"/>
+        <activity android:name=".activity.auth.RegistrationActivity"/>
         <activity
-            android:name=".activity.AuthActivity"
+
+            android:name=".activity.SplashActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

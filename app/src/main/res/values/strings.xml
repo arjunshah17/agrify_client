@@ -72,5 +72,26 @@
     <string name="username">user name</string>
     <string name="editProfileBtn">edit profile</string>
     <string name="profile_menu_save">save</string>
+
+
+
+
+//authentication
+    <string name="usernameReg">Username</string>
+    <string name="emailReg">Email</string>
+    <string name="passwordReg">Password</string>
+    <string name="sign_upReg">Sign up</string>
+    <string name="sign_inLog">Sign in</string>
+    <string name="signin_redirect">Already a member? Sign in!</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="signup_redirect">Don\'t have an account? Register here!</string>
+
+
+    //validation auth
+    <string name="password_error">password cannot empty</string>
+    <string name="username_empty">user name cannot empty</string>
+    <string name="phone_error">phone no is invalid</string>
+    <string name="password_match_error">both password must match</string>
+
 </resources>
 

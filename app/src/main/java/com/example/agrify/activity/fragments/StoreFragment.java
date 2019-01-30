@@ -22,22 +22,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.agrify.R;
-import com.example.agrify.activity.AuthActivity;
+import com.example.agrify.activity.SplashActivity;
 import com.example.agrify.activity.StoreDetailActivity;
 import com.example.agrify.activity.adapter.StoreAdapter;
+import com.example.agrify.activity.auth.LoginActivity;
 import com.example.agrify.activity.listener.NavigationIconClickListener;
 import com.example.agrify.databinding.FragmentStoreBinding;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
 
@@ -49,11 +45,11 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     private static final int LIMIT = 50;
     private static String[] CATEGORES_NAMES;
     FragmentStoreBinding bind;
-    public String selectedCategory = "all";
-    FirebaseAuth firebaseAuth;
+    private String selectedCategory = "all";
+    private FirebaseAuth firebaseAuth;
     private FirebaseFirestore mFirestore;
     private Query mQuery;
-    NavigationIconClickListener navigationIconClickListener;
+    private NavigationIconClickListener navigationIconClickListener;
     private StoreAdapter mAdapter;
     public StoreFragment() {
         // Required empty public constructor
@@ -212,7 +208,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             AuthUI.getInstance().signOut(getActivity()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    startActivity(new Intent(getActivity(), AuthActivity.class));
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
             });
 

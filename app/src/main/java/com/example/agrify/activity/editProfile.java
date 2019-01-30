@@ -19,6 +19,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
+import com.basgeekball.awesomevalidation.validators.Validator;
 import com.example.agrify.R;
 import com.example.agrify.activity.model.User;
 import com.example.agrify.databinding.ActivityEditProfileBinding;
@@ -43,6 +46,8 @@ import java.io.IOException;
 
 import id.zelory.compressor.Compressor;
 
+import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
+
 
 public class editProfile extends AppCompatActivity {
     private static final int SELECTED_PIC = 1;
@@ -57,7 +62,7 @@ public class editProfile extends AppCompatActivity {
     private boolean isChanged = false;
     private StorageReference storageReference;
     private Bitmap compressedImageFile;
-
+    AwesomeValidation validator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +72,8 @@ public class editProfile extends AppCompatActivity {
 
             bind.ProfileLayout.setBackground(this.getDrawable(R.drawable.store_item_background));//set curve background
         }
+        validator=new AwesomeValidation(BASIC);
+        initializeValidators();
         user = new User();
         firebaseAuth = FirebaseAuth.getInstance();
         this.setSupportActionBar(bind.appBar);
@@ -276,6 +283,7 @@ public class editProfile extends AppCompatActivity {
 
 
     void saveProfile() {
+        validator.validate();
         final User user = new User();
         user.setName(bind.name.getText().toString());
         user.setPhone(bind.phone.getText().toString());
@@ -344,6 +352,14 @@ public class editProfile extends AppCompatActivity {
 
 
         }
+
+    }
+    private void initializeValidators()
+    {
+
+        validator.addValidation(this,bind.name.getId(), RegexTemplate.NOT_EMPTY,R.string.username_empty);
+        validator.addValidation(this,bind.phone.getId(),RegexTemplate.TELEPHONE,R.string.phone_error);
+
 
     }
 }
