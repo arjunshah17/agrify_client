@@ -181,7 +181,7 @@ validator=new AwesomeValidation(BASIC);
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 // [START_EXCLUDE]
-                
+
                 // [END_EXCLUDE]
             }
         }

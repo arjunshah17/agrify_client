@@ -88,7 +88,7 @@
 
 
     //validation auth
-    <string name="password_error">password cannot empty</string>
+    <string name="password_error">password must be of 6 char or greater and no  space is allowed</string>
     <string name="username_empty">user name cannot empty</string>
     <string name="phone_error">phone no is invalid</string>
     <string name="password_match_error">both password must match</string>
