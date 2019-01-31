@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
 
-
+<FrameLayout
+   android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/progressLoading"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:indeterminate="true"
+        android:fadeScrollbars="true"
+        android:visibility="invisible" />
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
@@ -113,4 +124,5 @@
 
     </LinearLayout>
 </ScrollView>
+</FrameLayout>
 </layout>

@@ -64,10 +64,11 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
             @Override
             public void onClick(View v) {
                 if(validator.validate()) {
-
+                showProgressDialog(true);
          firebaseAuth.createUserWithEmailAndPassword(binding.inputEmail.getText().toString(),binding.inputPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
              @Override
              public void onComplete(@NonNull Task<AuthResult> task) {
+                showProgressDialog(false);
                  if(task.isSuccessful())
                  {
                      Toasty.success(RegistrationActivity.this,"new account created",Toasty.LENGTH_SHORT).show();
@@ -87,5 +88,17 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
         });
 
     }
+
+    private void showProgressDialog(Boolean state) {
+
+
+        if(state) {
+            binding.progressLoading.setVisibility(View.VISIBLE);
+        }
+        else {
+            binding.progressLoading.setVisibility(View.INVISIBLE);
+        }
+    }
+
 
 }

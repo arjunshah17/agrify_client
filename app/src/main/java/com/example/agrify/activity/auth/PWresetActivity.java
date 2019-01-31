@@ -22,17 +22,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import es.dmoral.toasty.Toasty;
+
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
 public class PWresetActivity extends AppCompatActivity {
     AwesomeValidation validator;
     ActivityPwresetBinding binding;
-
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pwreset);
         validator=new AwesomeValidation(BASIC);
+        firebaseAuth=FirebaseAuth.getInstance();
         initializeValidators();
         initializeGUI();
 
@@ -48,6 +51,26 @@ public class PWresetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PWresetActivity.this, LoginActivity.class));
+            }
+        });
+        binding.btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validator.validate()) {
+
+                    firebaseAuth.sendPasswordResetEmail(binding.emailEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful())
+                            {
+                                Toasty.success(PWresetActivity.this,"password reset send to"+task.getResult().toString(),Toasty.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toasty.error(PWresetActivity.this,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
     }

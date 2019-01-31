@@ -16,7 +16,7 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activity.auth.authVerification"></activity>
         <activity android:name=".activity.StoreDetailActivity" />
         <activity
             android:name=".activity.editProfile"
@@ -34,11 +34,10 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.auth.LoginActivity"/>
-        <activity android:name=".activity.auth.PWresetActivity"/>
-        <activity android:name=".activity.auth.RegistrationActivity"/>
+        <activity android:name=".activity.auth.LoginActivity" />
+        <activity android:name=".activity.auth.PWresetActivity" />
+        <activity android:name=".activity.auth.RegistrationActivity" />
         <activity
-
             android:name=".activity.SplashActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>

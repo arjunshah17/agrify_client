@@ -74,9 +74,7 @@
     <string name="profile_menu_save">save</string>
 
 
-
-
-//authentication
+    //authentication
     <string name="usernameReg">Username</string>
     <string name="emailReg">Email</string>
     <string name="passwordReg">Password</string>

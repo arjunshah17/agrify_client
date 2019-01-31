@@ -37,15 +37,8 @@
                 android:layout_marginBottom="55dp"
                 android:layout_marginTop="18dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/logo" />
+                android:src="@drawable/shr_logo" />
 
-
-            <ImageView
-                android:id="@+id/ivPassReset"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="15dp"
-                android:src="@drawable/password_reset" />
 
             <TextView
                 android:id="@+id/tvPWinfo"
@@ -80,7 +73,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/btnsignin_gradient"
                 android:text="Reset password"
-                android:textColor="#FFFFFF" />
+                />
 
 
 
