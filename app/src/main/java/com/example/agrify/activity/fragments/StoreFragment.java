@@ -32,8 +32,13 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
 
@@ -79,6 +84,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
 
         setUpToolbar();
+
         initFirestore();
         initRecyclerView();
         initListView();
@@ -112,7 +118,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
     void loadStoreProducts(String text) {
 
-        productLoading(true);
+        productLoadingState(true);
         if (text.equals("all")) {
             mQuery = mFirestore.collection("store").orderBy("name");
             selectedCategory = text;
@@ -139,11 +145,17 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     }
 
     private void initRecyclerView() {
+
         if (mQuery == null) {
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
 
         mAdapter = new StoreAdapter(mQuery, this, getActivity()) {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                super.onEvent(documentSnapshots, e);
+                productLoadingState(false);
+            }
 
             @Override
             protected void onDataChanged() {
@@ -216,15 +228,17 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
     }
 
-    void productLoading(Boolean state)
+    void productLoadingState(boolean state)
     {
         if(state)
-        {
+        {bind.storeRecycleView.setVisibility(View.GONE);
+            bind.shimmerRecyclerView.showShimmerAdapter();
             //TODO start shrimmer effect
             Toasty.info(getActivity(),"loading",Toasty.LENGTH_SHORT).show();
         }
         else
-        {
+        {bind.storeRecycleView.setVisibility(View.VISIBLE);
+            bind.shimmerRecyclerView.hideShimmerAdapter();
             // TODO stop shrimmer effect
             Toasty.info(getActivity(),"loaded",Toasty.LENGTH_SHORT).show();
         }

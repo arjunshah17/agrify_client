@@ -283,74 +283,77 @@ public class editProfile extends AppCompatActivity {
 
 
     void saveProfile() {
-        validator.validate();
-        final User user = new User();
-        user.setName(bind.name.getText().toString());
-        user.setPhone(bind.phone.getText().toString());
+
+        if (validator.validate())
+        {
+            final User user = new User();
+            user.setName(bind.name.getText().toString());
+            user.setPhone(bind.phone.getText().toString());
 
 
-        UserProfileChangeRequest profileUpdates;
-        if (user.getName() != null && user.getPhone() != null) {
-            stateLoading(true);
-            if (isChanged) {
+            UserProfileChangeRequest profileUpdates;
+            if (user.getName() != null && user.getPhone() != null) {
+                stateLoading(true);
+                if (isChanged) {
 
 
-                File newImageFile = new File(mainImageURI.getPath());
-                try {
+                    File newImageFile = new File(mainImageURI.getPath());
+                    try {
 
-                    compressedImageFile = new Compressor(editProfile.this)
-                            .setMaxHeight(125)
-                            .setMaxWidth(125)                                             //compressing image
-                            .setQuality(50)
-                            .compressToBitmap(newImageFile);
+                        compressedImageFile = new Compressor(editProfile.this)
+                                .setMaxHeight(125)
+                                .setMaxWidth(125)                                             //compressing image
+                                .setQuality(50)
+                                .compressToBitmap(newImageFile);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 40, baos);   //converting into bitmap
+                    byte[] thumbData = baos.toByteArray();
+
+                    final StorageReference ref = storageReference.child("profile_images").child(user_id + ".jpg");
+                    UploadTask image_path = ref.putBytes(thumbData);                                                         //uploading image
+
+                    Task<Uri> urlTask = image_path.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        //getting image reference
+
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+
+                            // Continue with the task to get the download URL
+                            return ref.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                user.setProfilePhotoUrl(downloadUri.toString());
+
+                                storeData(user);
+                                Log.i("image uploaded", user.getProfilePhotoUrl());
+
+                            } else {
+                                // Handle failures
+                                Toast.makeText(editProfile.this, "error on uploading image", Toast.LENGTH_LONG).show();
+
+                                // ...
+                            }
+                        }
+                    });
+                } else {
+                    storeData(user);
                 }
 
 
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 40, baos);   //converting into bitmap
-                byte[] thumbData = baos.toByteArray();
-
-                final StorageReference ref = storageReference.child("profile_images").child(user_id + ".jpg");
-                UploadTask image_path = ref.putBytes(thumbData);                                                         //uploading image
-
-                Task<Uri> urlTask = image_path.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    //getting image reference
-
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-
-                        // Continue with the task to get the download URL
-                        return ref.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            Uri downloadUri = task.getResult();
-                            user.setProfilePhotoUrl(downloadUri.toString());
-
-                            storeData(user);
-                            Log.i("image uploaded", user.getProfilePhotoUrl());
-
-                        } else {
-                            // Handle failures
-                            Toast.makeText(editProfile.this, "error on uploading image", Toast.LENGTH_LONG).show();
-
-                            // ...
-                        }
-                    }
-                });
-            } else {
-                storeData(user);
             }
-
-
         }
 
     }

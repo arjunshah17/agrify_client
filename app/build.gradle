@@ -55,6 +55,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.basgeekball:awesome-validation:4.2'
     implementation 'com.github.GrenderG:Toasty:1.4.0'
-
+    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
 }
 apply plugin: 'com.google.gms.google-services'
