@@ -5,7 +5,8 @@
 
 <FrameLayout
    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_activity">
     <ProgressBar
         android:id="@+id/progressLoading"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"

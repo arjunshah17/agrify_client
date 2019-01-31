@@ -25,9 +25,10 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingTop="100dp"
-            android:paddingBottom="100dp"></LinearLayout>
+            android:paddingBottom="100dp" />
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevation="0dp">
@@ -56,35 +57,37 @@
             android:id="@+id/acitvity_detailLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="60dp"
+            android:layout_below="@id/appbarlayout"
             android:background="@color/productGridBackgroundColor"
             android:orientation="vertical">
 
 
             <ImageView
-                android:layout_width="200dp"
                 android:id="@+id/productImageUrl"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@color/productGridBackgroundColor"
                 android:cropToPadding="true"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/productName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:padding="6dp"
-                android:textStyle="bold"
                 android:text="@{store.name}"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="1dp"
                 android:text="start from ₹200/kg" />
 
@@ -92,6 +95,8 @@
                 android:id="@+id/productDes"
                 android:layout_width="match_parent"
                 android:layout_height="118dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:inputType="textMultiLine"
                 android:overScrollMode="ifContentScrolls"
                 android:padding="10dp"
@@ -101,11 +106,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sellerListRecycleView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </RelativeLayout>
-
-
 </layout>

@@ -38,13 +38,9 @@
             android:paddingBottom="100dp">
 
             <ListView
-
                 android:id="@+id/category_listView"
-
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:divider="@null"
                 android:dividerHeight="0dp"
                 tools:listitem="" />
@@ -94,7 +90,6 @@
             android:elevation="2dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <com.cooltechworks.views.shimmer.ShimmerRecyclerView
-
                 android:id="@+id/shimmer_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -102,8 +97,7 @@
                 app:shimmer_demo_grid_child_count="2"
                 app:shimmer_demo_layout="@layout/store_product_grid_loading"
                 app:shimmer_demo_layout_manager_type="grid"
-                app:shimmer_demo_angle="20"
-                />
+                app:shimmer_demo_angle="20"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/storeRecycleView"

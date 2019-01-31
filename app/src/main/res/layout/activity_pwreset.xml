@@ -2,97 +2,74 @@
 <layout>
 
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
-
-
-
-    <ScrollView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_activity">
 
-        >
-
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            >
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp">
 
-
-
-            <ImageView
-                android:id="@+id/ivLogLogo"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginBottom="55dp"
-                android:layout_marginTop="18dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/shr_logo" />
-
-
-            <TextView
-                android:id="@+id/tvPWinfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="20dp"
-                android:text="You will receive an email with instructions on resetting password."
-                android:textAlignment="center"
-                />
-
-
-            <com.google.android.material.textfield.TextInputLayout android:layout_height="wrap_content"
-                android:layout_width="match_parent">
-
-                <com.google.android.material.textfield.TextInputEditText android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:id="@+id/email_editText"
-                    android:layout_width="match_parent"/>
-                />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnReset"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/btnsignin_gradient"
-                android:text="Reset password"
-                />
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivLogLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="55dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/shr_logo" />
+
+                <TextView
+                    android:id="@+id/tvPWinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="You will receive an email with instructions on resetting password."
+                    android:textAlignment="center" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btnsignin_gradient"
+                    android:text="Reset password" />
 
 
-            <TextView
-                android:id="@+id/tvGoBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Go back to Sign In."
-                  />
-
-
-        </LinearLayout>
-
-
-
-    </ScrollView>
-
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/tvGoBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="Go back to Sign In." />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 </layout>
