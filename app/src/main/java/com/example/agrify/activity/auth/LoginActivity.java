@@ -1,9 +1,11 @@
 package com.example.agrify.activity.auth;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -21,6 +24,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.agrify.R;
 import com.example.agrify.activity.MainActivity;
+import com.example.agrify.activity.editProfile;
 import com.example.agrify.databinding.ActivityLoginBinding;
 import com.github.paolorotolo.appintro.ProgressIndicatorController;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -98,14 +102,24 @@ validator=new AwesomeValidation(BASIC);
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     showProgressDialog(false);
                                     if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        if (task.getResult().getAdditionalUserInfo().isNewUser()) {
+                                            Toasty.info(LoginActivity.this, "add your additional information", Toasty.LENGTH_SHORT).show();
+                                            signInFirstTime();
+                                        } else {
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
-                                        Toasty.success(LoginActivity.this, "login success fully", Toasty.LENGTH_SHORT).show();
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                                        }
                                     }
-                                    else
-                                    {
+
+                                    else {
+                                        // If sign in fails, display a message to the user.
                                         Toasty.error(LoginActivity.this,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
+
                                     }
+
+
 
                                 }
                             });
@@ -139,11 +153,19 @@ validator=new AwesomeValidation(BASIC);
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            if (task.getResult().getAdditionalUserInfo().isNewUser()) {
+                                Toasty.info(LoginActivity.this, "add your additional information", Toasty.LENGTH_SHORT).show();
+                                signInFirstTime();
+                            } else {
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
-                        } else {
+
+                            }
+                        }
+
+                            else {
                             // If sign in fails, display a message to the user.
+                            Toasty.error(LoginActivity.this,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
 
                         }
 
@@ -186,4 +208,32 @@ validator=new AwesomeValidation(BASIC);
             }
         }
     }
+    void signInFirstTime()
+    {
+        Intent intent=new Intent(LoginActivity.this, editProfile.class);
+        intent.putExtra(TAG,"sign_in_for_first_time");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                        System.exit(0);
+                    }
+                }).setNegativeButton("No", null).show();
+
+    }
+
+
+
 }

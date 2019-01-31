@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Agrify</string>
-    <string name="sign_in_cancelled">Somthing is wrong</string>
-    <string name="no_internet_connection">internet is not connected</string>
     <string name="store">Store</string>
     <string name="wiselist">wiselist</string>
     <string name="chat">Chat</string>
@@ -9,20 +7,11 @@
     <string name="about">Profile</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_edit_profile">editProfile</string>
     <string name="title_activity_intro_slider">introSlider</string>
-    <string name="contact_no">contact no</string>
-    <string name="email">email</string>
     <string name="email_hint">Email</string>
     <string name="phone_hint">Phone Number</string>
 
-    <string name="saveProfile">save</string>
-    <string name="header_filters">filter</string>
-    <string name="value_any_category">category</string>
-    <string name="apply">appy</string>
-    <string name="cancel">cancel</string>
-    <string name="logoutButton">Logout</string>
     <string name="changeProfile">Change Profile</string>
 
 
@@ -34,55 +23,24 @@
         <item>seeds</item>
         <item>grains</item>
         <item>pulses</item>
-        <item>cereals</item>
+
         <item>dairy products</item>
 
     </string-array>
-    <string-array name="sort_by">
-        <item>name</item>
-        <item>price</item>
-    </string-array>
 
 
-    <string name="shr_product_category">Best food for your family</string>
-    <string name="shr_product_description">
-        Choose fun, exciting, and unique gifts food that your family love.</string>
-
-
-    <string name="shr_hint_username">Username</string>
-    <string name="shr_hint_password">Password</string>
-    <string name="shr_button_next">Next</string>
-    <string name="shr_button_cancel">Cancel</string>
-    <string name="shr_error_password">Password must contain at least 8 characters.</string>
     <string name="shr_filter_title">Filter</string>
     <string name="shr_search_title">Search</string>
-    <string name="shr_product_title">Title</string>
 
 
     <!-- Shrine backdrop menu labels -->
-    <string name="shr_featured_label">Featured</string>
-    <string name="shr_apartment_label">Apartment</string>
-    <string name="shr_accessories_label">Accessories</string>
-    <string name="shr_shoes_label">Shoes</string>
-    <string name="shr_tops_label">Tops</string>
-    <string name="shr_bottoms_label">Bottoms</string>
-    <string name="shr_dresses_label">Dresses</string>
-    <string name="shr_account_label">My Account</string>
-    <string name="button_fruits">fruits</string>
     <string name="username">user name</string>
     <string name="editProfileBtn">edit profile</string>
     <string name="profile_menu_save">save</string>
 
 
     //authentication
-    <string name="usernameReg">Username</string>
-    <string name="emailReg">Email</string>
-    <string name="passwordReg">Password</string>
-    <string name="sign_upReg">Sign up</string>
-    <string name="sign_inLog">Sign in</string>
-    <string name="signin_redirect">Already a member? Sign in!</string>
     <string name="forgot_password">Forgot password?</string>
-    <string name="signup_redirect">Don\'t have an account? Register here!</string>
 
 
     //validation auth
@@ -90,6 +48,7 @@
     <string name="username_empty">user name cannot empty</string>
     <string name="phone_error">phone no is invalid</string>
     <string name="password_match_error">both password must match</string>
+    <string name="email_verification">You will receive an email with instructions of verification of email.</string>
 
 </resources>
 

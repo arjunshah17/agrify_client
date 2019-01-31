@@ -57,14 +57,16 @@ public class PWresetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validator.validate()) {
-
+                        showProgressDialog(true);
                     firebaseAuth.sendPasswordResetEmail(binding.emailEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            startActivity(new Intent(PWresetActivity.this, LoginActivity.class));
+                            showProgressDialog(false);
                             if(task.isSuccessful())
                             {
                                 Toasty.success(PWresetActivity.this,"password reset send to"+task.getResult().toString(),Toasty.LENGTH_SHORT).show();
+                                startActivity(new Intent(PWresetActivity.this, LoginActivity.class));
+
                             }
                             else {
                                 Toasty.error(PWresetActivity.this,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
@@ -74,5 +76,17 @@ public class PWresetActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+     void showProgressDialog(Boolean state) {
+
+
+        if(state) {
+
+            binding.progressLoading.setVisibility(View.VISIBLE);
+        }
+        else {
+            binding.progressLoading.setVisibility(View.INVISIBLE);
+        }
     }
 }

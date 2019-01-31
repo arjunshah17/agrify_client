@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
 
@@ -7,15 +8,17 @@
    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_activity">
-    <ProgressBar
-        android:id="@+id/progressLoading"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:indeterminate="true"
-        android:fadeScrollbars="true"
-        android:visibility="invisible" />
+        <ProgressBar
+            android:id="@+id/progressLoading"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+
+            android:layout_gravity="top"
+            android:fadeScrollbars="true"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+
 <ScrollView
 
     android:layout_width="fill_parent"
@@ -31,23 +34,12 @@
         android:paddingRight="24dp">
 
         <ImageView android:src="@drawable/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal" />
 
         <!-- Name Label -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <com.google.android.material.textfield.TextInputEditText android:id="@+id/input_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Name" />
-        </com.google.android.material.textfield.TextInputLayout>
 
 
 
@@ -67,17 +59,7 @@
 
 
         <!-- mobile number -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <com.google.android.material.textfield.TextInputEditText android:id="@+id/input_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Mobile Number" />
-        </com.google.android.material.textfield.TextInputLayout>
+
 
         <!-- Password Label -->
         <com.google.android.material.textfield.TextInputLayout

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,9 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
+import es.dmoral.toasty.Toasty;
 import id.zelory.compressor.Compressor;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
@@ -62,6 +65,7 @@ public class editProfile extends AppCompatActivity {
     private boolean isChanged = false;
     private StorageReference storageReference;
     private Bitmap compressedImageFile;
+    Boolean isUserFirstTime=false;
     AwesomeValidation validator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,14 @@ public class editProfile extends AppCompatActivity {
         user = new User();
         firebaseAuth = FirebaseAuth.getInstance();
         this.setSupportActionBar(bind.appBar);
-
+if(getIntent().getExtras()!=null) {
+    String firstFirstTime = getIntent().getStringExtra("LoginActivity");
+    if (firstFirstTime.equals("sign_in_for_first_time")) {
+        isUserFirstTime = true;
+        bind.appBar.setNavigationIcon(null);
+        bind.appBar.setTitle("save profile");
+    }
+}
         firebaseUser = firebaseAuth.getCurrentUser();
         user_id = firebaseAuth.getCurrentUser().getUid();
 
@@ -128,7 +139,7 @@ public class editProfile extends AppCompatActivity {
         bind.appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stateLoading(true);
+
                 Intent intent = new Intent(editProfile.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -149,7 +160,7 @@ public class editProfile extends AppCompatActivity {
 
                     }
                     if (firebaseUser.getPhotoUrl() != null) {
-                        Toast.makeText(editProfile.this, firebaseUser.getPhotoUrl().toString(), Toast.LENGTH_LONG).show();
+
 
                         GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).
                                 into(bind.userProfilePhoto);
@@ -157,8 +168,9 @@ public class editProfile extends AppCompatActivity {
                     bind.setUser(user);
 
                 } else {
-                    String error = task.getException().getMessage();
-                    Toast.makeText(editProfile.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
+                     if(!isUserFirstTime) {
+                         Toasty.error(editProfile.this, task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
+                     }
                 }
                 stateLoading(false);
             }
@@ -207,15 +219,15 @@ public class editProfile extends AppCompatActivity {
             public void onComplete(@NonNull Task task) {
                 if (task.isSuccessful()) {
 
-                    Toast.makeText(editProfile.this, "The user Settings are updated.", Toast.LENGTH_LONG).show();
+                    Toasty.success(editProfile.this, "The user Settings are updated.", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(editProfile.this, MainActivity.class);
                     startActivity(mainIntent);
                     finish();
 
                 } else {
 
-                    String error = task.getException().getMessage();
-                    Toast.makeText(editProfile.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
+
+                    Toasty.error(editProfile.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -276,7 +288,9 @@ public class editProfile extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //add the function to perform here
-        saveProfile();
+        if(validator.validate()) {
+            saveProfile();
+        }
         return (true);
 
     }
@@ -284,8 +298,6 @@ public class editProfile extends AppCompatActivity {
 
     void saveProfile() {
 
-        if (validator.validate())
-        {
             final User user = new User();
             user.setName(bind.name.getText().toString());
             user.setPhone(bind.phone.getText().toString());
@@ -354,14 +366,14 @@ public class editProfile extends AppCompatActivity {
 
 
             }
-        }
+
 
     }
     private void initializeValidators()
     {
 
         validator.addValidation(this,bind.name.getId(), RegexTemplate.NOT_EMPTY,R.string.username_empty);
-        validator.addValidation(this,bind.phone.getId(),RegexTemplate.TELEPHONE,R.string.phone_error);
+        validator.addValidation(this,bind.phone.getId(), Patterns.PHONE,R.string.phone_error);
 
 
     }

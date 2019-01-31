@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -29,7 +30,9 @@ import com.example.agrify.activity.auth.LoginActivity;
 import com.example.agrify.activity.listener.NavigationIconClickListener;
 import com.example.agrify.databinding.FragmentStoreBinding;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -108,7 +111,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text = ((TextView) view).getText().toString();
-                Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
+                Toasty.info(getActivity(), text, Toast.LENGTH_LONG).show();
                 navigationIconClickListener.closeMenu();
                 loadStoreProducts(text);
 
@@ -155,11 +158,27 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 super.onEvent(documentSnapshots, e);
                 productLoadingState(false);
+
+                if(getItemCount()==0)
+                {
+                    noProductFound(true);
+                }
+                else {
+                    noProductFound(false);
+                }
             }
 
             @Override
             protected void onDataChanged() {
                 // Show/hide content if the query returns empty.
+if(getItemCount()==0)
+{
+    noProductFound(true);
+
+}
+else {
+    noProductFound(false);
+}
 
             }
 
@@ -217,10 +236,16 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
     void signOut() {
         if (firebaseAuth.getCurrentUser() != null) {
-            AuthUI.getInstance().signOut(getActivity()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            AuthUI.getInstance().signOut(getActivity()).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onSuccess(Void aVoid) {
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toasty.info(getActivity(), "log out successfully", Toasty.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                    } else {
+                        Toasty.error(getActivity(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
+
+                    }
                 }
             });
 
@@ -233,14 +258,31 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
         if(state)
         {bind.storeRecycleView.setVisibility(View.GONE);
             bind.shimmerRecyclerView.showShimmerAdapter();
-            //TODO start shrimmer effect
-            Toasty.info(getActivity(),"loading",Toasty.LENGTH_SHORT).show();
+
+
+
         }
         else
         {bind.storeRecycleView.setVisibility(View.VISIBLE);
             bind.shimmerRecyclerView.hideShimmerAdapter();
             // TODO stop shrimmer effect
-            Toasty.info(getActivity(),"loaded",Toasty.LENGTH_SHORT).show();
+
+        }
+    }
+    void noProductFound(boolean state)
+    {
+        if(state)
+        {
+            bind.storeRecycleView.setVisibility(View.GONE);
+
+
+            bind.animationView.playAnimation();
+            bind.animationLayout.setVisibility(View.VISIBLE);
+        }
+        else {
+bind.animationLayout.setVisibility(View.GONE);
+            bind.storeRecycleView.setVisibility(View.VISIBLE);
+            bind.animationView.cancelAnimation();
         }
     }
 

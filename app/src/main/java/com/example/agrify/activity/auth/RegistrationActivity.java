@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -52,9 +53,9 @@ ActivityRegistrationBinding binding;
 
 
     private void initializeValidators() {
-        validator.addValidation(this,binding.inputName.getId(), RegexTemplate.NOT_EMPTY,R.string.username_empty);
+
         validator.addValidation(this,binding.inputEmail.getId(),android.util.Patterns.EMAIL_ADDRESS,R.string.fui_invalid_email_address);
-        validator.addValidation(this,binding.inputMobile.getId(),RegexTemplate.TELEPHONE,R.string.phone_error);
+
                String passRegex="^(?=\\S+$).{6,}";
 validator.addValidation(this,binding.inputPassword.getId(),passRegex,R.string.password_error);
 validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterPassword.getId(),R.string.password_match_error);
@@ -72,7 +73,7 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
                  if(task.isSuccessful())
                  {
                      Toasty.success(RegistrationActivity.this,"new account created",Toasty.LENGTH_SHORT).show();
-                     startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
+                     startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
 
                  }
                  else
@@ -83,10 +84,16 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
          });
 
 
+
                 }
             }
         });
-
+        binding.linkLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     private void showProgressDialog(Boolean state) {
