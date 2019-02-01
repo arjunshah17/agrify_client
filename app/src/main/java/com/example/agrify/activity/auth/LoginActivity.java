@@ -102,14 +102,22 @@ validator=new AwesomeValidation(BASIC);
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     showProgressDialog(false);
                                     if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        if (task.getResult().getAdditionalUserInfo().isNewUser()) {
-                                            Toasty.info(LoginActivity.this, "add your additional information", Toasty.LENGTH_SHORT).show();
-                                            signInFirstTime();
-                                        } else {
-                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        if(firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            if (task.getResult().getAdditionalUserInfo().isNewUser()) {
+                                                Toasty.info(LoginActivity.this, "add your additional information", Toasty.LENGTH_SHORT).show();
+                                                signInFirstTime();
+                                            }
+
+                                            else {
+                                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
 
+                                            }
+                                        }
+                                        else {
+                                            Toasty.info(LoginActivity.this,"need to verify account",Toasty.LENGTH_SHORT).show();
+                                            startActivity(new Intent(LoginActivity.this, authVerification.class));
                                         }
                                     }
 
@@ -153,10 +161,14 @@ validator=new AwesomeValidation(BASIC);
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            if (task.getResult().getAdditionalUserInfo().isNewUser()) {
+                            if (task.getResult().getAdditionalUserInfo().isNewUser())
+                            {
                                 Toasty.info(LoginActivity.this, "add your additional information", Toasty.LENGTH_SHORT).show();
                                 signInFirstTime();
-                            } else {
+                            }
+
+                            else
+                                {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
 
@@ -223,14 +235,11 @@ validator=new AwesomeValidation(BASIC);
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                        System.exit(0);
+                        finishAffinity();
+
                     }
                 }).setNegativeButton("No", null).show();
+
 
     }
 
