@@ -40,6 +40,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import es.dmoral.toasty.Toasty;
 import kotlin.text.Regex;
@@ -53,6 +57,9 @@ String TAG="LoginActivity";
     private static final int RC_SIGN_IN = 9001;
     ActivityLoginBinding binding;
     private FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+    Query mUserData;
+    boolean isNewUser=false;
     private GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,8 @@ String TAG="LoginActivity";
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+        firebaseFirestore=FirebaseFirestore.getInstance();
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         firebaseAuth=FirebaseAuth.getInstance();
 
@@ -102,9 +111,20 @@ validator=new AwesomeValidation(BASIC);
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     showProgressDialog(false);
                                     if (task.isSuccessful()) {
+
+                                        Task<DocumentSnapshot> defRef=firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if(!task.getResult().exists())
+                                                {
+                                                    isNewUser=true;
+                                                }
+
+                                            }
+                                        });
                                         if(firebaseAuth.getCurrentUser().isEmailVerified()) {
                                             // Sign in success, update UI with the signed-in user's information
-                                            if (task.getResult().getAdditionalUserInfo().isNewUser()) {
+                                            if (isNewUser) {
                                                 Toasty.info(LoginActivity.this, "add your additional information", Toasty.LENGTH_SHORT).show();
                                                 signInFirstTime();
                                             }
