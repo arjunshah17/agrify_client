@@ -59,7 +59,7 @@ String TAG="LoginActivity";
     private FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
     Query mUserData;
-    boolean isNewUser=false;
+    boolean isNewUser=true;
     private GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,28 +112,33 @@ validator=new AwesomeValidation(BASIC);
                                     showProgressDialog(false);
                                     if (task.isSuccessful()) {
 
-                                        Task<DocumentSnapshot> defRef=firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                if(!task.getResult().exists())
-                                                {
-                                                    isNewUser=true;
-                                                }
 
-                                            }
-                                        });
                                         if(firebaseAuth.getCurrentUser().isEmailVerified()) {
+
+                                            Task<DocumentSnapshot> defRef=firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful())
+                                                    {
+                                                        DocumentSnapshot documentReference=task.getResult();
+                                                        if( documentReference.exists())
+                                                        {
+                                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                                        }
+                                                        else
+                                                            {
+                                                                Toasty.info(LoginActivity.this, "add your additional information", Toasty.LENGTH_SHORT).show();
+                                                                signInFirstTime();
+                                                        }
+                                                    }
+                                                    else {
+                                                        Toasty.error(LoginActivity.this,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
+                                                    }
+
+                                                }
+                                            });
                                             // Sign in success, update UI with the signed-in user's information
-                                            if (isNewUser) {
-                                                Toasty.info(LoginActivity.this, "add your additional information", Toasty.LENGTH_SHORT).show();
-                                                signInFirstTime();
-                                            }
 
-                                            else {
-                                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-
-                                            }
                                         }
                                         else {
                                             Toasty.info(LoginActivity.this,"need to verify account",Toasty.LENGTH_SHORT).show();
