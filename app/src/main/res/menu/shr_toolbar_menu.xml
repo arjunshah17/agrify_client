@@ -4,9 +4,14 @@
     <item
         android:icon="@drawable/shr_search"
         android:title="@string/shr_search_title"
-        app:showAsAction="always" />
+        android:id="@+id/store_searchBar"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView"
+
+        />
     <item
         android:icon="@drawable/shr_filter"
         android:title="@string/shr_filter_title"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
 </menu>

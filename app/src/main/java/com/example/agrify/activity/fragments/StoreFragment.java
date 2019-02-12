@@ -8,11 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -232,6 +234,36 @@ else {
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menuInflater.inflate(R.menu.shr_toolbar_menu, menu);
         super.onCreateOptionsMenu(menu, menuInflater);
+
+        final MenuItem search_item = menu.findItem(R.id.store_searchBar);
+        SearchView searchView = (SearchView) search_item.getActionView();
+        searchView.setFocusable(false);
+        searchView.setQueryHint("Search");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Query queryName;
+                if(query!=null) {
+              queryName = mFirestore.collection("store").whereEqualTo("name",query.toLowerCase());
+                    mAdapter.setQuery(queryName);
+
+                }
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+      searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+          @Override
+          public boolean onClose() {
+              mAdapter.setQuery(mQuery);
+              return false;
+          }
+      });
     }
 
     void signOut() {
