@@ -9,6 +9,7 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="colorControlActivated">@color/colorControlActivated</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>
 
     <style name="AppTheme.Actionbar" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -42,6 +43,14 @@
 
     <style name="Widget.Shrine.Backdrop" parent="">
         <item name="android:background">?attr/colorAccent</item>
+    </style>
+
+
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/appear_bottom_right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/appear_bottom_right_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/disappear_bottom_right_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/disappear_bottom_right_out</item>
     </style>
 
 </resources>
