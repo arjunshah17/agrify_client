@@ -1,6 +1,7 @@
 package com.example.agrify.activity.fragments;
 
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -46,6 +48,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
+import spencerstudios.com.bungeelib.Bungee;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -198,11 +201,14 @@ else {
     }
 
     @Override
-    public void onStoreSelected(DocumentSnapshot store) {
+    public void onStoreSelected(DocumentSnapshot store,View SharedView) {
         Intent intent = new Intent(getActivity(), StoreDetailActivity.class);
         intent.putExtra(StoreDetailActivity.KEY_STORE_ID, store.getId());
+        String transitionName = getString(R.string.store_product_transition);
 
-        startActivity(intent);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), SharedView, transitionName);
+        startActivity(intent,transitionActivityOptions.toBundle());
+        Bungee.inAndOut(getActivity());
     }
 
     @Override
@@ -242,18 +248,21 @@ else {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Query queryName;
-                if(query!=null) {
-              queryName = mFirestore.collection("store").whereEqualTo("name",query.toLowerCase());
-                    mAdapter.setQuery(queryName);
 
-                }
 
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String query) {
+                Query queryName;
+                if(query!=null) {
+                    queryName = mFirestore.collection("store").orderBy("name").startAt(query.toLowerCase()).endAt(query.toLowerCase()+ "\uf8ff");
+                    mAdapter.setQuery(queryName);
+
+                }
+
+
                 return false;
             }
         });
@@ -274,6 +283,7 @@ else {
                     if (task.isSuccessful()) {
                         Toasty.info(getActivity(), "log out successfully", Toasty.LENGTH_SHORT).show();
                         startActivity(new Intent(getActivity(), LoginActivity.class));
+                        Bungee.windmill(getActivity());
                     } else {
                         Toasty.error(getActivity(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
 

@@ -47,6 +47,7 @@ import com.google.firebase.firestore.Query;
 
 import es.dmoral.toasty.Toasty;
 import kotlin.text.Regex;
+import spencerstudios.com.bungeelib.Bungee;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
@@ -92,12 +93,14 @@ validator=new AwesomeValidation(BASIC);
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
+                Bungee.inAndOut(LoginActivity.this);
             }
         });
         binding.forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this,PWresetActivity.class));
+                Bungee.inAndOut(LoginActivity.this);
             }
         });
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +127,7 @@ validator=new AwesomeValidation(BASIC);
                                                         if( documentReference.exists())
                                                         {
                                                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                                            Bungee.windmill(LoginActivity.this);
                                                         }
                                                         else
                                                             {
@@ -195,7 +199,7 @@ validator=new AwesomeValidation(BASIC);
                             else
                                 {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
+                                    Bungee.windmill(LoginActivity.this);
 
                             }
                         }
@@ -250,6 +254,7 @@ validator=new AwesomeValidation(BASIC);
         Intent intent=new Intent(LoginActivity.this, editProfile.class);
         intent.putExtra(TAG,"sign_in_for_first_time");
         startActivity(intent);
+        Bungee.windmill(LoginActivity.this);
     }
 
     @Override

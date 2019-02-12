@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.4.0'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
     implementation 'com.airbnb.android:lottie:3.0.0-beta1'
-   implementation 'com.balysv:material-ripple:1.0.2'
+
+implementation 'com.github.Binary-Finery:Bungee:master-SNAPSHOT'
 }
 apply plugin: 'com.google.gms.google-services'

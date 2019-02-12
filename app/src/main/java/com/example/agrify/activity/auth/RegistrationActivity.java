@@ -30,6 +30,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import es.dmoral.toasty.Toasty;
+import spencerstudios.com.bungeelib.Bungee;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
@@ -74,7 +75,7 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
                  {
                      Toasty.success(RegistrationActivity.this,"new account created",Toasty.LENGTH_SHORT).show();
                      startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-
+                     Bungee.inAndOut(RegistrationActivity.this);
                  }
                  else
                  {
@@ -92,6 +93,7 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                Bungee.inAndOut(RegistrationActivity.this);
             }
         });
     }
@@ -106,6 +108,11 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
             binding.progressLoading.setVisibility(View.INVISIBLE);
         }
     }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+        Bungee.inAndOut(RegistrationActivity.this);
 
+    }
 
 }

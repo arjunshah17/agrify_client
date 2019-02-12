@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import es.dmoral.toasty.Toasty;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class authVerification extends AppCompatActivity {
     ActivityAuthVerificationBinding binding;
@@ -48,6 +49,7 @@ public class authVerification extends AppCompatActivity {
                           {
                               Toasty.success(authVerification.this,"verification email send to "+firebaseAuth.getCurrentUser().getEmail(),Toasty.LENGTH_SHORT).show();
                               startActivity(new Intent(authVerification.this, LoginActivity.class));
+                              Bungee.inAndOut(authVerification.this);
                           }
                           else {
                               Toasty.error(authVerification.this,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
@@ -61,6 +63,7 @@ public class authVerification extends AppCompatActivity {
                 else {
                     Toasty.error(authVerification.this,"sign in first to verify",Toasty.LENGTH_SHORT).show();
                     startActivity(new Intent(authVerification.this,LoginActivity.class));
+                    Bungee.inAndOut(authVerification.this);
                 }
 
             }
@@ -72,6 +75,7 @@ public class authVerification extends AppCompatActivity {
 
                 Intent intent = new Intent(authVerification.this, LoginActivity.class);
                 startActivity(intent);
+                Bungee.inAndOut(authVerification.this);
             }
         });
 
@@ -87,5 +91,12 @@ public class authVerification extends AppCompatActivity {
         else {
             binding.progressLoading.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(authVerification.this, LoginActivity.class));
+        Bungee.inAndOut(authVerification.this);
+
     }
 }

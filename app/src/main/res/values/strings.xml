@@ -50,5 +50,8 @@
     <string name="password_match_error">both password must match</string>
     <string name="email_verification">You will receive an email with instructions of verification of email.</string>
 
+
+    //transaction names
+    <string name="store_product_transition">store_product_transition</string>
 </resources>
 

@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import es.dmoral.toasty.Toasty;
+import spencerstudios.com.bungeelib.Bungee;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
@@ -51,6 +52,7 @@ public class PWresetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PWresetActivity.this, LoginActivity.class));
+                Bungee.inAndOut(PWresetActivity.this);
             }
         });
         binding.btnReset.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +68,7 @@ public class PWresetActivity extends AppCompatActivity {
                             {
                                 Toasty.success(PWresetActivity.this,"password reset send to"+task.getResult().toString(),Toasty.LENGTH_SHORT).show();
                                 startActivity(new Intent(PWresetActivity.this, LoginActivity.class));
-
+                                Bungee.inAndOut(PWresetActivity.this);
                             }
                             else {
                                 Toasty.error(PWresetActivity.this,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
@@ -88,5 +90,11 @@ public class PWresetActivity extends AppCompatActivity {
         else {
             binding.progressLoading.setVisibility(View.INVISIBLE);
         }
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(PWresetActivity.this, LoginActivity.class));
+        Bungee.inAndOut(PWresetActivity.this);
+
     }
 }

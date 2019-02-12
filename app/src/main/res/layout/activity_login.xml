@@ -95,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:text="@string/forgot_password"
+                    android:foreground="?attr/selectableItemBackground"
                    />
 
                 <TextView
@@ -103,6 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:gravity="center"
+                    android:foreground="?attr/selectableItemBackground"
                     android:text="No account yet? Create one"
 
                     android:textSize="16sp"

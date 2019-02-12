@@ -25,7 +25,7 @@ public class StoreAdapter extends FirestoreAdapter<StoreHolder> {
     Activity activity;
     public interface OnStoreSelectedListener {
 
-        void onStoreSelected(DocumentSnapshot store);
+        void onStoreSelected(DocumentSnapshot store,View SharedView);
 
     }
     private OnStoreSelectedListener mListener;

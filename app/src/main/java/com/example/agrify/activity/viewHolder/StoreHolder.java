@@ -70,7 +70,9 @@ public class StoreHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 if (listener != null) {
-                    listener.onStoreSelected(snapshot);
+                  View SharedView=  binding.productImage;
+
+                    listener.onStoreSelected(snapshot,SharedView);
                 }
             }
         });

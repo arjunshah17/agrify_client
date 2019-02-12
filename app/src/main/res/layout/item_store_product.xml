@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/productGridBackgroundColor"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:foreground="@drawable/item_ripple_effect"
             android:padding="8dp">
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-
+                android:transitionName="@string/store_product_transition"
               />
 
             <RelativeLayout

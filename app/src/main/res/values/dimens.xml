@@ -7,4 +7,10 @@
     <dimen name="shr_product_grid_reveal_height">200dp</dimen>
 
     <!-- Dimens for staggered asymmetric grid layout cards-->
+
+
+
+    <integer name="anim_duration_very_long">1500</integer>
+    <integer name="anim_duration_long">500</integer>
+    <integer name="anim_duration_medium">300</integer>
 </resources>

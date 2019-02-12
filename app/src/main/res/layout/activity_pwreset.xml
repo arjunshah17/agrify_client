@@ -81,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
+                    android:foreground="?attr/selectableItemBackground"
                     android:text="Go back to Sign In." />
             </LinearLayout>
         </ScrollView>
