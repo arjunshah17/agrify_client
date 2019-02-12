@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.5'
 
 
-    implementation 'com.google.firebase:firebase-core:16.0.6'
+    implementation 'com.google.firebase:firebase-core:16.0.7'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
     implementation 'com.firebaseui:firebase-ui-storage:4.3.0'
     //Circle Image
@@ -57,5 +57,6 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.4.0'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
     implementation 'com.airbnb.android:lottie:3.0.0-beta1'
+   implementation 'com.balysv:material-ripple:1.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

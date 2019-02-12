@@ -1,6 +1,7 @@
 package com.example.agrify.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -15,6 +16,8 @@ import java.util.Arrays;
 
 public class SplashActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
+    SharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
