@@ -23,6 +23,7 @@ import java.util.List;
 
 public class StoreAdapter extends FirestoreAdapter<StoreHolder> {
     Activity activity;
+    String TAG;
     public interface OnStoreSelectedListener {
 
         void onStoreSelected(DocumentSnapshot store,View SharedView);
@@ -30,10 +31,11 @@ public class StoreAdapter extends FirestoreAdapter<StoreHolder> {
     }
     private OnStoreSelectedListener mListener;
 
-    public StoreAdapter(Query query ,OnStoreSelectedListener listener,Activity activity) {
+    public StoreAdapter(Query query ,OnStoreSelectedListener listener,Activity activity,String TAG) {
         super(query);
        mListener=listener;
         this.activity=activity;
+        this.TAG=TAG;
     }
 
     @Override
@@ -55,6 +57,6 @@ public class StoreAdapter extends FirestoreAdapter<StoreHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull StoreHolder holder, int position) {
-        holder.bind(getSnapshot(position), mListener,activity);
+        holder.bind(getSnapshot(position), mListener,activity,TAG);
     }
 }

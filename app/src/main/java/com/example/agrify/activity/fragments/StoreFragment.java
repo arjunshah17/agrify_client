@@ -54,11 +54,12 @@ import spencerstudios.com.bungeelib.Bungee;
  * A simple {@link Fragment} subclass.
  */
 public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelectedListener {
-    private static final String TAG = "MainActivity";
+
     private static final int LIMIT = 50;
     private static String[] CATEGORES_NAMES;
     FragmentStoreBinding bind;
     private String selectedCategory = "all";
+    private static String TAG="StoreFragment";
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore mFirestore;
     private Query mQuery;
@@ -158,7 +159,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
 
-        mAdapter = new StoreAdapter(mQuery, this, getActivity()) {
+        mAdapter = new StoreAdapter(mQuery, this, getActivity(),TAG) {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 super.onEvent(documentSnapshots, e);

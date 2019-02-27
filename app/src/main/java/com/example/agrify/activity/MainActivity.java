@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.fragments.StoreFragment;
+import com.example.agrify.activity.fragments.WishFragment;
 import com.example.agrify.activity.fragments.profileFragment;
 import com.example.agrify.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding bind;
     profileFragment profile;
     Fragment LoadedFragment;
+    WishFragment wish;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         store = new StoreFragment();
         profile = new profileFragment();
-
+wish=new WishFragment();
         //default load Store fragment
         LoadedFragment = store;
         loadFragment(store);
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.wishlistItem:
-
+  LoadedFragment=wish;
                         break;
 
                     case R.id.chatItem:
