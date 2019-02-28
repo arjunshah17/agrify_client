@@ -74,12 +74,15 @@ FragmentWishBinding bind;
                 super.onEvent(documentSnapshots, e);
 
 
+
                 if(getItemCount()==0)
                 {
                     noProductFound(true);
+                    productLoadingState(false);
                 }
                 else {
                     noProductFound(false);
+                    productLoadingState(false);
                 }
             }
 
@@ -146,6 +149,29 @@ FragmentWishBinding bind;
         // Start listening for Firestore updates
         if (mAdapter != null) {
             mAdapter.startListening();
+        }
+    }
+    void productLoadingState(boolean state)
+    {
+        if(state)
+        {bind.storeRecycleView.setVisibility(View.GONE);
+            bind.shimmerRecyclerView.showShimmerAdapter();
+
+
+
+        }
+        else
+        {bind.storeRecycleView.setVisibility(View.VISIBLE);
+            bind.shimmerRecyclerView.hideShimmerAdapter();
+            // TODO stop shrimmer effect
+
+        }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAdapter != null) {
+            mAdapter.stopListening();
         }
     }
 }

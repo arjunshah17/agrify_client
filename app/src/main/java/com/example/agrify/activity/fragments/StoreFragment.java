@@ -213,6 +213,14 @@ else {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        if (mAdapter != null) {
+            mAdapter.stopListening();
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
 

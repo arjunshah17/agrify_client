@@ -19,12 +19,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Source;
+import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 import com.varunest.sparkbutton.SparkEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
 
@@ -52,34 +58,6 @@ store=new Store();
     public void bind(final DocumentSnapshot snapshot,
                      final StoreAdapter.OnStoreSelectedListener listener, final Activity activity,String TAG) {
 
-if(TAG.equals("StoreFragment")) {
-     store = snapshot.toObject(Store.class);
-
-}
-else {
-
-    firebaseFirestore.collection("store").document(snapshot.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-        @Override
-        public void onSuccess(DocumentSnapshot documentSnapshot) {
-            store=documentSnapshot.toObject(Store.class);
-            store.setProductImageUrl(documentSnapshot.getString("ProductImageUrl"));
-            store.setName("name");
-            store.setDes("des");
-            store.setDes("category");
-        }
-    });
-
-}
-        Resources resources = itemView.getResources();
-
-        binding.setStore(store);
-
-        // Load image
-        if (activity != null) {
-            GlideApp.with(activity)
-                .load(store.getProductImageUrl())
-                   .into(binding.productImage);
-        }
         firebaseFirestore.collection("store").document(snapshot.getId()).collection("wishlist").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -87,51 +65,127 @@ else {
                 {
                     if(task.getResult().exists())
                     {
+
                         binding.wiseButton.setChecked(true);
                     }
                 }
             }
         });
+
+if(TAG.equals("StoreFragment")) {
+     store = snapshot.toObject(Store.class);
+    binding.setStore(store);
+
+
+    // Load image
+    if (activity != null) {
+        GlideApp.with(activity)
+                .load(store.getProductImageUrl())
+                .into(binding.productImage);
+    }
+}
+else {
+
+    DocumentReference documentReference= firebaseFirestore.collection("store").document(snapshot.getId());
+           documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+               @Override
+               public void onSuccess(DocumentSnapshot documentSnapshot) {
+              store=     documentSnapshot.toObject(Store.class);
+                   binding.setStore(store);
+
+
+                   // Load image
+                   if (activity != null) {
+                       GlideApp.with(activity)
+                               .load(store.getProductImageUrl())
+                               .into(binding.productImage);
+                   }
+               }
+           });
+documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+    @Override
+    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+        if (e != null) {
+            Log.w("event", "Listen failed.", e);
+            return;
+        }
+
+        String source = snapshot != null && snapshot.getMetadata().hasPendingWrites()
+                ? "Local" : "Server";
+
+        if (snapshot != null && snapshot.exists()) {
+
+            Log.d("event", source + " data: " + snapshot.getData());
+            store=  documentSnapshot.toObject(Store.class);
+            binding.setStore(store);
+
+
+            // Load image
+            if (activity != null) {
+                GlideApp.with(activity)
+                        .load(store.getProductImageUrl())
+                        .into(binding.productImage);
+            }
+        } else {
+            Log.d("event", source + " data: null");
+        }
+    }
+});
+
+}
+        Resources resources = itemView.getResources();
+
+
+
         binding.wiseButton.setEventListener(new SparkEventListener() {
 
 
             @Override
             public void onEvent(ImageView button, boolean buttonState) {
-                Map<String,Boolean> status=new HashMap<>();
+
+                final Map<String,Boolean> status=new HashMap<>();
                 status.put("status",true);
-                Map<String,String> user_wish_info=new HashMap<>();
+                final Map<String,String> user_wish_info=new HashMap<>();
                 user_wish_info.put("product_id",snapshot.getId());
                 product_wish=  firebaseFirestore.collection("store").document(snapshot.getId()).collection("wishlist").document(auth.getCurrentUser().getUid());
                 user_product_wish=firebaseFirestore.collection("wishlist").document(auth.getCurrentUser().getUid()).collection("wishlist").document(snapshot.getId());
                 if (buttonState) {
 
-                  batch.set(product_wish,status);
-
-                 batch.set(user_product_wish,user_wish_info);
-                 batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                     @Override
-                     public void onComplete(@NonNull Task<Void> task) {
-                         Toasty.info(activity, store.getName() + " added in wish list", Toasty.LENGTH_SHORT).show();
-                     }
-                 });
-                } else {
-
-                          batch.delete(product_wish);
-                          batch.delete(user_product_wish);
-
-
-                           batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    firebaseFirestore.runTransaction(new Transaction.Function<Void>() {
+                        @androidx.annotation.Nullable
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()) {
-                                Toasty.info(activity, store.getName() + " removed from wishlist", Toasty.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
-                                Toasty.error(activity,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
-                            }
+                        public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                            transaction.set(product_wish,status);
+                            transaction.set(user_product_wish,user_wish_info);
+                            return null;
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toasty.info(activity, store.getName() + " added in wish list", Toasty.LENGTH_SHORT).show();
+
+                            binding.wiseButton.setChecked(true);
                         }
                     });
+                } else {
+
+
+                       firebaseFirestore.runTransaction(new Transaction.Function<Void>() {
+                           @androidx.annotation.Nullable
+                           @Override
+                           public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                               transaction.delete(product_wish);
+                               transaction.delete(user_product_wish);
+                               return null;
+                           }
+                       }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                           @Override
+                           public void onSuccess(Void aVoid) {
+                               Toasty.info(activity, store.getName() + " removed from wish list", Toasty.LENGTH_SHORT).show();
+
+                               binding.wiseButton.setChecked(false);
+                           }
+                       });
 
                 }
             }
