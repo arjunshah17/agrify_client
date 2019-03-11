@@ -123,8 +123,6 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         Log.w(TAG, "onError", e);
     }
 
-    ;
-
     protected void onDataChanged() {
     }
 }

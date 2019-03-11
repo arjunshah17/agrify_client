@@ -47,7 +47,7 @@ WriteBatch batch;
     public StoreHolder(@NonNull ItemStoreProductBinding item) {
         super(item.getRoot());
         binding = item;
-store=new Store();
+
         auth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
         batch=firebaseFirestore.batch();
@@ -56,8 +56,10 @@ store=new Store();
 
 
     public void bind(final DocumentSnapshot snapshot,
-                     final StoreAdapter.OnStoreSelectedListener listener, final Activity activity,String TAG) {
+                     final StoreAdapter.OnStoreSelectedListener listener, final Activity activity,String TAG)
+    {
 
+        store=new Store();
         firebaseFirestore.collection("store").document(snapshot.getId()).collection("wishlist").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -90,20 +92,30 @@ else {
            documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                @Override
                public void onSuccess(DocumentSnapshot documentSnapshot) {
-              store=     documentSnapshot.toObject(Store.class);
-                   binding.setStore(store);
+                   store = documentSnapshot.toObject(Store.class);
+                   try {
+                       binding.setStore(store);
 
 
-                   // Load image
-                   if (activity != null) {
-                       GlideApp.with(activity)
-                               .load(store.getProductImageUrl())
-                               .into(binding.productImage);
+                       // Load image
+
+                       if (store.getProductImageUrl() != null) {
+                           if (activity != null) {
+                               GlideApp.with(activity)
+                                       .load(store.getProductImageUrl())
+                                       .into(binding.productImage);
+
+                           }
+                       }
+                   }
+                   catch (NullPointerException e)
+                   {
+                       Log.e("nullPointer",e.getLocalizedMessage().toString());
                    }
                }
            });
 documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-    @Override
+    @Override                //updates on change
     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
         if (e != null) {
             Log.w("event", "Listen failed.", e);
@@ -120,15 +132,26 @@ documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             binding.setStore(store);
 
 
+
+
             // Load image
-            if (activity != null) {
-                GlideApp.with(activity)
-                        .load(store.getProductImageUrl())
-                        .into(binding.productImage);
+            try {
+                if (store.getProductImageUrl() != null) {
+                    if (activity != null) {
+                        GlideApp.with(activity)
+                                .load(store.getProductImageUrl())
+                                .into(binding.productImage);
+                    }
+                }
             }
-        } else {
-            Log.d("event", source + " data: null");
+            catch (NullPointerException exx)
+            {
+
+
         }
+
+
+}
     }
 });
 
