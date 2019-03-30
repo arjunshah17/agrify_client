@@ -26,7 +26,7 @@ import com.example.agrify.R;
 import com.example.agrify.activity.MainActivity;
 import com.example.agrify.activity.editProfile;
 import com.example.agrify.databinding.ActivityLoginBinding;
-import com.github.paolorotolo.appintro.ProgressIndicatorController;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -46,7 +46,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import es.dmoral.toasty.Toasty;
-import kotlin.text.Regex;
+
 import spencerstudios.com.bungeelib.Bungee;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;

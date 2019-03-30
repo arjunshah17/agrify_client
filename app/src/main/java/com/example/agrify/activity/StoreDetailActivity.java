@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+
 import com.example.agrify.R;
 import com.example.agrify.activity.adapter.SellerAdapter;
+import com.example.agrify.activity.fragments.SellerListFragment;
 import com.example.agrify.activity.model.Store;
 import com.example.agrify.databinding.ActivityStoreDetailBinding;
 import com.google.firebase.firestore.DocumentReference;
@@ -21,6 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+
+import es.dmoral.toasty.Toasty;
 
 public class StoreDetailActivity extends AppCompatActivity implements EventListener<DocumentSnapshot> {
     private static final String TAG = "StoreDetail";
@@ -33,10 +37,12 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
     ActivityStoreDetailBinding bind;
     Query sellerQuery;
     SellerAdapter mAdapter;
+    SellerListFragment sellerListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         bind = DataBindingUtil.setContentView(this, R.layout.activity_store_detail);
         bind.productDes.setMovementMethod(new ScrollingMovementMethod());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -45,6 +51,7 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
         }
 
         String storeId = getIntent().getExtras().getString(KEY_STORE_ID);
+        sellerListFragment=new SellerListFragment(storeId);
         if (storeId == null) {
             throw new IllegalArgumentException("Must pass extra " + storeId);
         }
@@ -53,7 +60,8 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
 
         // Get reference to the restaurant
         mStoreRef = mFirestore.collection("store").document(storeId);
-        getSellerList();
+
+        //     getSellerList();
 
 
         bind.appBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -62,13 +70,14 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
                 finish();
             }
         });
+
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter.startListening();
+
         mStoreRegistration = mStoreRef.addSnapshotListener(this);
     }
 
@@ -82,8 +91,24 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
         StoreLoaded(snapshot.toObject(Store.class));
     }
 
-    private void StoreLoaded(Store store) {
+    private void StoreLoaded(final Store store) {
         bind.setStore(store);
+        bind.sellerlistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(store.getSellerCount()!=0)
+                    sellerListFragment.show(getSupportFragmentManager(),"seller list");
+                else
+                    Toasty.info(getApplicationContext(),"no farmers are selling",Toasty.LENGTH_SHORT).show();
+            }
+        });
+        if(store.getSellerCount()==0)
+        {
+            bind.sellerlistButton.setText("no seller found");
+        }
+        else {
+            bind.sellerlistButton.setText(store.getSellerCount()+" farmers are selling");
+        }
         GlideApp.with(this)
                 .load(store.getProductImageUrl())
                 .into(bind.productImageUrl);
@@ -93,17 +118,7 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
     }
 
 
-    void getSellerList() {
-        stateLoading(true);
-        sellerQuery = mStoreRef
-                .collection("sellerList")
-                .orderBy("name", Query.Direction.DESCENDING);
-        mAdapter = new SellerAdapter(sellerQuery, this);
-        bind.sellerListRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        bind.sellerListRecycleView.setAdapter(mAdapter);
 
-
-    }
 
     private void stateLoading(boolean stateStatus) {
         if (stateStatus) {

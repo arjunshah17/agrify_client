@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -40,7 +41,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="center"
                 app:navigationIcon="@drawable/shr_close_menu"
-                app:title="edit profile"
+                app:title="@{store.name}"
 
                 />
         </com.google.android.material.appbar.AppBarLayout>
@@ -70,8 +71,8 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@color/productGridBackgroundColor"
                 android:cropToPadding="true"
-                android:transitionName="@string/store_product_transition"
-                android:scaleType="centerCrop" />
+                android:scaleType="fitCenter"
+                android:transitionName="@string/store_product_transition" />
 
             <TextView
                 android:id="@+id/productName"
@@ -95,19 +96,27 @@
             <TextView
                 android:id="@+id/productDes"
                 android:layout_width="match_parent"
-                android:layout_height="118dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:inputType="textMultiLine"
-                android:overScrollMode="ifContentScrolls"
+
+
                 android:padding="10dp"
                 android:scrollbars="vertical"
                 android:text="@{store.des}" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/sellerListRecycleView"
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_marginTop="25dp"
+                android:id="@+id/sellerlist_button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:layout_height="wrap_content"
+                />
+
         </LinearLayout>
     </RelativeLayout>
 </layout>
