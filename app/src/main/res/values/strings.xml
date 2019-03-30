@@ -66,5 +66,6 @@
     <string name="products">products</string>
     <string name="rating_bar_title">rating bar</string>
     <string name="store_product_transition">store_product_transition</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>
 

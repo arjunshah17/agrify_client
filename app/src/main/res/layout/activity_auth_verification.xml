@@ -31,7 +31,6 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="15dp"
-
             android:layout_gravity="top"
             android:fadeScrollbars="true"
             android:indeterminate="true"

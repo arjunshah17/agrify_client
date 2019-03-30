@@ -20,24 +20,23 @@ import com.smarteist.autoimageslider.DefaultSliderView;
 
 
 public class SellerProductActivity extends AppCompatActivity {
-String seller_id;
-String product_id;
-FirebaseFirestore firebaseFirestore;
-ActivitySellerProductBinding binding;
+    String seller_id;
+    String product_id;
+    FirebaseFirestore firebaseFirestore;
+    ActivitySellerProductBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this, R.layout.activity_seller_product);
-       if(getIntent().getStringExtra("seller_id")!=null && getIntent().getStringExtra("product_id")!=null)
-       {
-           product_id=getIntent().getStringExtra("product_id");
-         seller_id=  getIntent().getStringExtra("seller_id");
-Log.i("product_id",product_id);
-Log.i("seller_id",seller_id);
-       }
-       firebaseFirestore=FirebaseFirestore.getInstance();
-     //   binding.imageSlider.setIndicatorAnimation(SliderLayout.A); //set indicator animation by using SliderLayout.Animations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_seller_product);
+        if (getIntent().getStringExtra("seller_id") != null && getIntent().getStringExtra("product_id") != null) {
+            product_id = getIntent().getStringExtra("product_id");
+            seller_id = getIntent().getStringExtra("seller_id");
+            Log.i("product_id", product_id);
+            Log.i("seller_id", seller_id);
+        }
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        //   binding.imageSlider.setIndicatorAnimation(SliderLayout.A); //set indicator animation by using SliderLayout.Animations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         binding.imageSlider.setScrollTimeInSec(5);
         initSlider();
 
@@ -65,8 +64,5 @@ Log.i("seller_id",seller_id);
 
                     }
                 });
-
-
-
     }
 }
