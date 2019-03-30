@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.agrify.R;
+import com.example.agrify.activity.CartActivity;
 import com.example.agrify.activity.SplashActivity;
 import com.example.agrify.activity.StoreDetailActivity;
 import com.example.agrify.activity.adapter.StoreAdapter;
@@ -59,12 +60,13 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     private static String[] CATEGORES_NAMES;
     FragmentStoreBinding bind;
     private String selectedCategory = "all";
-    private static String TAG="StoreFragment";
+    private static String TAG = "StoreFragment";
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore mFirestore;
     private Query mQuery;
     private NavigationIconClickListener navigationIconClickListener;
     private StoreAdapter mAdapter;
+
     public StoreFragment() {
         // Required empty public constructor
     }
@@ -143,11 +145,8 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
     }
 
 
-
-
-
     private void initFirestore() {
-        // TODO(developer): Implement
+
         mFirestore = FirebaseFirestore.getInstance();
         mQuery = mFirestore.collection("store").orderBy("name");
 
@@ -159,17 +158,15 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
 
-        mAdapter = new StoreAdapter(mQuery, this, getActivity(),TAG) {
+        mAdapter = new StoreAdapter(mQuery, this, getActivity(), TAG) {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 super.onEvent(documentSnapshots, e);
                 productLoadingState(false);
 
-                if(getItemCount()==0)
-                {
+                if (getItemCount() == 0) {
                     noProductFound(true);
-                }
-                else {
+                } else {
                     noProductFound(false);
                 }
             }
@@ -177,14 +174,12 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             @Override
             protected void onDataChanged() {
                 // Show/hide content if the query returns empty.
-if(getItemCount()==0)
-{
-    noProductFound(true);
+                if (getItemCount() == 0) {
+                    noProductFound(true);
 
-}
-else {
-    noProductFound(false);
-}
+                } else {
+                    noProductFound(false);
+                }
 
             }
 
@@ -202,13 +197,13 @@ else {
     }
 
     @Override
-    public void onStoreSelected(DocumentSnapshot store,View SharedView) {
+    public void onStoreSelected(DocumentSnapshot store, View SharedView) {
         Intent intent = new Intent(getActivity(), StoreDetailActivity.class);
         intent.putExtra(StoreDetailActivity.KEY_STORE_ID, store.getId());
         String transitionName = getString(R.string.store_product_transition);
 
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), SharedView, transitionName);
-        startActivity(intent,transitionActivityOptions.toBundle());
+        startActivity(intent, transitionActivityOptions.toBundle());
         Bungee.inAndOut(getActivity());
     }
 
@@ -251,6 +246,7 @@ else {
         super.onCreateOptionsMenu(menu, menuInflater);
 
         final MenuItem search_item = menu.findItem(R.id.store_searchBar);
+        final  MenuItem add_to_cart = menu.findItem(R.id.addToCartButton);
         SearchView searchView = (SearchView) search_item.getActionView();
         searchView.setFocusable(false);
         searchView.setQueryHint("Search");
@@ -265,8 +261,8 @@ else {
             @Override
             public boolean onQueryTextChange(String query) {
                 Query queryName;
-                if(query!=null) {
-                    queryName = mFirestore.collection("store").orderBy("name").startAt(query.toLowerCase()).endAt(query.toLowerCase()+ "\uf8ff");
+                if (query != null) {
+                    queryName = mFirestore.collection("store").orderBy("name").startAt(query.toLowerCase()).endAt(query.toLowerCase() + "\uf8ff");
                     mAdapter.setQuery(queryName);
 
                 }
@@ -275,13 +271,21 @@ else {
                 return false;
             }
         });
-      searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-          @Override
-          public boolean onClose() {
-              mAdapter.setQuery(mQuery);
-              return false;
-          }
-      });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mAdapter.setQuery(mQuery);
+                return false;
+            }
+        });
+        //call cart activity
+        add_to_cart.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(getActivity(), CartActivity.class));
+                return false;
+            }
+        });
     }
 
     void signOut() {
@@ -304,34 +308,29 @@ else {
 
     }
 
-    void productLoadingState(boolean state)
-    {
-        if(state)
-        {bind.storeRecycleView.setVisibility(View.GONE);
+    void productLoadingState(boolean state) {
+        if (state) {
+            bind.storeRecycleView.setVisibility(View.GONE);
             bind.shimmerRecyclerView.showShimmerAdapter();
 
 
-
-        }
-        else
-        {bind.storeRecycleView.setVisibility(View.VISIBLE);
+        } else {
+            bind.storeRecycleView.setVisibility(View.VISIBLE);
             bind.shimmerRecyclerView.hideShimmerAdapter();
             // TODO stop shrimmer effect
 
         }
     }
-    void noProductFound(boolean state)
-    {
-        if(state)
-        {
+
+    void noProductFound(boolean state) {
+        if (state) {
             bind.storeRecycleView.setVisibility(View.GONE);
 
 
             bind.animationView.playAnimation();
             bind.animationLayout.setVisibility(View.VISIBLE);
-        }
-        else {
-bind.animationLayout.setVisibility(View.GONE);
+        } else {
+            bind.animationLayout.setVisibility(View.GONE);
             bind.storeRecycleView.setVisibility(View.VISIBLE);
             bind.animationView.cancelAnimation();
         }

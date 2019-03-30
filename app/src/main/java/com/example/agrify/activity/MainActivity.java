@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     profileFragment profile;
     Fragment LoadedFragment;
     WishFragment wish;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         store = new StoreFragment();
         profile = new profileFragment();
-wish=new WishFragment();
+        wish = new WishFragment();
         //default load Store fragment
         LoadedFragment = store;
         loadFragment(store);
@@ -45,14 +46,13 @@ wish=new WishFragment();
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
 
-
                 switch (menuItem.getItemId()) {
                     case R.id.storeItem:
                         LoadedFragment = store;
                         break;
 
                     case R.id.wishlistItem:
-  LoadedFragment=wish;
+                        LoadedFragment = wish;
                         break;
 
                     case R.id.chatItem:
@@ -97,7 +97,7 @@ wish=new WishFragment();
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                 finishAffinity();
+                        finishAffinity();
 
                     }
                 }).setNegativeButton("No", null).show();

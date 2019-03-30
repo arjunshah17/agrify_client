@@ -37,7 +37,6 @@ public class StoreAdapter extends FirestoreAdapter<StoreHolder> {
         this.activity=activity;
         this.TAG=TAG;
     }
-
     @Override
     public int getItemCount() {
         return super.getItemCount();

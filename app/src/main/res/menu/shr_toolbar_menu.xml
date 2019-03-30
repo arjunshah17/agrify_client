@@ -10,8 +10,9 @@
 
         />
     <item
-        android:icon="@drawable/shr_filter"
-        android:title="@string/shr_filter_title"
-        app:showAsAction="always"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:title="@string/add_to_cart"
+        app:showAsAction="ifRoom"
+        android:id="@+id/addToCartButton"
         />
 </menu>
