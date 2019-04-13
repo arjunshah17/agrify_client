@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.agrify.R;
+import com.example.agrify.activity.ChatBot.ChatFragment;
 import com.example.agrify.activity.fragments.StoreFragment;
 import com.example.agrify.activity.fragments.WishFragment;
 import com.example.agrify.activity.fragments.profileFragment;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     profileFragment profile;
     Fragment LoadedFragment;
     WishFragment wish;
+    ChatFragment chat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         store = new StoreFragment();
         profile = new profileFragment();
         wish = new WishFragment();
+        chat = new ChatFragment();
         //default load Store fragment
         LoadedFragment = store;
         loadFragment(store);
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.chatItem:
-
+                        LoadedFragment = chat;
                         break;
 
                     case R.id.notificationItem:
