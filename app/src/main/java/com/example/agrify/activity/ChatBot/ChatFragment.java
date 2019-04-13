@@ -22,21 +22,15 @@ public class ChatFragment extends Fragment {
     public ChatFragment() {
         // Required empty public constructor
     }
-static  final String chatbotUrl="https://snatchbot.me/webchat?botID=52622&appID=sKkDZ6o4cIQLE9QvsgIF";
-
+    static  final String chatbotUrl="https://snatchbot.me/webchat?botID=52622&appID=sKkDZ6o4cIQLE9QvsgIF";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         bind = DataBindingUtil.inflate(inflater, R.layout.fragment_chat,
                 container, false);
-        bind.chatActionbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), chatbotActivity.class));
-            }
-        });
-
+        bind.chatActionbutton.setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), chatbotActivity.class))
+        );
         return bind.getRoot();
     }
 

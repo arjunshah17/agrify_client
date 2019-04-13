@@ -9,4 +9,5 @@
     <color name="colorControlActivated">#FBB8AC</color>
     <color name="colorPlaceHolderBG">#e6e6e6</color>
     <color name="white">#FFFFFF</color>
+    <color name="colorSpakeButton">#D50000</color>
 </resources>

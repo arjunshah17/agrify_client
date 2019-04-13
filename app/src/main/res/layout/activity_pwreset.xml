@@ -15,7 +15,6 @@
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-
                 android:layout_gravity="top"
                 android:fadeScrollbars="true"
                 android:indeterminate="true"
@@ -38,11 +37,11 @@
                 <ImageView
                     android:id="@+id/ivLogLogo"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="120dp"
                     android:layout_marginTop="18dp"
                     android:layout_marginBottom="55dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/logo" />
+                    android:src="@drawable/logo_head" />
 
                 <TextView
                     android:id="@+id/tvPWinfo"
@@ -51,18 +50,23 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="20dp"
+                    android:textColor="@color/white"
                     android:text="You will receive an email with instructions on resetting password."
                     android:textAlignment="center" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:textColorHint="@color/white"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_height="wrap_content"
+                    android:hint="Email">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/email_editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/white"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -82,7 +86,8 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:foreground="?attr/selectableItemBackground"
-                    android:text="Go back to Sign In." />
+                    android:text="Go back to Sign In."
+                    android:textColor="@color/white"/>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
