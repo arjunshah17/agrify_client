@@ -28,4 +28,7 @@
     <dimen name="bottom_sheet_top_padding">15dp</dimen>
     <dimen name="dp_12">12dp</dimen>
     <dimen name="dp_6">6dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
 </resources>

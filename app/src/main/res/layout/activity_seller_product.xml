@@ -1,14 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable
+            name="seller"
+            type="com.example.agrify.activity.model.Seller" />
+    </data>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    style="@style/Platform.MaterialComponents.Light"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:fitsSystemWindows="true"
+android:layout_gravity="top"
+
+        app:layout_scrollFlags="scroll|enterAlways"
+
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/app_bar"
+            style="@style/Widget.Shrine.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+            android:layout_gravity="center"
+            tools:title="arjun shah"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+            app:title="@{seller.name}"
+
+            />
+    </com.google.android.material.appbar.AppBarLayout>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+
+<androidx.core.widget.NestedScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+android:id="@+id/scrollView"
+    android:clipToPadding="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+   >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+
         tools:context=".activity.sellerProduct.SellerProductActivity">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/productGridBackgroundColor"
+        app:cardCornerRadius="2dp"
+android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            app:cardElevation="1dp"
+            >
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,102 +88,177 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </com.github.florent37.shapeofview.shapes.RoundRectView>
-
-
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="200dp"
-                android:text="@string/productname"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <LinearLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_location"
-                    android:layout_marginEnd="10dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
 
                 <TextView
-                    android:id="@+id/sellerLocation"
+                    android:id="@+id/seller_price"
+                    style="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="200dp"
-                    android:text="@string/seller_location"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+android:gravity="right"
+                    tools:text="200/kg"
+                    android:layout_weight="1"
+
+                  />
+                <TextView
+                    android:id="@+id/productName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    tools:text="wheat"
+                    style="@style/TextAppearance.MaterialComponents.Headline4"
+
+
+                    />
             </LinearLayout>
+
+
+
+
+
+
 
 
             <!-- YOUR CONTENT -->
 
-            <com.github.florent37.shapeofview.shapes.CutCornerView
-                android:id="@+id/clipCorner"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:shape_cutCorner_bottomLeftSize="20dp"
-                app:shape_cutCorner_bottomRightSize="20dp"
-                app:shape_cutCorner_topLeftSize="20dp"
-                app:shape_cutCorner_topRightSize="20dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buyNowBtn"
-                    style="@style/AppTheme.primaryButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="@string/buy_now"
-                    android:textSize="20sp" />
-            </com.github.florent37.shapeofview.shapes.CutCornerView>
 
-            <com.github.florent37.shapeofview.shapes.CutCornerView
-                android:id="@+id/clipCornerCart"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:shape_cutCorner_bottomLeftSize="20dp"
-                app:shape_cutCorner_bottomRightSize="20dp"
-                app:shape_cutCorner_topLeftSize="20dp"
-                app:shape_cutCorner_topRightSize="20dp">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/addToCartButton"
-                    style="@style/AppTheme.primaryButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="@string/add_to_cart"
-                    android:textSize="20sp" />
-            </com.github.florent37.shapeofview.shapes.CutCornerView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:text="@string/rating_bar_title"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+android:id="@+id/minQuantity"
+                tools:text="min quantity:25 kg"/>
+        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/productGridBackgroundColor"
+    app:cardCornerRadius="2dp"
+      android:shadowRadius="3"
+    android:hapticFeedbackEnabled="true"
+    android:accessibilityPaneTitle="@string/hello_world"
+    app:cardElevation="10dp"
+    android:layout_margin="@dimen/dp_6"
 
-            <RatingBar
-                android:id="@+id/ratingBar"
+   >
+
+
+    <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+android:id="@+id/text_info"
+
+       android:layout_margin="@dimen/dp_6"
+       style="@style/TextAppearance.AppCompat.Body1"/>
+
+
+
+</com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </com.google.android.material.card.MaterialCardView>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profilePhoto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/add_photo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        tools:text="arjun shah" />
+
+
+</LinearLayout>
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:elevation="@dimen/dp_24"
+android:background="@color/white"
+            android:gravity="bottom"
+android:id="@+id/bottom_button"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:clickable="true"
+                android:layout_width="wrap_content"
+               android:background="@drawable/item_ripple_effect"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:focusable="true">
+
+
+<ImageButton
+android:clickable="false"
+    android:focusable="false"
+    android:layout_width="wrap_content"
+    android:layout_height="30dp"
+    android:layout_gravity="clip_vertical"
+    android:layout_margin="0dp"
+    android:src="@drawable/ic_store_custom_24dp"
+    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/store"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:textColor="@color/secondaryColor"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
+            <life.sabujak.roundedbutton.RoundedButton
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:numStars="5"
-                android:stepSize="1.0" />
+                android:text="@string/add_to_cart"
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                app:buttonGradientStartColor="#4776E6"
+                app:buttonGradientEndColor="#8E54E9"
+                android:padding="@dimen/dp_20"
+                android:layout_height="wrap_content" />
+            <life.sabujak.roundedbutton.RoundedButton
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:textAllCaps="true"
+                android:text="buy now"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_20"
+                app:buttonGradientStartColor="#DC2424"
+                app:buttonGradientEndColor="#4A569D"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
-    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
