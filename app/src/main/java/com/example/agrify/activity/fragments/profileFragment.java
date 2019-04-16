@@ -70,10 +70,6 @@ public class profileFragment extends Fragment {
             }
         });
 
-
-
-
-
         bind.EditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

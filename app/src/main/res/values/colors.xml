@@ -6,13 +6,7 @@
     <color name="textColorPrimary">#442C2E</color>
     <color name="toolbarIconColor">@color/textColorPrimary</color>
     <color name="productGridBackgroundColor">#FFFBFA</color>
-    <color name="colorControlActivated">#8e24aa</color>
+    <color name="colorControlActivated">#FBB8AC</color>
     <color name="colorPlaceHolderBG">#e6e6e6</color>
-    <color name="ripple_color">#ce93d8</color>
-    <color name="white">#ffffff</color>
-    <color name="primary_color_ripple">#e1bee7</color>
-    <color name="borderBottomColor">#bfbfbf</color>
-    <color name="grey_background">#f5f5f5</color>
-    <color name="secondaryColor">#8e24aa</color>
-
+    <color name="white">#FFFFFF</color>
 </resources>

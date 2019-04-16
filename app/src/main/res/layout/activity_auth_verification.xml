@@ -40,11 +40,10 @@
     <ImageView
         android:id="@+id/ivLogLogo"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-
+        android:layout_height="120dp"
         android:layout_marginTop="150dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo_head" />
 
     <TextView
         android:id="@+id/tvPWinfo"
@@ -55,14 +54,18 @@
         android:text="@string/email_verification"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="0dp"
+        android:textColor="@color/white"
         tools:layout_editor_absoluteY="356dp" />
     <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        style="@style/AppTheme.outLineButton"
         android:id="@+id/send_ver_Button"
         android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_margin="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:text="send "/>
+        android:textColor="@color/white"
+        android:text="Send Email "/>
 
 </LinearLayout>
 </layout>

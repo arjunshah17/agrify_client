@@ -45,12 +45,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
     implementation 'com.firebaseui:firebase-ui-storage:4.3.0'
-    //Circle Image
     implementation 'androidx.paging:paging-runtime:2.1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
-    implementation 'id.zelory:compressor:2.1.0'//image compressor
+    implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'androidx.annotation:annotation:1.1.0-beta01'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
