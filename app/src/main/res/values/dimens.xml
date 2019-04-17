@@ -31,4 +31,5 @@
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_20">20dp</dimen>
     <dimen name="dp_3">3dp</dimen>
+    <dimen name="badge_text_size">16sp</dimen>
 </resources>

@@ -12,6 +12,8 @@ android {
         dataBinding {
             enabled = true
         }
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -40,7 +42,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha05'
     implementation 'com.firebaseui:firebase-ui-firestore:4.3.2'
     implementation 'com.google.firebase:firebase-storage:16.1.0'
-
+    implementation 'com.google.firebase:firebase-firestore:18.2.0'
 
     implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.firebaseui:firebase-ui-auth:4.3.2'
@@ -53,7 +55,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'androidx.annotation:annotation:1.1.0-beta01'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'androidx.navigation:navigation-fragment:2.0.0-rc02'
+    implementation 'androidx.navigation:navigation-fragment:2.1.0-alpha02'
     implementation 'com.github.varunest:sparkbutton:1.0.6'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha04'
@@ -78,6 +80,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
     implementation 'com.github.medyo:fancybuttons:1.9.1'
+    implementation 'com.github.sephiroth74:NumberSlidingPicker:v1.0.3'
+    implementation 'com.vincent.blurdialog:BlurDialog:1.0.1'
+    implementation 'com.google.firebase:firebase-functions:16.3.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

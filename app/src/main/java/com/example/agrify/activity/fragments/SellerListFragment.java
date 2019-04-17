@@ -95,6 +95,7 @@ getSellerList();
 
           intent.putExtra("seller_id",seller.getId());
           intent.putExtra("product_id",product_id);
+          dismiss();
           startActivity(intent);
     }
 }

@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 
 public class Seller {
-    private String name, profilePhotoUrl, phone,email,info,productId;
+    private String name, profilePhotoUrl, phone,email,info,productId,sellerId;
     private DocumentReference StoreProductRef,SellerProductRef,AddressRef;
 
     private float price;
@@ -22,6 +22,7 @@ public class Seller {
     }
 
     public String getName() {
+
         return name;
     }
 
@@ -125,7 +126,7 @@ public class Seller {
         this.imageCount = imageCount;
     }
 
-    public Seller(String name, String profilePhotoUrl, String phone, String email, String info, String productId, DocumentReference storeProductRef, DocumentReference sellerProductRef, DocumentReference addressRef, float price, int stock, int minQuantity, int maxQuantity, int imageCount) {
+    public Seller(String name, String profilePhotoUrl, String phone, String email, String info, String productId, DocumentReference storeProductRef, DocumentReference sellerProductRef, DocumentReference addressRef, float price, int stock, int minQuantity, int maxQuantity, int imageCount,String sellerId) {
         this.name = name;
         this.profilePhotoUrl = profilePhotoUrl;
         this.phone = phone;
@@ -140,5 +141,14 @@ public class Seller {
         this.minQuantity = minQuantity;
         this.maxQuantity = maxQuantity;
         this.imageCount = imageCount;
+        this.sellerId=sellerId;
+    }
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
     }
 }

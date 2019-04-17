@@ -129,15 +129,65 @@ android:gravity="right"
 
 
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
 
             <TextView
                 android:layout_width="wrap_content"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_height="wrap_content"
 android:id="@+id/minQuantity"
+                android:layout_weight="1"
+                android:layout_gravity="start"
+                android:padding="@dimen/dp_6"
                 tools:text="min quantity:25 kg"/>
+
+    <TextView
+        android:id="@+id/maxQuantity"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_6"
+        android:layout_gravity="right"
+        tools:text="max quantity:25 kg" />
+</LinearLayout>
         </LinearLayout>
+
+
         </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/productGridBackgroundColor"
+            app:cardCornerRadius="2dp"
+            android:shadowRadius="3"
+            android:hapticFeedbackEnabled="true"
+            android:accessibilityPaneTitle="@string/hello_world"
+            app:cardElevation="10dp"
+            android:layout_margin="@dimen/dp_6">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/quantity_textLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                tools:hint="enter quantity"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/quantity_editText"
+
+                    android:inputType="number"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
 <com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -151,47 +201,67 @@ android:id="@+id/minQuantity"
 
    >
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="product description"
+    android:textColor="@color/black"
+    android:textAllCaps="true"
+    style="@style/TextAppearance.MaterialComponents.Headline6"
+    android:layout_margin="@dimen/dp_6"
+    />
     <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
 android:id="@+id/text_info"
-
+         tools:text="Wheat is a grass widely cultivated for its seed, a cereal grain which is a worldwide staple food. The many species of wheat together make up the genus Triticum; the most widely grown is common wheat (T. aestivum)."
        android:layout_margin="@dimen/dp_6"
        style="@style/TextAppearance.AppCompat.Body1"/>
+</LinearLayout>
 
 
 
 </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/productGridBackgroundColor"
+            app:cardCornerRadius="2dp"
+            android:visibility="gone"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            app:cardElevation="15dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="seller recommendatiosn"
+                android:textColor="@color/black"
+                android:textAllCaps="true"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_margin="@dimen/dp_6"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seller_recom_rv"
+/>
+            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profilePhoto"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/add_photo" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        tools:text="arjun shah" />
-
-
-</LinearLayout>
     </LinearLayout>
 
 
@@ -212,6 +282,7 @@ android:id="@+id/bottom_button"
                 android:layout_width="wrap_content"
                android:background="@drawable/item_ripple_effect"
                 android:layout_height="match_parent"
+                
                 android:orientation="vertical"
                 android:focusable="true">
 
@@ -242,6 +313,7 @@ android:clickable="false"
                 android:text="@string/add_to_cart"
                 android:layout_weight="1"
                 android:textAllCaps="true"
+                android:id="@+id/add_to_cart_button"
                 app:buttonGradientStartColor="#4776E6"
                 app:buttonGradientEndColor="#8E54E9"
                 android:padding="@dimen/dp_20"

@@ -214,7 +214,7 @@ if(getIntent().getExtras()!=null) {
 
     private void storeFirestoreData(User user) {
 
-        firebaseFirestore.collection("Users").document(user_id).set(user.toUserMap()).addOnCompleteListener(new OnCompleteListener<Void>() {
+        firebaseFirestore.collection("Users").document(user_id).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task task) {
                 if (task.isSuccessful()) {

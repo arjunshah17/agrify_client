@@ -124,7 +124,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
-
+    <color name="secondaryColor">#8e24aa</color>
 
     <color name="buttonNormalColor">#8e24aa</color>
     <color name="buttonControlHighlight">#c158dc</color>

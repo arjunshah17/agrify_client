@@ -2,7 +2,12 @@ package com.example.agrify.activity.fragments;
 
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
+import android.graphics.drawable.LayerDrawable;
+import android.media.MediaDrm;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +35,8 @@ import com.example.agrify.R;
 import com.example.agrify.activity.CartActivity;
 import com.example.agrify.activity.SplashActivity;
 import com.example.agrify.activity.StoreDetailActivity;
+import com.example.agrify.activity.Utils.BadgeDrawable;
+import com.example.agrify.activity.Utils.CartCounter;
 import com.example.agrify.activity.adapter.StoreAdapter;
 import com.example.agrify.activity.auth.LoginActivity;
 import com.example.agrify.activity.listener.NavigationIconClickListener;
@@ -39,6 +46,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -99,6 +107,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
         initFirestore();
         initRecyclerView();
         initListView();
+
 
         bind.signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +259,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
         SearchView searchView = (SearchView) search_item.getActionView();
         searchView.setFocusable(false);
         searchView.setQueryHint("Search");
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -278,7 +288,9 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
                 return false;
             }
         });
-        //call cart activity
+        LayerDrawable icon = (LayerDrawable) add_to_cart.getIcon();
+        CartCounter.loadCounter(icon,getContext());
+        //call Cart activity
         add_to_cart.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -287,6 +299,8 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             }
         });
     }
+
+
 
     void signOut() {
         if (firebaseAuth.getCurrentUser() != null) {
@@ -335,5 +349,8 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             bind.animationView.cancelAnimation();
         }
     }
+
+
+
 
 }

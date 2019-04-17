@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.adapter.StoreAdapter;
+import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.Store;
 import com.example.agrify.databinding.ItemStoreProductBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,6 +61,7 @@ WriteBatch batch;
     {
 
         store=new Store();
+
         firebaseFirestore.collection("store").document(snapshot.getId()).collection("wishlist").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -74,6 +76,7 @@ WriteBatch batch;
             }
         });
 
+
 if(TAG.equals("StoreFragment")) {
      store = snapshot.toObject(Store.class);
     binding.setStore(store);
@@ -86,7 +89,7 @@ if(TAG.equals("StoreFragment")) {
                 .into(binding.productImage);
     }
 }
-else {
+else if(TAG.equals("wishList"))  {
 
     DocumentReference documentReference= firebaseFirestore.collection("store").document(snapshot.getId());
            documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -154,6 +157,28 @@ documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
 }
     }
 });
+
+}
+else if(TAG.equals("SellerProductActivity"))
+{
+   firebaseFirestore.collection("store").document(snapshot.getString("productId")).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+       @Override
+       public void onSuccess(DocumentSnapshot snapshot) {
+           store=snapshot.toObject(Store.class);
+           binding.setStore(store);
+
+
+           // Load image
+           if (activity != null) {
+               GlideApp.with(activity)
+                       .load(store.getProductImageUrl())
+                       .into(binding.productImage);
+           }
+
+       }
+   });
+
+
 
 }
         Resources resources = itemView.getResources();

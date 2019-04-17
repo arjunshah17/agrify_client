@@ -10,7 +10,7 @@
 
         />
     <item
-        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        android:icon="@drawable/ic_menu_cart"
         android:title="@string/add_to_cart"
         app:showAsAction="ifRoom"
         android:id="@+id/addToCartButton"
