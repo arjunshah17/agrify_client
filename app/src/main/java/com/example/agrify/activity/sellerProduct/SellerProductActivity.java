@@ -153,7 +153,8 @@ binding.addToCartButton.setOnClickListener(v->{
                                                 blurDialog=new BlurDialog();
                                                 BlurDialog.Builder builder = new BlurDialog.Builder()
                                                         .isCancelable(true).radius(10)
-                                                        .isOutsideCancelable(true).message("are you sure you want to delete all  items of "+snapshot.getString("name")+" store in cart")
+
+                                                        .isOutsideCancelable(true).message("yout cart contain items from "+snapshot.getString("name")+" store.Do you want discard the selection and add items from "+seller.getName()+" store.")
                                                         .positiveMsg("Yes")
                                                         .negativeMsg("No").positiveClick(new OnPositiveClick() {
                                                             @Override
@@ -185,7 +186,7 @@ binding.addToCartButton.setOnClickListener(v->{
                                                         }) .negativeClick(() -> {
                                                             blurDialog.dismiss();
 
-                                                        }) .type(BlurDialog.TYPE_DELETE)
+                                                        }) .type(BlurDialog.TYPE_DOUBLE_OPTION)
                                                         .createBuilder(SellerProductActivity.this);
                                                 blurDialog.setBuilder(builder);
                                                 blurDialog.show();
