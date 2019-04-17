@@ -147,46 +147,52 @@ binding.addToCartButton.setOnClickListener(v->{
                                     }
                                     else
                                     {
-
-                                        blurDialog=new BlurDialog();
-                                        BlurDialog.Builder builder = new BlurDialog.Builder()
-                                                .isCancelable(true).radius(10)
-                                                .isOutsideCancelable(true).message("are you sure you want to delete all  items in cart of  "+seller.getName()+" store ?")
-                                                .positiveMsg("Yes")
-                                                .negativeMsg("No").positiveClick(new OnPositiveClick() {
-                                                    @Override
-                                                    public void onClick() {
-                                                        clearBatch=null;
-                                                        clearBatch=firebaseFirestore.batch();
-                                                        FirebaseFunctions mFunctions;
-                                                        mFunctions = FirebaseFunctions.getInstance();
-                                                        HashMap<String, Object> storeHash = new HashMap<>();
-
-                                                        CollectionReference ref = firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList");
-                                                        storeHash.put("path", ref.getPath());
-                                                        mFunctions.getHttpsCallable("recursiveDelete").call(storeHash).addOnCompleteListener(new OnCompleteListener<HttpsCallableResult>() {
+                                        firebaseFirestore.collection("Sellers").document(cartSellerId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot snapshot) {
+                                                blurDialog=new BlurDialog();
+                                                BlurDialog.Builder builder = new BlurDialog.Builder()
+                                                        .isCancelable(true).radius(10)
+                                                        .isOutsideCancelable(true).message("are you sure you want to delete all  items of "+snapshot.getString("name")+" store in cart")
+                                                        .positiveMsg("Yes")
+                                                        .negativeMsg("No").positiveClick(new OnPositiveClick() {
                                                             @Override
-                                                            public void onComplete(@NonNull Task<HttpsCallableResult> task) {
-                                                                if(task.isSuccessful()) {
-                                                                    DocumentReference reference = firebaseFirestore.collection("Users").document(auth.getUid());
-                                                                    clearBatch.update(reference, "cartCounter", 0);
-                                                                    clearBatch.update(reference,"cartSellerId",null);
-                                                                    clearBatch.commit();
-                                                                    Toasty.info(getApplicationContext(), "cart is cleared", Toasty.LENGTH_SHORT).show();
-                                                                    insertItemToCart(cart);
-                                                                }
+                                                            public void onClick() {
+                                                                clearBatch=null;
+                                                                clearBatch=firebaseFirestore.batch();
+                                                                FirebaseFunctions mFunctions;
+                                                                mFunctions = FirebaseFunctions.getInstance();
+                                                                HashMap<String, Object> storeHash = new HashMap<>();
+
+                                                                CollectionReference ref = firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList");
+                                                                storeHash.put("path", ref.getPath());
+                                                                mFunctions.getHttpsCallable("recursiveDelete").call(storeHash).addOnCompleteListener(new OnCompleteListener<HttpsCallableResult>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<HttpsCallableResult> task) {
+                                                                        if(task.isSuccessful()) {
+                                                                            DocumentReference reference = firebaseFirestore.collection("Users").document(auth.getUid());
+                                                                            clearBatch.update(reference, "cartCounter", 0);
+                                                                            clearBatch.update(reference,"cartSellerId",null);
+                                                                            clearBatch.commit();
+                                                                            Toasty.info(getApplicationContext(), "cart is cleared", Toasty.LENGTH_SHORT).show();
+                                                                            insertItemToCart(cart);
+                                                                        }
+                                                                    }
+                                                                });
+
+                                                                blurDialog.dismiss();
                                                             }
-                                                        });
+                                                        }) .negativeClick(() -> {
+                                                            blurDialog.dismiss();
 
-                                                        blurDialog.dismiss();
-                                                    }
-                                                }) .negativeClick(() -> {
-                                                    blurDialog.dismiss();
+                                                        }) .type(BlurDialog.TYPE_DELETE)
+                                                        .createBuilder(SellerProductActivity.this);
+                                                blurDialog.setBuilder(builder);
+                                                blurDialog.show();
+                                            }
+                                        });
 
-                                                }) .type(BlurDialog.TYPE_DELETE)
-                                                .createBuilder(SellerProductActivity.this);
-                                        blurDialog.setBuilder(builder);
-                                        blurDialog.show();
+
 
                                     }
 
