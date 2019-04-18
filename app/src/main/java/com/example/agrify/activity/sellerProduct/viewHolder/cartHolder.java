@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.NumberFormat;
+import java.util.Objects;
 
 import it.sephiroth.android.library.numberpicker.NumberPicker;
 
@@ -42,9 +43,9 @@ public class cartHolder extends RecyclerView.ViewHolder {
 
 
 
-        itemCartBinding.quantityNumberpicker.setMinValue(cart.getMinQuantity());
+        itemCartBinding.quantityNumberpicker.setMinValue(Objects.requireNonNull(cart).getMinQuantity());
         itemCartBinding.quantityNumberpicker.setMaxValue(cart.getMaxQuantity());
-        float total_product_price=price*cart.getQuantity();
+        float total_product_price=cart.getPrice()*cart.getQuantity();
         itemCartBinding.productPrice.setText("₹"+NumberFormat.getInstance().format(total_product_price));
 
         itemCartBinding.productName.setText(cart.getName());

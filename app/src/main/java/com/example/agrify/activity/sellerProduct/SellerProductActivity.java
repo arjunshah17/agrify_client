@@ -137,6 +137,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
 
                         String cartSellerId = snapshot.getString("cartSellerId");
 
+                        assert cartSellerId != null;
                         if (cartSellerId.equals("") || cartSellerId == null || cartSellerId.equals(cart.getSellerId())) {
 
 
@@ -207,7 +208,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
                                                                                 if (task.isSuccessful()) {
                                                                                     DocumentReference reference = firebaseFirestore.collection("Users").document(auth.getUid());
                                                                                     clearBatch.update(reference, "cartCounter", 0);
-                                                                                    clearBatch.update(reference, "cartSellerId", null);
+                                                                                    clearBatch.update(reference, "cartSellerId", "");
                                                                                     clearBatch.commit();
                                                                                     Toasty.info(getApplicationContext(), "cart is cleared", Toasty.LENGTH_SHORT).show();
                                                                                     insertItemToCart(cart);
@@ -257,7 +258,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         cartBatch = firebaseFirestore.batch();
 
         DocumentReference cartRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(product_id);
-        DocumentReference sellerCartRef=firebaseFirestore.collection(seller.getSellerProductRef().getPath()+"cartItemUser").document(auth.getUid());
+        DocumentReference sellerCartRef=firebaseFirestore.document(seller.getSellerProductRef().getPath()).collection("cartItemUser").document(auth.getUid());
 
         cartBatch.set(cartRef, cart);
         DocumentReference userRef = firebaseFirestore.collection("Users").document(auth.getUid());

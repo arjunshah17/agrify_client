@@ -13,6 +13,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.Objects;
+
 import javax.annotation.Nullable;
 
 public class CartCounter {
@@ -39,16 +41,13 @@ public class CartCounter {
         userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                try {
 
 
-                    int count = snapshot.getDouble("cartCounter").intValue();
+
+                    int count = Objects.requireNonNull(Objects.requireNonNull(snapshot).getDouble("cartCounter")).intValue();
                     setBadgeCount(context, icon, String.valueOf(count));
-                }
-                catch (Exception e1)
-                {
-                    e.printStackTrace();
-                }
+
+
             }
         });
     }
