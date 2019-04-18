@@ -9,9 +9,17 @@
             name="seller"
             type="com.example.agrify.activity.model.Seller" />
     </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/circle_progressbar"
+            android:id="@+id/progress_bar_layout"/>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     style="@style/Platform.MaterialComponents.Light"
+    android:id="@+id/main_layout"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -169,22 +177,37 @@ android:id="@+id/minQuantity"
             android:hapticFeedbackEnabled="true"
             android:accessibilityPaneTitle="@string/hello_world"
             app:cardElevation="10dp"
-            android:layout_margin="@dimen/dp_6">
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/quantity_textLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                tools:hint="enter quantity"
-                >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/quantity_editText"
+            android:layout_margin="2dp">
 
-                    android:inputType="number"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/dp_12"
+    android:layout_height="wrap_content"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/textQuantity"
+        android:layout_weight="1"
+       android:gravity="center"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        tools:text="enter quantity"/>
+
+    <it.sephiroth.android.library.numberpicker.NumberPicker
+        android:id="@+id/quantity_numberpicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+                      android:showDividers="none"
+
+       
+      style="@style/NumberPicker.Outlined.Horizontal"
+        android:orientation="horizontal"
+      />
+</LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -333,4 +356,5 @@ android:clickable="false"
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
 </layout>

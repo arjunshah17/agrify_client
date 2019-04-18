@@ -152,11 +152,11 @@ if(getIntent().getExtras()!=null) {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 user.setName(firebaseUser.getDisplayName());
-                user.setEmail(firebaseUser.getEmail());
+
                 if (task.isSuccessful()) {
                     if (task.getResult().exists()) {
-                        user.setPhone(task.getResult().getString("phone"));
-
+                       user=task.getResult().toObject(User.class);
+                        user.setEmail(firebaseUser.getEmail());
 
                     }
                     if (firebaseUser.getPhotoUrl() != null) {
@@ -298,7 +298,10 @@ if(getIntent().getExtras()!=null) {
 
     void saveProfile() {
 
-            final User user = new User();
+           if(user.getCartSellerId()==null)
+           {
+               user.setCartSellerId("");
+           }
             user.setName(bind.name.getText().toString());
             user.setPhone(bind.phone.getText().toString());
 

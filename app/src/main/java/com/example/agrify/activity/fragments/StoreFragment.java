@@ -1,13 +1,8 @@
 package com.example.agrify.activity.fragments;
 
 
-import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.graphics.drawable.LayerDrawable;
-import android.media.MediaDrm;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,10 +27,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.agrify.R;
-import com.example.agrify.activity.CartActivity;
-import com.example.agrify.activity.SplashActivity;
+import com.example.agrify.activity.sellerProduct.CartActivity;
 import com.example.agrify.activity.StoreDetailActivity;
-import com.example.agrify.activity.Utils.BadgeDrawable;
 import com.example.agrify.activity.Utils.CartCounter;
 import com.example.agrify.activity.adapter.StoreAdapter;
 import com.example.agrify.activity.auth.LoginActivity;
@@ -43,18 +36,13 @@ import com.example.agrify.activity.listener.NavigationIconClickListener;
 import com.example.agrify.databinding.FragmentStoreBinding;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
 import spencerstudios.com.bungeelib.Bungee;

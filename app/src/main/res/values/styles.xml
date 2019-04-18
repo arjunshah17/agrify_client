@@ -15,7 +15,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="colorControlActivated">@color/colorControlActivated</item>
+        <item name="colorControlActivated">@color/secondaryColor</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
     </style>
 
@@ -33,6 +33,7 @@
         <item name="android:textColor">@color/buttonNormalColor</item>
         <item name="strokeWidth">2dp</item>
         <item name="android:padding">6dp</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:layout_margin">6dp</item>
         <item name="strokeColor">@color/buttonNormalColor</item>
         <item name="rippleColor">@color/primary_color_ripple</item>
@@ -48,6 +49,7 @@
     <style name="AppTheme.outLineButton.delete" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/deleteButtonColor</item>
         <item name="strokeWidth">2dp</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:padding">6dp</item>
         <item name="android:layout_margin">6dp</item>
         <item name="strokeColor">@color/deleteButtonColor</item>
@@ -124,7 +126,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
-    <color name="secondaryColor">#8e24aa</color>
+    <color name="secondaryColor">#8E24AA</color>
 
     <color name="buttonNormalColor">#8e24aa</color>
     <color name="buttonControlHighlight">#c158dc</color>

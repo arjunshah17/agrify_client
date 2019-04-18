@@ -3,15 +3,42 @@ package com.example.agrify.activity.sellerProduct.model;
 import com.google.firebase.firestore.DocumentReference;
 
 public class Cart {
-    String productId,sellerId;
+    String productId,sellerId,name, productImageUrl,unit;
     DocumentReference SellerProductRef;
     int Quantity;
 
-    public Cart(String productId, String sellerId, DocumentReference sellerProductRef, int quantity) {
+    public Cart(String productId, String sellerId, String name, String productImageUrl, String unit, DocumentReference sellerProductRef, int quantity) {
         this.productId = productId;
         this.sellerId = sellerId;
+        this.name = name;
+        this.productImageUrl = productImageUrl;
+        this.unit = unit;
         SellerProductRef = sellerProductRef;
         Quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProductImageUrl() {
+        return productImageUrl;
+    }
+
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public Cart() {

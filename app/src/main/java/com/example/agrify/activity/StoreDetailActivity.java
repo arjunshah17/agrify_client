@@ -6,20 +6,18 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import com.example.agrify.R;
 import com.example.agrify.activity.adapter.SellerAdapter;
 import com.example.agrify.activity.fragments.SellerListFragment;
 import com.example.agrify.activity.model.Store;
+import com.example.agrify.activity.sellerProduct.CartActivity;
 import com.example.agrify.databinding.ActivityStoreDetailBinding;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;

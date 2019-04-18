@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.adapter.StoreAdapter;
-import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.Store;
+import com.example.agrify.databinding.CartItemBinding;
 import com.example.agrify.databinding.ItemStoreProductBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,7 +23,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Source;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 import com.varunest.sparkbutton.SparkEventListener;
