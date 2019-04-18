@@ -129,6 +129,9 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
                     cart.setName(store.getName());
                     cart.setProductImageUrl(store.getProductImageUrl());
                     cart.setUnit(store.getUnit());
+                    cart.setPrice(seller.getPrice());
+                    cart.setMinQuantity(seller.getMinQuantity());
+                    cart.setMaxQuantity(seller.getMaxQuantity());
 
                     firebaseFirestore.collection("Users").document(auth.getUid()).get().addOnSuccessListener(snapshot -> {
 
@@ -189,9 +192,11 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
                                                                 for(QueryDocumentSnapshot doc:task.getResult())
                                                                 {
                                                                     String productId=doc.getId();
-                                                                    DocumentReference ref=firebaseFirestore.collection("store").document(productId).collection("product_user_cart").document(auth.getUid());
-
-                                                                    clearBatch.delete(ref);
+                                                                    String sellerId=doc.getString("sellerId");
+                                                                    DocumentReference Prodref=firebaseFirestore.collection("store").document(productId).collection("product_user_cart").document(auth.getUid());
+                                                                    DocumentReference sellerProductRef=firebaseFirestore.collection("Sellers").document(sellerId).collection("cartItemUser").document(auth.getUid());
+                                                                    clearBatch.delete(Prodref);
+                                                                    clearBatch.delete(sellerProductRef);
                                                                 }
 
                                                                         CollectionReference ref = firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList");
@@ -252,12 +257,15 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         cartBatch = firebaseFirestore.batch();
 
         DocumentReference cartRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(product_id);
+        DocumentReference sellerCartRef=firebaseFirestore.collection(seller.getSellerProductRef().getPath()+"cartItemUser").document(auth.getUid());
+
         cartBatch.set(cartRef, cart);
         DocumentReference userRef = firebaseFirestore.collection("Users").document(auth.getUid());
         DocumentReference product_user_cart=firebaseFirestore.collection("store").document(product_id).collection("product_user_cart").document(auth.getUid());
         HashMap<String,DocumentReference> product_user=new HashMap<>();
         product_user.put("userCartRef",cartRef);
         cartBatch.set(product_user_cart,product_user);
+        cartBatch.set(sellerCartRef,product_user);
 
         cartBatch.update(userRef, "cartSellerId", seller_id);
         cartBatch.update(userRef, "cartCounter", FieldValue.increment(1));

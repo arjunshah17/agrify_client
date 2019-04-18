@@ -5,16 +5,45 @@ import com.google.firebase.firestore.DocumentReference;
 public class Cart {
     String productId,sellerId,name, productImageUrl,unit;
     DocumentReference SellerProductRef;
-    int Quantity;
+       private float price;
 
-    public Cart(String productId, String sellerId, String name, String productImageUrl, String unit, DocumentReference sellerProductRef, int quantity) {
+    int Quantity,minQuantity,maxQuantity;
+
+    public Cart(String productId, String sellerId, String name, String productImageUrl, String unit, DocumentReference sellerProductRef, float price, int quantity, int minQuantity, int maxQuantity) {
         this.productId = productId;
         this.sellerId = sellerId;
         this.name = name;
         this.productImageUrl = productImageUrl;
         this.unit = unit;
         SellerProductRef = sellerProductRef;
+        this.price = price;
         Quantity = quantity;
+        this.minQuantity = minQuantity;
+        this.maxQuantity = maxQuantity;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public int getMinQuantity() {
+        return minQuantity;
+    }
+
+    public void setMinQuantity(int minQuantity) {
+        this.minQuantity = minQuantity;
+    }
+
+    public int getMaxQuantity() {
+        return maxQuantity;
+    }
+
+    public void setMaxQuantity(int maxQuantity) {
+        this.maxQuantity = maxQuantity;
     }
 
     public String getName() {

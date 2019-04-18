@@ -40,16 +40,10 @@ public class cartHolder extends RecyclerView.ViewHolder {
          cart=new Cart();
         cart=snapshot.toObject(Cart.class);
 
-firebaseFirestore.collection("Sellers").document(cart.getSellerId()).collection("productList").document(cart.getProductId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-    @Override
-    public void onSuccess(DocumentSnapshot snapshot) {
-        Seller seller=snapshot.toObject(Seller.class);
-
-      price =seller.getPrice();
 
 
-        itemCartBinding.quantityNumberpicker.setMinValue(seller.getMinQuantity());
-        itemCartBinding.quantityNumberpicker.setMaxValue(seller.getMaxQuantity());
+        itemCartBinding.quantityNumberpicker.setMinValue(cart.getMinQuantity());
+        itemCartBinding.quantityNumberpicker.setMaxValue(cart.getMaxQuantity());
         float total_product_price=price*cart.getQuantity();
         itemCartBinding.productPrice.setText("₹"+NumberFormat.getInstance().format(total_product_price));
 
@@ -83,8 +77,7 @@ firebaseFirestore.collection("Sellers").document(cart.getSellerId()).collection(
         });
 
 
-    }
-});
+
 
     }
 }
