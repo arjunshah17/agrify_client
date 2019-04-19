@@ -167,6 +167,7 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:id="@+id/order_address_button"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_height="wrap_content"
                 android:text="select or change address"/>
