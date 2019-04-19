@@ -12,13 +12,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shawnlin.numberpicker.NumberPicker;
+import com.travijuu.numberpicker.library.Enums.ActionEnum;
+import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.NumberFormat;
 import java.util.Objects;
-
-import it.sephiroth.android.library.numberpicker.NumberPicker;
 
 import static java.text.NumberFormat.getInstance;
 
@@ -42,15 +43,15 @@ public class cartHolder extends RecyclerView.ViewHolder {
         cart=snapshot.toObject(Cart.class);
 
 
-
-        itemCartBinding.quantityNumberpicker.setMinValue(Objects.requireNonNull(cart).getMinQuantity());
-        itemCartBinding.quantityNumberpicker.setMaxValue(cart.getMaxQuantity());
+itemCartBinding.quantityNumberpicker.setDisplayFocusable(true);
+        itemCartBinding.quantityNumberpicker.setMin(Objects.requireNonNull(cart).getMinQuantity());
+        itemCartBinding.quantityNumberpicker.setMax(cart.getMaxQuantity());
         float total_product_price=cart.getPrice()*cart.getQuantity();
         itemCartBinding.productPrice.setText("₹"+NumberFormat.getInstance().format(total_product_price));
 
         itemCartBinding.productName.setText(cart.getName());
-        itemCartBinding.quantityNumberpicker.setProgress(cart.getQuantity());
-        itemCartBinding.textQuantity.setText("quantity of "+cart.getName()+"/"+cart.getUnit());
+        itemCartBinding.quantityNumberpicker.setValue(cart.getQuantity());
+//        itemCartBinding.textQuantity.setText("quantity of "+cart.getName()+"/"+cart.getUnit());
         if (activity != null) {
             GlideApp.with(activity)
                     .load(cart.getProductImageUrl())
@@ -58,24 +59,13 @@ public class cartHolder extends RecyclerView.ViewHolder {
         }
 
         Cart finalCart = cart;
-        itemCartBinding.quantityNumberpicker.setNumberPickerChangeListener(new NumberPicker.OnNumberPickerChangeListener() {
-            @Override
-            public void onProgressChanged(@NotNull NumberPicker numberPicker, int i, boolean b) {
-                firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(finalCart.getProductId()).update("Quantity",numberPicker.getProgress());
-//                float total_product_price=price*numberPicker.getProgress();
-//                itemCartBinding.productPrice.setText("₹"+NumberFormat.getInstance().format(total_product_price));
-            }
 
-            @Override
-            public void onStartTrackingTouch(@NotNull NumberPicker numberPicker) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(@NotNull NumberPicker numberPicker) {
-
-            }
-        });
+itemCartBinding.quantityNumberpicker.setValueChangedListener(new ValueChangedListener() {
+    @Override
+    public void valueChanged(int value, ActionEnum action) {
+        firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(finalCart.getProductId()).update("Quantity",value);
+    }
+});
 
 
 

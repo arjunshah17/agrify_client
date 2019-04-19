@@ -18,6 +18,7 @@ import com.example.agrify.R;
 import com.example.agrify.activity.Utils.CartCounter;
 import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.Store;
+import com.example.agrify.activity.order.orderActivity;
 import com.example.agrify.activity.sellerProduct.adpater.SellerRecomAdpater;
 import com.example.agrify.activity.sellerProduct.model.Cart;
 import com.example.agrify.databinding.ActivitySellerProductBinding;
@@ -111,7 +112,9 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             addToCart();
         });
 
-
+binding.buyNow.setOnClickListener(v->{
+    startActivity(new Intent(getApplicationContext(), orderActivity.class));
+});
     }
 
     private void addToCart() {

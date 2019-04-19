@@ -27,6 +27,7 @@ import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 import com.varunest.sparkbutton.SparkEventListener;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,7 +81,7 @@ if(TAG.equals("StoreFragment")) {
      store = snapshot.toObject(Store.class);
     binding.setStore(store);
 
-
+binding.price.setText("start from ₹"+ NumberFormat.getInstance().format(store.getPrice())+"/"+store.getUnit());
     // Load image
     if (activity != null) {
         GlideApp.with(activity)

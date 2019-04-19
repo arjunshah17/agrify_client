@@ -15,6 +15,51 @@
     <string name="changeProfile">Change Profile</string>
 
 
+    <string name="shr_filter_title">Filter</string>
+
+
+    <string name="shr_search_title">Search</string>
+    <string name="username">user name</string>
+
+
+    <!-- Shrine backdrop menu labels -->
+    <string name="editProfileBtn">edit profile</string>
+    <string name="profile_menu_save">save</string>
+    <string name="forgot_password">Forgot password?</string>
+
+
+    //authentication
+    <string name="password_error">password must be of 6 char or greater and no  space is allowed</string>
+
+
+    //validation auth
+    <string name="username_empty">user name cannot empty</string>
+    <string name="phone_error">phone no is invalid</string>
+    <string name="password_match_error">both password must match</string>
+    <string name="email_verification">You will receive an email with instructions of verification of email.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    //transaction names
+
+
+    <string name="no_products_found">no product found</string>
+
+    <string name="productimageslider">ProductImageSlider</string>
+
+    <string name="productname">ProductName</string>
+    <string name="seller_location">Location</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="products">products</string>
+    <string name="rating_bar_title">rating bar</string>
+    <string name="store_product_transition">store_product_transition</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="remove">Remove</string>
+    <string name="move_wishlist">Move WishList</string>
+    <string name="place_name">Place Name</string>
+    <string name="place_address">Place Address</string>
+    <string name="save_address">Save Address</string>
+    <string name="add_address">ADD NEW ADDRESS</string>
     <string-array name="categories_names">
 
         <item>all</item>
@@ -27,46 +72,5 @@
         <item>dairy products</item>
 
     </string-array>
-
-
-    <string name="shr_filter_title">Filter</string>
-    <string name="shr_search_title">Search</string>
-
-
-    <!-- Shrine backdrop menu labels -->
-    <string name="username">user name</string>
-    <string name="editProfileBtn">edit profile</string>
-    <string name="profile_menu_save">save</string>
-
-
-    //authentication
-    <string name="forgot_password">Forgot password?</string>
-
-
-    //validation auth
-    <string name="password_error">password must be of 6 char or greater and no  space is allowed</string>
-    <string name="username_empty">user name cannot empty</string>
-    <string name="phone_error">phone no is invalid</string>
-    <string name="password_match_error">both password must match</string>
-    <string name="email_verification">You will receive an email with instructions of verification of email.</string>
-
-
-    //transaction names
-
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="no_products_found">no product found</string>
-
-    <string name="productimageslider">ProductImageSlider</string>
-    <string name="productname">ProductName</string>
-    <string name="seller_location">Location</string>
-    <string name="buy_now">Buy Now</string>
-    <string name="products">products</string>
-    <string name="rating_bar_title">rating bar</string>
-    <string name="store_product_transition">store_product_transition</string>
-    <string name="add_to_cart">Add to cart</string>
-    <string name="remove">Remove</string>
-    <string name="move_wishlist">Move WishList</string>
 </resources>
 

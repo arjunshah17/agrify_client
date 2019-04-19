@@ -96,6 +96,7 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
 
     private void StoreLoaded(final Store store) {
         bind.setStore(store);
+
         bind.sellerlistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

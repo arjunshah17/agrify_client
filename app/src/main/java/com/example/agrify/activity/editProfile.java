@@ -24,6 +24,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.basgeekball.awesomevalidation.validators.Validator;
 import com.example.agrify.R;
+import com.example.agrify.activity.address.addressListActivity;
 import com.example.agrify.activity.model.User;
 import com.example.agrify.databinding.ActivityEditProfileBinding;
 import com.google.android.gms.tasks.Continuation;
@@ -108,7 +109,12 @@ if(getIntent().getExtras()!=null) {
                 });
             }
         });
+        bind.addressButton.setOnClickListener(v -> {
 
+            Intent intent = new Intent(editProfile.this, addressListActivity.class);
+            startActivity(intent);
+            Toast.makeText(editProfile.this, "Manage Address", Toast.LENGTH_LONG).show();
+        });
 
         bind.userProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override

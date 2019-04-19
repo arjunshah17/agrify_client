@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/animation_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            >
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view_text"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+
+
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/animation_loading_text"
+                />
+
+            <com.airbnb.lottie.LottieAnimationView
+
+                android:id="@+id/animation_view"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                app:lottie_rawRes="@raw/animation_loading"
+
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true" />
+        </LinearLayout>
+    <RelativeLayout
+        android:id="@id/main_layout"
+        style="@style/Platform.MaterialComponents.Light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/curve_background_secondary_color"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <LinearLayout
+            style="@style/Widget.Shrine.Backdrop"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="100dp"
+            android:paddingBottom="100dp" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/app_bar"
+                style="@style/Widget.Shrine.Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center"
+                android:tooltipText="back"
+                app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                app:title="order conformation"
+                />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/acitvity_detailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@id/appbarlayout"
+            android:background="@drawable/curve_background_secondary_color"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:orientation="vertical">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="vertical"
+    android:layout_weight="1">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/productGridBackgroundColor"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+
+        android:layout_margin="@dimen/dp_3"
+
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="shipping details"
+                android:textAllCaps="true"
+                android:layout_margin="@dimen/dp_6"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?attr/dividerHorizontal"/>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/address_layout">
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_6"
+                android:id="@+id/address_name_tv"
+                tools:text="home"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+
+                />
+            <TextView
+                android:id="@+id/address_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_6"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                tools:text="102,h,browun avenue maple county 2, thaltej ahmedabad,-380058"/>
+
+</LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?attr/dividerHorizontal"/>
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_height="wrap_content"
+                android:text="select or change address"/>
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/productGridBackgroundColor"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="@dimen/dp_3"
+        app:cardElevation="2dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+
+
+            >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="payment methods"
+            android:textAllCaps="true"
+            android:layout_margin="@dimen/dp_6"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?attr/dividerHorizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/dp_24"
+
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/payment_method_icon"
+                    android:src="@drawable/fui_ic_googleg_color_24dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/payment_method_text"
+                    android:layout_height="wrap_content"
+                    android:text="Google pay"/>
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?attr/dividerHorizontal"/>
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="select or change payment method "
+
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:textColor="@color/secondaryColor"
+                android:layout_gravity="center"
+
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/productGridBackgroundColor"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="@dimen/dp_3"
+        app:cardElevation="2dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+
+
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="review your order"
+            android:textAllCaps="true"
+            android:layout_margin="@dimen/dp_6"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?attr/dividerHorizontal"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/order_recycleView"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</LinearLayout>
+
+</ScrollView>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="12dp"
+
+                    android:background="@drawable/store_item_background"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total"
+                            android:layout_gravity="center_vertical"
+                            style="@style/TextAppearance.MaterialComponents.Body1"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:textAllCaps="true"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/total_price"
+                            style="@style/TextAppearance.MaterialComponents.Headline5"
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:textStyle="bold"
+                            tools:text="$60,00"
+                            android:layout_gravity="center_vertical"
+
+                            />
+                    </LinearLayout>
+                    <life.sabujak.roundedbutton.RoundedButton
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:layout_width="wrap_content"
+                        android:textAllCaps="true"
+                        android:text="place order"
+
+
+                        app:buttonCornerRadius="10dp"
+                        android:layout_margin="@dimen/dp_12"
+                        android:layout_gravity="center"
+                        android:id="@+id/checkout_button"
+                        android:padding="@dimen/dp_20"
+                        app:buttonGradientStartColor="#cc2b5e"
+                        app:buttonGradientEndColor="#753a88"
+                        android:layout_height="wrap_content"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+    </RelativeLayout>
+</layout>
+
