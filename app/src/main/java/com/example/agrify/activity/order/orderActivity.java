@@ -76,7 +76,7 @@ public class orderActivity extends AppCompatActivity implements AddressAdapter.O
             cartAdapter.startListening();
         }
     }
-
+//
     @Override
     public void OnAddressSelected(DocumentSnapshot snapshot) {
         addressListFragment.dismiss();
