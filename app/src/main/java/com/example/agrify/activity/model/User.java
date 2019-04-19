@@ -4,19 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
-    private String name, email, phone, profilePhotoUrl,cartSellerId;
+    private String name, email, phone, profilePhotoUrl,cartSellerId,tempOrderSellerId;
     int cartCounter;
 
     public User() {
     }
 
-    public User(String name, String email, String phone, String profilePhotoUrl,String cartSellerId,int cartCounter) {
+    public User(String name, String email, String phone, String profilePhotoUrl,String cartSellerId,int cartCounter,String tempOrderSellerId) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.profilePhotoUrl = profilePhotoUrl;
         this.cartSellerId=cartSellerId;
         this.cartCounter=cartCounter;
+        this.tempOrderSellerId=tempOrderSellerId;
+    }
+
+    public String getTempOrderSellerId() {
+        return tempOrderSellerId;
+    }
+
+    public void setTempOrderSellerId(String tempOrderSellerId) {
+        this.tempOrderSellerId = tempOrderSellerId;
     }
 
     public int getCartCounter() {

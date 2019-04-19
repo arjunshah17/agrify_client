@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.app.DownloadManager;
-import android.media.MediaDrm;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.agrify.R;
+import com.example.agrify.activity.model.Seller;
+import com.example.agrify.activity.order.orderActivity;
 import com.example.agrify.activity.sellerProduct.adpater.CartAdapter;
 import com.example.agrify.activity.sellerProduct.model.Cart;
 import com.example.agrify.databinding.ActivityCartBinding;
@@ -20,28 +21,38 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.annotation.Nullable;
 
-public class CartActivity extends AppCompatActivity {
+import es.dmoral.toasty.Toasty;
+
+public class CartActivity extends AppCompatActivity implements CartAdapter.OnOutOfStockListener {
 ActivityCartBinding bind;
 CartAdapter cartAdapter;
 Query query;
 FirebaseFirestore firebaseFirestore;
 FirebaseAuth auth;
 CollectionReference Total_amount_ref;
+boolean isOutOfStock;
+
     private ListenerRegistration cartItemListener;
+
 float total_price=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,26 +61,79 @@ float total_price=0;
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
         initCartRecycleView();
-        Total_amount_ref=firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList");
-        Total_amount_ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        bind.appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful())
-                {
-                  QuerySnapshot snapshot= task.getResult();
-                  getTotalAmount(snapshot);
-
-                }
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
+        Total_amount_ref=firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList");
+
+
          Total_amount_ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                total_price=0;
+total_price=0;
                 getTotalAmount(queryDocumentSnapshots);
             }
         });
+bind.checkoutButton.setOnClickListener(v -> {
+
+if(isOutOfStock)
+{
+    Toasty.error(getApplicationContext(),"some of products are not in stock,try to reduce quantity",Toasty.LENGTH_SHORT).show();
+}
+else
+    {
+
+       createTempOrderCart() ;
+
+    }
+
+});
+
+    }
+
+    private void createTempOrderCart() {
+total_price=0;
+        WriteBatch orderBatch=firebaseFirestore.batch();
+
+DocumentReference UserRef=firebaseFirestore.collection("Users").document(auth.getUid());
+firebaseFirestore.runTransaction(new Transaction.Function<Void>() {
+    @androidx.annotation.Nullable
+    @Override
+    public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+        DocumentSnapshot user=transaction.get(UserRef);
+
+
+        orderBatch.update(UserRef,"tempOrderSellerId",user.getString("cartSellerId"));
+        for(int i=0;i<cartAdapter.getItemCount();i++) {
+            Cart cartItem = cartAdapter.getCart(i);
+            DocumentReference tempOrderCart=firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(cartItem.getProductId());
+            DocumentReference sellerTempOrderCart=firebaseFirestore.document(cartItem.getSellerProductRef().getPath()).collection("tempOrderCart").document(auth.getUid());
+            HashMap<String,DocumentReference> sellerIdHash=new HashMap<>();
+            sellerIdHash.put("tempOrderCartId",tempOrderCart);
+
+            orderBatch.set(tempOrderCart,cartItem);
+            orderBatch.set(sellerTempOrderCart,sellerIdHash);
+
+        }
+
+        orderBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                    startActivity(new Intent(getApplicationContext(),orderActivity.class));
+                else Toasty.error(getApplicationContext(),task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
+            }
+        });
+        return null;
+    }
+
+
+});
+
 
 
     }
@@ -77,7 +141,7 @@ float total_price=0;
 
     private void initCartRecycleView() {
         query=firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList");
-        cartAdapter=new CartAdapter(query,this){
+        cartAdapter=new CartAdapter(query,this,this){
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 super.onEvent(documentSnapshots, e);
@@ -172,5 +236,39 @@ float total_price=0;
             bind.mainLayout.setVisibility(View.VISIBLE);
             bind.animationView.cancelAnimation();
         }
+    }
+
+    ArrayList<String> productIdList=new ArrayList();
+
+
+    @Override
+    public void onOutofStock(boolean status, String product_id) {
+
+
+       if(productIdList.contains(product_id))
+       {
+           if(status)
+           {
+               productIdList.remove(product_id);
+           }
+       }
+       else
+       {
+           if(!status)
+           {
+               productIdList.add(product_id);
+           }
+
+       }
+
+    if(productIdList.size()==cartAdapter.getItemCount())
+    {
+    isOutOfStock=false;
+    }
+    else
+    {
+        isOutOfStock=true;
+    }
+
     }
 }

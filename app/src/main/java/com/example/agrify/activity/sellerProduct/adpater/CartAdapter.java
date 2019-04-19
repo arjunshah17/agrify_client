@@ -9,18 +9,23 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.adapter.FirestoreAdapter;
+import com.example.agrify.activity.sellerProduct.model.Cart;
 import com.example.agrify.activity.sellerProduct.viewHolder.cartHolder;
-import com.example.agrify.activity.viewHolder.StoreHolder;
 import com.example.agrify.databinding.CartItemBinding;
-import com.example.agrify.databinding.ItemStoreProductBinding;
 import com.google.firebase.firestore.Query;
 
 public class CartAdapter extends FirestoreAdapter<cartHolder> {
     Activity activity;
+    public interface OnOutOfStockListener {
 
-    public CartAdapter(Query query, Activity activity) {
+        void onOutofStock(boolean status, String product_id);
+
+    }
+    private OnOutOfStockListener Listener;
+    public CartAdapter(Query query, Activity activity, OnOutOfStockListener Listener) {
         super(query);
         this.activity=activity;
+        this.Listener=Listener;
     }
 
     @NonNull
@@ -36,7 +41,11 @@ public class CartAdapter extends FirestoreAdapter<cartHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull cartHolder holder, int position) {
-        holder.bind(getSnapshot(position),activity);
+        holder.bind(getSnapshot(position),activity,Listener);
 
     }
+   public Cart getCart(int pos)
+   {
+       return getSnapshot(pos).toObject(Cart.class);
+   }
 }

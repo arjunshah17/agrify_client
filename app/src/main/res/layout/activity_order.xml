@@ -38,7 +38,7 @@
                 app:lottie_autoPlay="true" />
         </LinearLayout>
     <RelativeLayout
-        android:id="@id/main_layout"
+        android:id="@+id/main_layout"
         style="@style/Platform.MaterialComponents.Light"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -74,7 +74,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/acitvity_detailLayout"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -89,7 +89,7 @@
 
 
                 android:orientation="vertical">
-<ScrollView
+<androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:orientation="vertical"
@@ -129,8 +129,8 @@
                 />
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="?attr/dividerHorizontal"/>
+                android:layout_height="3dp"
+                android:background="@drawable/curve_background_secondary_color"/>
 
 
 <LinearLayout
@@ -247,7 +247,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/productGridBackgroundColor"
         app:cardCornerRadius="10dp"
         android:layout_margin="@dimen/dp_3"
@@ -274,6 +274,7 @@
             android:background="?attr/dividerHorizontal"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
+android:nestedScrollingEnabled="false"
             android:id="@+id/order_recycleView"
             android:layout_height="match_parent"/>
     </LinearLayout>
@@ -281,9 +282,10 @@
 
 
 
+
 </LinearLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
 
 
 
@@ -298,6 +300,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+
                         android:layout_gravity="center_vertical"
                         android:orientation="vertical">
 
@@ -335,7 +338,7 @@
                         app:buttonCornerRadius="10dp"
                         android:layout_margin="@dimen/dp_12"
                         android:layout_gravity="center"
-                        android:id="@+id/checkout_button"
+                        android:id="@+id/place_order_button"
                         android:padding="@dimen/dp_20"
                         app:buttonGradientStartColor="#cc2b5e"
                         app:buttonGradientEndColor="#753a88"
