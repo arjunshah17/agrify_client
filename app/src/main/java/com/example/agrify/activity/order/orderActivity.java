@@ -17,6 +17,7 @@ import com.example.agrify.activity.address.model.Address;
 import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.User;
 import com.example.agrify.activity.order.model.Order;
+import com.example.agrify.activity.order.model.OrderItem;
 import com.example.agrify.activity.sellerProduct.adpater.CartAdapter;
 import com.example.agrify.activity.sellerProduct.model.Cart;
 import com.example.agrify.databinding.ActivityOrderBinding;
@@ -104,8 +105,6 @@ address=new Address();
                     Toasty.error(getApplicationContext(), "some of products are out of stock ,try to reduce quantity", Toasty.LENGTH_SHORT).show();
                 } else {
                     try {
-
-
                         placeOrder();
                     }
                     catch (Exception ex)
@@ -142,16 +141,11 @@ loadingState(true);
                           public void onSuccess(DocumentSnapshot Sellershot) {
                               seller =Sellershot.toObject(Seller.class);
                               order.setUserId(UserShot.getId());
-                              order.setUserName(user.getName());
-                              order.setUserEmail(user.getEmail());
-                              order.setUserPhone(user.getPhone());
+
                               order.setUserAddressname(orderAddress.getName());
                               order.setUserHouseNum(orderAddress.getHouseNum());
                               order.setUserLocation(orderAddress.getLocation());
                               order.setSellerId(Sellershot.getId());
-                              order.setSellername(seller.getName());
-                              order.setSellerEmail(seller.getEmail());
-                              order.setSellerPhone(seller.getPhone());
                               order.setOrderStatus("pendding");
 
 
@@ -167,12 +161,22 @@ loadingState(true);
 
                                        for(int i=0;i<cartAdapter.getItemCount();i++) {
                                            Cart cartItem = cartAdapter.getCart(i);
+                                           OrderItem orderItem = new OrderItem();
+                                           orderItem.setName(cartItem.getName());
+                                           orderItem.setPrice(cartItem.getPrice());
+                                           orderItem.setProductId(cartItem.getProductId());
+                                           orderItem.setSellerId(cartItem.getSellerId());
+                                           orderItem.setSellerProductRef(cartItem.getSellerProductRef());
+                                           orderItem.setProductImageUrl(cartItem.getProductImageUrl());
+                                           orderItem.setUnit(cartItem.getUnit());
+                                           orderItem.setProductImageUrl(cartItem.getProductImageUrl());
+
                                            DocumentReference userOrderItem=firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
                                            DocumentReference sellerOrderItem=firebaseFirestore.collection("Sellers").document(order.getSellerId()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
 
 
-                                           orderBatch.set(userOrderItem,cartItem);
-                                           orderBatch.set(sellerOrderItem,cartItem);
+                                           orderBatch.set(userOrderItem, orderItem);
+                                           orderBatch.set(sellerOrderItem, orderItem);
 
                                        }
 

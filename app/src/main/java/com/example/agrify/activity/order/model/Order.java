@@ -7,12 +7,9 @@ public class Order {
     private String userHouseNum,userAddressname,orderId;
     private GeoPoint userGeoLocation;
     private String UserLocation;
-    private String sellerHouseNum,sellerAddressname;
-    private GeoPoint sellerGeoLocation;
-    private String sellerLocation;
     private String paymentMode;
-    private String userName, userEmail, userPhone, UserProfilePhotoUrl;
-    private String Sellername, sellerEmail, sellerPhone, sellerProfilePhotoUrl;
+
+
     private String userId;
     private String SellerId;
    private Timestamp timestamp;
@@ -21,25 +18,13 @@ public class Order {
     public Order() {
     }
 
-    public Order(String userHouseNum, String userAddressname, String orderId, GeoPoint userGeoLocation, String userLocation, String sellerHouseNum, String sellerAddressname, GeoPoint sellerGeoLocation, String sellerLocation, String paymentMode, String userName, String userEmail, String userPhone, String userProfilePhotoUrl, String sellername, String sellerEmail, String sellerPhone, String sellerProfilePhotoUrl, String userId, String sellerId, Timestamp timestamp, String orderStatus) {
+    public Order(String userHouseNum, String userAddressname, String orderId, GeoPoint userGeoLocation, String userLocation, String paymentMode, String userId, String sellerId, Timestamp timestamp, String orderStatus) {
         this.userHouseNum = userHouseNum;
         this.userAddressname = userAddressname;
         this.orderId = orderId;
         this.userGeoLocation = userGeoLocation;
         UserLocation = userLocation;
-        this.sellerHouseNum = sellerHouseNum;
-        this.sellerAddressname = sellerAddressname;
-        this.sellerGeoLocation = sellerGeoLocation;
-        this.sellerLocation = sellerLocation;
         this.paymentMode = paymentMode;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userPhone = userPhone;
-        UserProfilePhotoUrl = userProfilePhotoUrl;
-        Sellername = sellername;
-        this.sellerEmail = sellerEmail;
-        this.sellerPhone = sellerPhone;
-        this.sellerProfilePhotoUrl = sellerProfilePhotoUrl;
         this.userId = userId;
         SellerId = sellerId;
         this.timestamp = timestamp;
@@ -86,108 +71,12 @@ public class Order {
         UserLocation = userLocation;
     }
 
-    public String getSellerHouseNum() {
-        return sellerHouseNum;
-    }
-
-    public void setSellerHouseNum(String sellerHouseNum) {
-        this.sellerHouseNum = sellerHouseNum;
-    }
-
-    public String getSellerAddressname() {
-        return sellerAddressname;
-    }
-
-    public void setSellerAddressname(String sellerAddressname) {
-        this.sellerAddressname = sellerAddressname;
-    }
-
-    public GeoPoint getSellerGeoLocation() {
-        return sellerGeoLocation;
-    }
-
-    public void setSellerGeoLocation(GeoPoint sellerGeoLocation) {
-        this.sellerGeoLocation = sellerGeoLocation;
-    }
-
-    public String getSellerLocation() {
-        return sellerLocation;
-    }
-
-    public void setSellerLocation(String sellerLocation) {
-        this.sellerLocation = sellerLocation;
-    }
-
     public String getPaymentMode() {
         return paymentMode;
     }
 
     public void setPaymentMode(String paymentMode) {
         this.paymentMode = paymentMode;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
-
-    public String getUserProfilePhotoUrl() {
-        return UserProfilePhotoUrl;
-    }
-
-    public void setUserProfilePhotoUrl(String userProfilePhotoUrl) {
-        UserProfilePhotoUrl = userProfilePhotoUrl;
-    }
-
-    public String getSellername() {
-        return Sellername;
-    }
-
-    public void setSellername(String sellername) {
-        Sellername = sellername;
-    }
-
-    public String getSellerEmail() {
-        return sellerEmail;
-    }
-
-    public void setSellerEmail(String sellerEmail) {
-        this.sellerEmail = sellerEmail;
-    }
-
-    public String getSellerPhone() {
-        return sellerPhone;
-    }
-
-    public void setSellerPhone(String sellerPhone) {
-        this.sellerPhone = sellerPhone;
-    }
-
-    public String getSellerProfilePhotoUrl() {
-        return sellerProfilePhotoUrl;
-    }
-
-    public void setSellerProfilePhotoUrl(String sellerProfilePhotoUrl) {
-        this.sellerProfilePhotoUrl = sellerProfilePhotoUrl;
     }
 
     public String getUserId() {
