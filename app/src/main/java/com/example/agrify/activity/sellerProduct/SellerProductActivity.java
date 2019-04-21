@@ -18,6 +18,8 @@ import com.example.agrify.R;
 import com.example.agrify.activity.Utils.CartCounter;
 import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.Store;
+import com.example.agrify.activity.order.model.Order;
+import com.example.agrify.activity.order.model.OrderItem;
 import com.example.agrify.activity.order.orderActivity;
 import com.example.agrify.activity.sellerProduct.adpater.SellerRecomAdpater;
 import com.example.agrify.activity.sellerProduct.model.Cart;
@@ -46,6 +48,7 @@ import com.vincent.blurdialog.BlurDialog;
 import com.vincent.blurdialog.listener.OnPositiveClick;
 
 
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +56,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
+import it.sephiroth.android.library.numberpicker.NumberPicker;
 
 
 public class SellerProductActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>, SellerRecomAdpater.OnProductSelectedListener {
@@ -68,6 +72,8 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
     FirebaseAuth auth;
     BlurDialog blurDialog;
     Seller seller;
+
+    boolean isOutOfStock = false;
     String unit, name;
     private DocumentReference mSellerProductRef;
     private ListenerRegistration sellerProductListener;
@@ -86,7 +92,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             Log.i("product_id", product_id);
             Log.i("seller_id", seller_id);
         }
-        store=new Store();
+        store = new Store();
 
         auth = FirebaseAuth.getInstance();
 
@@ -111,11 +117,66 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         binding.addToCartButton.setOnClickListener(v -> {
             addToCart();
         });
+        binding.quantityNumberpicker.setNumberPickerChangeListener(new NumberPicker.OnNumberPickerChangeListener() {
+            @Override
+            public void onProgressChanged(@NotNull NumberPicker numberPicker, int i, boolean b) {
+                if (seller.getStock() > numberPicker.getProgress())
+                    setOutOfStock(false);
+                else setOutOfStock(true);
 
-binding.buyNow.setOnClickListener(v->{
-    startActivity(new Intent(getApplicationContext(), orderActivity.class));
-});
+            }
+
+            @Override
+            public void onStartTrackingTouch(@NotNull NumberPicker numberPicker) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(@NotNull NumberPicker numberPicker) {
+
+            }
+        });
+        binding.buyNow.setOnClickListener(v -> {
+            if (isOutOfStock) {
+                Toasty.error(getApplicationContext(), "some of products are not in stock,try to reduce quantity", Toasty.LENGTH_SHORT).show();
+            } else {
+                WriteBatch deleteBatch = firebaseFirestore.batch();
+                firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            DocumentReference SellerProductref = firebaseFirestore.collection("Sellers").document(doc.getString("sellerId")).collection("productList").document(doc.getString("productId")).collection("tempOrderCart").document(auth.getUid());
+                            DocumentReference UserProductRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(doc.getString("productId"));
+                            deleteBatch.delete(SellerProductref);
+                            deleteBatch.delete(UserProductRef);
+                        }
+                        deleteBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    createTempOrderCart();
+                                } else {
+                                    Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+                    }
+                });
+
+
+            }
+        });
     }
+
+    private void createTempOrderCart() {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setName(name);
+
+
+    }
+
 
     private void addToCart() {
         final int[] Quantity = {0};
@@ -132,9 +193,11 @@ binding.buyNow.setOnClickListener(v->{
                     cart.setName(store.getName());
                     cart.setProductImageUrl(store.getProductImageUrl());
                     cart.setUnit(store.getUnit());
+                    cart.setSellerProductRef(seller.getSellerProductRef());
                     cart.setPrice(seller.getPrice());
-                    cart.setMinQuantity(seller.getMinQuantity());
                     cart.setMaxQuantity(seller.getMaxQuantity());
+                    cart.setMinQuantity(seller.getMinQuantity());
+
 
                     firebaseFirestore.collection("Users").document(auth.getUid()).get().addOnSuccessListener(snapshot -> {
 
@@ -262,7 +325,8 @@ binding.buyNow.setOnClickListener(v->{
 
         DocumentReference cartRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(product_id);
         DocumentReference sellerCartRef=firebaseFirestore.document(seller.getSellerProductRef().getPath()).collection("cartItemUser").document(auth.getUid());
-
+        cart.setUserCartProductRef(cartRef);
+        cart.setSellerCartProductRef(sellerCartRef);
         cartBatch.set(cartRef, cart);
         DocumentReference userRef = firebaseFirestore.collection("Users").document(auth.getUid());
         DocumentReference product_user_cart=firebaseFirestore.collection("store").document(product_id).collection("product_user_cart").document(auth.getUid());
@@ -388,6 +452,10 @@ productLoading(true);
         binding.appBar.setTitle(seller.getName());
         binding.sellerPrice.setText(seller.getPrice() + "/" + unit);
         binding.textQuantity.setText("enter quantity of " + name + " in " + unit);
+        if (seller.getStock() > binding.quantityNumberpicker.getProgress())
+            setOutOfStock(false);
+        else setOutOfStock(true);
+
 
 
 
@@ -438,6 +506,16 @@ productLoading(true);
         {
             binding.progressBarLayout.progressBarLoader.setVisibility(View.GONE);
             binding.mainLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    void setOutOfStock(boolean state) {
+        if (state) {
+            isOutOfStock = true;
+            binding.outOfStock.setVisibility(View.VISIBLE);
+        } else {
+            isOutOfStock = false;
+            binding.outOfStock.setVisibility(View.GONE);
         }
     }
 }

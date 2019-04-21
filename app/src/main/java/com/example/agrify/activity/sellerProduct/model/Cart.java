@@ -2,19 +2,26 @@ package com.example.agrify.activity.sellerProduct.model;
 
 import com.google.firebase.firestore.DocumentReference;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class Cart {
-    String productId,sellerId,name, productImageUrl,unit;
-    DocumentReference SellerProductRef;
-       private float price;
+    DocumentReference sellerCartProductRef, userCartProductRef, SellerProductRef;
+    private String productId, sellerId, name, productImageUrl, unit;
+    private float price;
 
     int Quantity,minQuantity,maxQuantity;
 
-    public Cart(String productId, String sellerId, String name, String productImageUrl, String unit, DocumentReference sellerProductRef, float price, int quantity, int minQuantity, int maxQuantity) {
+
+    public Cart(String productId, String sellerId, String name, String productImageUrl, String unit, DocumentReference sellerCartProductRef, DocumentReference userCartProductRef, DocumentReference sellerProductRef, float price, int quantity, int minQuantity, int maxQuantity) {
         this.productId = productId;
         this.sellerId = sellerId;
         this.name = name;
         this.productImageUrl = productImageUrl;
         this.unit = unit;
+        this.sellerCartProductRef = sellerCartProductRef;
+        this.userCartProductRef = userCartProductRef;
         SellerProductRef = sellerProductRef;
         this.price = price;
         Quantity = quantity;
@@ -22,28 +29,26 @@ public class Cart {
         this.maxQuantity = maxQuantity;
     }
 
-    public float getPrice() {
-        return price;
+    public Cart() {
+
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+
+
+    public String getProductId() {
+        return productId;
     }
 
-    public int getMinQuantity() {
-        return minQuantity;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
-    public void setMinQuantity(int minQuantity) {
-        this.minQuantity = minQuantity;
+    public String getSellerId() {
+        return sellerId;
     }
 
-    public int getMaxQuantity() {
-        return maxQuantity;
-    }
-
-    public void setMaxQuantity(int maxQuantity) {
-        this.maxQuantity = maxQuantity;
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
     }
 
     public String getName() {
@@ -70,24 +75,20 @@ public class Cart {
         this.unit = unit;
     }
 
-    public Cart() {
-
+    public DocumentReference getSellerCartProductRef() {
+        return sellerCartProductRef;
     }
 
-    public String getSellerId() {
-        return sellerId;
+    public void setSellerCartProductRef(DocumentReference sellerCartProductRef) {
+        this.sellerCartProductRef = sellerCartProductRef;
     }
 
-    public void setSellerId(String sellerId) {
-        this.sellerId = sellerId;
+    public DocumentReference getUserCartProductRef() {
+        return userCartProductRef;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setUserCartProductRef(DocumentReference userCartProductRef) {
+        this.userCartProductRef = userCartProductRef;
     }
 
     public DocumentReference getSellerProductRef() {
@@ -98,11 +99,35 @@ public class Cart {
         SellerProductRef = sellerProductRef;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     public int getQuantity() {
         return Quantity;
     }
 
     public void setQuantity(int quantity) {
         Quantity = quantity;
+    }
+
+    public int getMinQuantity() {
+        return minQuantity;
+    }
+
+    public void setMinQuantity(int minQuantity) {
+        this.minQuantity = minQuantity;
+    }
+
+    public int getMaxQuantity() {
+        return maxQuantity;
+    }
+
+    public void setMaxQuantity(int maxQuantity) {
+        this.maxQuantity = maxQuantity;
     }
 }

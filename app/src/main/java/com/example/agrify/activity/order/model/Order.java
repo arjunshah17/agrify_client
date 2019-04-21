@@ -29,6 +29,7 @@ public class Order {
         SellerId = sellerId;
         this.timestamp = timestamp;
         this.orderStatus = orderStatus;
+
     }
 
     public String getUserHouseNum() {

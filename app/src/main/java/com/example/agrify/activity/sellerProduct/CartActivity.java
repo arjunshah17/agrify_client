@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
@@ -48,6 +49,7 @@ FirebaseFirestore firebaseFirestore;
 FirebaseAuth auth;
 CollectionReference Total_amount_ref;
 boolean isOutOfStock;
+    WriteBatch deleteBatch;
 
     private ListenerRegistration cartItemListener;
 
@@ -61,6 +63,7 @@ float total_price=0;
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
         initCartRecycleView();
+        deleteBatch = firebaseFirestore.batch();
         bind.appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,8 +89,35 @@ if(isOutOfStock)
 }
 else
     {
+        progressLoading(true);
+        firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                progressLoading(true);
+                for (QueryDocumentSnapshot doc : task.getResult()) {
+                    DocumentReference SellerProductref = firebaseFirestore.collection("Sellers").document(doc.getString("sellerId")).collection("productList").document(doc.getString("productId")).collection("tempOrderCart").document(auth.getUid());
+                    DocumentReference UserProductRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(doc.getString("productId"));
+                    deleteBatch.delete(SellerProductref);
+                    deleteBatch.delete(UserProductRef);
+                }
+                deleteBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            createTempOrderCart();
+                        } else {
+                            Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
+                        }
 
-       createTempOrderCart() ;
+                    }
+                });
+
+            }
+        });
+
+
+
+
 
     }
 
@@ -96,7 +126,9 @@ else
     }
 
     private void createTempOrderCart() {
-total_price=0;
+
+
+        total_price=0;
         WriteBatch orderBatch=firebaseFirestore.batch();
 
 DocumentReference UserRef=firebaseFirestore.collection("Users").document(auth.getUid());
@@ -123,7 +155,9 @@ firebaseFirestore.runTransaction(new Transaction.Function<Void>() {
         orderBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                progressLoading(false);
                 if(task.isSuccessful())
+
                     startActivity(new Intent(getApplicationContext(),orderActivity.class));
                 else Toasty.error(getApplicationContext(),task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();
             }
@@ -269,6 +303,15 @@ firebaseFirestore.runTransaction(new Transaction.Function<Void>() {
     {
         isOutOfStock=true;
     }
+
+    }
+
+    void progressLoading(boolean state) {
+        if (state) {
+            bind.progressBar.setVisibility(View.VISIBLE);
+        } else {
+            bind.progressBar.setVisibility(View.GONE);
+        }
 
     }
 }

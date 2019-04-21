@@ -171,6 +171,7 @@ loadingState(true);
                                            orderItem.setUnit(cartItem.getUnit());
                                            orderItem.setProductImageUrl(cartItem.getProductImageUrl());
 
+
                                            DocumentReference userOrderItem=firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
                                            DocumentReference sellerOrderItem=firebaseFirestore.collection("Sellers").document(order.getSellerId()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
 
