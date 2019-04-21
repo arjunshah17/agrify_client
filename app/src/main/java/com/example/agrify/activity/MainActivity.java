@@ -16,6 +16,7 @@ import com.example.agrify.activity.ChatBot.ChatFragment;
 import com.example.agrify.activity.fragments.StoreFragment;
 import com.example.agrify.activity.fragments.WishFragment;
 import com.example.agrify.activity.fragments.profileFragment;
+import com.example.agrify.activity.order.OrderListFragment;
 import com.example.agrify.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding bind;
     profileFragment profile;
     Fragment LoadedFragment;
-    WishFragment wish;
+    OrderListFragment orderListFragment;
     ChatFragment chat;
 
     @Override
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         store = new StoreFragment();
         profile = new profileFragment();
-        wish = new WishFragment();
+        orderListFragment = new OrderListFragment();
         chat = new ChatFragment();
         //default load Store fragment
         LoadedFragment = store;
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
                         LoadedFragment = store;
                         break;
 
-                    case R.id.wishlistItem:
-                        LoadedFragment = wish;
+                    case R.id.myorderItem:
+                        LoadedFragment = orderListFragment;
                         break;
 
                     case R.id.chatItem:

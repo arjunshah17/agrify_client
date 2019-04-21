@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.MainActivity;
+import com.example.agrify.activity.Utils.cartUtils;
 import com.example.agrify.activity.address.AddressAdapter;
 import com.example.agrify.activity.address.AddressListFragment;
 import com.example.agrify.activity.address.model.Address;
@@ -18,6 +19,7 @@ import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.User;
 import com.example.agrify.activity.order.model.Order;
 import com.example.agrify.activity.order.model.OrderItem;
+import com.example.agrify.activity.sellerProduct.CartActivity;
 import com.example.agrify.activity.sellerProduct.adpater.CartAdapter;
 import com.example.agrify.activity.sellerProduct.model.Cart;
 import com.example.agrify.databinding.ActivityOrderBinding;
@@ -59,6 +61,7 @@ public class orderActivity extends AppCompatActivity implements AddressAdapter.O
     final String TAG="orderActivity";
     float total_price=0;
     boolean isOutOfStock;
+    boolean isCartActivity = false;
     boolean isAddressSelected=false;
     CollectionReference Total_amount_ref;
     @Override
@@ -67,7 +70,14 @@ public class orderActivity extends AppCompatActivity implements AddressAdapter.O
         bind= DataBindingUtil.setContentView(this,R.layout.activity_order);
         firebaseFirestore=FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
-        Total_amount_ref=firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart");
+        if (getIntent().getStringExtra("activity") != null) {
+            if (getIntent().getStringExtra("activity").equals(CartActivity.class.getName())) {
+                isCartActivity = true;
+            }
+        }
+
+
+        Total_amount_ref = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart");
 order=new Order();
 seller =new Seller();
 user=new User();
@@ -147,6 +157,7 @@ loadingState(true);
                               order.setUserLocation(orderAddress.getLocation());
                               order.setSellerId(Sellershot.getId());
                               order.setOrderStatus("pendding");
+                              order.setTotalAmount(total_price);
 
 
 
@@ -172,6 +183,7 @@ loadingState(true);
                                            orderItem.setProductImageUrl(cartItem.getProductImageUrl());
 
 
+
                                            DocumentReference userOrderItem=firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
                                            DocumentReference sellerOrderItem=firebaseFirestore.collection("Sellers").document(order.getSellerId()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
 
@@ -181,12 +193,14 @@ loadingState(true);
 
                                        }
 
-                                       orderBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                              orderBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
                                            @Override
                                            public void onComplete(@NonNull Task<Void> task) {
                                            loadingState(true);
                                            if(task.isSuccessful())
                                            {
+                                               cartUtils.clearAllCart(getApplicationContext());
                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                            }
                                            else

@@ -5,6 +5,7 @@ import com.google.firebase.firestore.GeoPoint;
 
 public class Order {
     private String userHouseNum,userAddressname,orderId;
+    private float totalAmount;
     private GeoPoint userGeoLocation;
     private String UserLocation;
     private String paymentMode;
@@ -18,7 +19,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String userHouseNum, String userAddressname, String orderId, GeoPoint userGeoLocation, String userLocation, String paymentMode, String userId, String sellerId, Timestamp timestamp, String orderStatus) {
+    public Order(String userHouseNum, String userAddressname, String orderId, GeoPoint userGeoLocation, String userLocation, String paymentMode, String userId, String sellerId, Timestamp timestamp, String orderStatus, float totalAmount) {
         this.userHouseNum = userHouseNum;
         this.userAddressname = userAddressname;
         this.orderId = orderId;
@@ -29,7 +30,16 @@ public class Order {
         SellerId = sellerId;
         this.timestamp = timestamp;
         this.orderStatus = orderStatus;
+        this.totalAmount = totalAmount;
 
+    }
+
+    public float getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(float totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public String getUserHouseNum() {

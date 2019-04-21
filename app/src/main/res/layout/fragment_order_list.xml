@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_background"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.order.OrderListFragment">
+
+        <LinearLayout
+            android:id="@+id/animation_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view_text"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+
+
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/animation_loading_text" />
+
+            <com.airbnb.lottie.LottieAnimationView
+
+                android:id="@+id/animation_view"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                app:lottie_autoPlay="true"
+
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/animation_loading" />
+        </LinearLayout>
+        <!-- TODO: Update blank fragment layout -->
+        <RelativeLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            >
+
+            <LinearLayout
+                style="@style/Widget.Shrine.Backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="100dp"
+                android:paddingBottom="100dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/appbarlayout"
+                android:background="@drawable/curve_background_secondary_color">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/order_recycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_6"
+
+                    android:nestedScrollingEnabled="true"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </RelativeLayout>
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbarlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    style="@style/Widget.Shrine.Toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+
+                    android:layout_gravity="center"
+                    android:gravity="center"
+
+                    android:textAlignment="center"
+                    app:title="order history" />
+            </com.google.android.material.appbar.AppBarLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

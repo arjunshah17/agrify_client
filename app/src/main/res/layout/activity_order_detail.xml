@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/main_layout"
+            style="@style/Platform.MaterialComponents.Light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/curve_background_secondary_color"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                style="@style/Widget.Shrine.Backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="100dp"
+                android:paddingBottom="100dp" />
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/appbarlayout"
+                android:background="@drawable/curve_background_secondary_color"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+
+                    android:orientation="vertical">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/dp_6"
+                                android:background="@color/productGridBackgroundColor"
+                                app:cardCornerRadius="10dp"
+                                app:cardElevation="2dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+
+
+                                    >
+
+                                    <TextView
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/dp_6"
+                                        android:text="you have ordered following things"
+                                        android:textAllCaps="true" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2dp"
+                                        android:background="?attr/dividerHorizontal" />
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/order_recycleView"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:nestedScrollingEnabled="false" />
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_3"
+                                android:background="@color/productGridBackgroundColor"
+                                app:cardCornerRadius="10dp"
+                                app:cardElevation="2dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+
+
+                                    >
+
+                                    <TableLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/dp_3">
+
+                                        <TableRow>
+
+                                            <TextView
+                                                style="@style/TextAppearance.AppCompat.Subhead"
+                                                android:layout_margin="@dimen/dp_3"
+                                                android:text="order id"
+                                                android:textAllCaps="true" />
+
+                                            <TextView
+                                                android:id="@+id/orderId"
+                                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                                tools:text="183083003808308" />
+
+                                        </TableRow>
+
+                                        <TableRow>
+
+                                            <TextView
+                                                style="@style/TextAppearance.AppCompat.Subhead"
+                                                android:layout_margin="@dimen/dp_3"
+                                                android:text="status"
+                                                android:textAllCaps="true" />
+
+                                            <TextView
+                                                android:id="@+id/order_status"
+                                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                                tools:text=":pendding" />
+                                        </TableRow>
+
+                                        <TableRow>
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+
+
+                                                android:layout_height="wrap_content">
+
+                                                <ImageView
+                                                    android:id="@+id/payment_method_icon"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:src="@drawable/fui_ic_googleg_color_24dp" />
+
+                                                <TextView
+                                                    android:id="@+id/payment_method_text"
+                                                    style="@style/TextAppearance.MaterialComponents.Body1"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="Google pay" />
+
+
+                                            </LinearLayout>
+
+                                            <TextView
+                                                style="@style/TextAppearance.AppCompat.Subhead"
+                                                android:layout_margin="@dimen/dp_3"
+                                                android:text="payment mode"
+                                                android:textAllCaps="true" />
+                                        </TableRow>
+
+                                        <TableRow>
+
+                                            <TextView
+                                                style="@style/TextAppearance.AppCompat.Subhead"
+                                                android:layout_margin="@dimen/dp_3"
+                                                android:text="total amount"
+                                                android:textAllCaps="true" />
+
+                                            <TextView
+                                                android:id="@+id/total_amount"
+                                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                                tools:text="$3577878" />
+                                        </TableRow>
+
+                                        <TableRow>
+
+                                            <TextView
+                                                style="@style/TextAppearance.AppCompat.Subhead"
+                                                android:layout_margin="@dimen/dp_3"
+                                                android:text="order date"
+                                                android:textAllCaps="true" />
+
+                                            <TextView
+                                                android:id="@+id/order_date"
+                                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                                tools:text="21-may-2018" />
+                                        </TableRow>
+
+                                    </TableLayout>
+
+                                    <TextView
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/dp_6"
+                                        android:text="order details"
+                                        android:textAllCaps="true" />
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2dp"
+                                        android:background="?attr/dividerHorizontal" />
+
+                                    <com.google.android.material.button.MaterialButton
+                                        android:id="@+id/download_invoice"
+                                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="download invoice" />
+                                </LinearLayout>
+
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_3"
+                                android:background="@color/productGridBackgroundColor"
+                                app:cardCornerRadius="10dp"
+
+                                app:cardElevation="2dp"
+
+                                >
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+
+
+                                    >
+
+                                    <LinearLayout
+                                        android:id="@+id/address_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+
+                                        <TextView
+                                            android:id="@+id/address_name_tv"
+                                            style="@style/TextAppearance.MaterialComponents.Headline5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:padding="@dimen/dp_6"
+                                            tools:text="home"
+
+                                            />
+
+                                        <TextView
+                                            android:id="@+id/address_location"
+                                            style="@style/TextAppearance.MaterialComponents.Body1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:padding="@dimen/dp_6"
+                                            tools:text="102,h,browun avenue maple county 2, thaltej ahmedabad,-380058" />
+
+                                    </LinearLayout>
+
+                                    <TextView
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/dp_6"
+                                        android:text="shipping details"
+                                        android:textAllCaps="true" />
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="3dp"
+                                        android:background="@drawable/curve_background_secondary_color" />
+
+                                </LinearLayout>
+
+
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                        </LinearLayout>
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbarlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    style="@style/Widget.Shrine.Toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="center"
+                    android:tooltipText="back"
+                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                    app:title="order details" />
+            </com.google.android.material.appbar.AppBarLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
