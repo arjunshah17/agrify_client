@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-
-
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
+
         <variable
             name="address"
             type="com.example.agrify.activity.address.model.Address" />
@@ -15,59 +14,55 @@
         android:background="@color/productGridBackgroundColor"
         app:cardCornerRadius="10dp"
         app:cardElevation="2dp"
-        app:rippleColor="@color/primary_color_ripple"
         app:cardUseCompatPadding="true"
+        app:rippleColor="@color/primary_color_ripple">
 
-        >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dp_6"
-            android:id="@+id/address_name_tv"
-            tools:text="@{address.name}"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
-
-            />
-        <TextView
-            android:id="@+id/address_location"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp_6"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            tools:text="102,h,browun avenue maple county 2, thaltej ahmedabad,-380058"/>
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/address_location"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_6"
+                tools:text="102,h,browun avenue maple county 2, thaltej ahmedabad,-380058" />
+            <TextView
+                android:id="@+id/address_name_tv"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_6"
+                tools:text="@{address.name}"/>
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/button_layout"
-    android:layout_marginLeft="@dimen/dp_12"
-   >
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:id="@+id/edit_button"
-        android:layout_height="wrap_content"
-        android:text="edit"
-        style="@style/AppTheme.outLineButton"/>
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-android:id="@+id/delete_button"
-        android:text="delete"
-        style="@style/AppTheme.outLineButton.delete"/>
+            <LinearLayout
+                android:id="@+id/button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="horizontal">
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/edit_button"
+                    style="@style/AppTheme.outLineButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="edit"
+                    tools:ignore="NestedWeights" />
 
-</LinearLayout>
-    </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/delete_button"
+                    style="@style/AppTheme.outLineButton.delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="delete" />
+            </LinearLayout>
+
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
 </layout>

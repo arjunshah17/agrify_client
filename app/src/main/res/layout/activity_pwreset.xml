@@ -8,21 +8,19 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_activity">
 
-
-
-            <ProgressBar
-                android:id="@+id/progressLoading"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_gravity="top"
-                android:fadeScrollbars="true"
-                android:indeterminate="true"
-                android:visibility="invisible" />
+        <ProgressBar
+            android:id="@+id/progressLoading"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_gravity="top"
+            android:fadeScrollbars="true"
+            android:indeterminate="true"
+            android:visibility="invisible" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp">
 
@@ -30,8 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
+                android:layout_gravity="center"
                 android:layout_marginEnd="50dp"
-                android:layout_marginBottom="50dp"
+
                 android:orientation="vertical">
 
                 <ImageView
@@ -50,34 +49,32 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="20dp"
-                    android:textColor="@color/white"
                     android:text="You will receive an email with instructions on resetting password."
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:textColorHint="@color/white"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email">
+                    android:hint="Email"
+                    android:textColorHint="@color/colorPrimary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/email_editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/colorPrimary" />
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/btnsignin_gradient"
                     android:text="Reset password" />
-
 
                 <TextView
                     android:id="@+id/tvGoBack"
@@ -87,7 +84,7 @@
                     android:layout_marginTop="10dp"
                     android:foreground="?attr/selectableItemBackground"
                     android:text="Go back to Sign In."
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

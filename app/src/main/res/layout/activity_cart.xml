@@ -24,18 +24,26 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_below="@id/appbarlayout"
-            android:background="@drawable/curve_background_secondary_color"
-          >
+            android:background="@drawable/curve_background_secondary_color">
+
+
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                android:id="@+id/shimmerRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:shimmer_demo_angle="20"
+                app:shimmer_demo_child_count="10"
+                app:shimmer_demo_grid_child_count="2"
+                app:shimmer_demo_layout="@layout/cart_item_loading"
+                app:shimmer_demo_layout_manager_type="grid" />
 
             <LinearLayout
                 android:id="@+id/animation_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-              android:layout_centerInParent="true"
+                android:layout_centerInParent="true"
                 android:orientation="vertical"
-android:visibility="gone"
-                >
-
+                android:visibility="gone">
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/animation_view"
@@ -51,13 +59,9 @@ android:visibility="gone"
                     style="@style/TextAppearance.MaterialComponents.Headline5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-
                     android:layout_gravity="center_horizontal"
                     android:text="your cart is empty"
-
                     android:textAllCaps="true"
-
                     android:textColor="@color/secondaryColor"
                     android:textStyle="bold"
                     android:typeface="monospace" />
@@ -74,103 +78,94 @@ android:visibility="gone"
                     style="@style/Widget.MaterialComponents.Chip.Entry"
                     android:layout_width="wrap_content"
                     android:textAllCaps="true"
-
                     android:text="cotinue shoping"
                     android:layout_gravity="center_horizontal"
-android:layout_margin="@dimen/dp_12"
-                   app:buttonCornerRadius="25dp"
-                   android:padding="@dimen/dp_12"
+                    android:layout_margin="@dimen/dp_12"
+                    app:buttonCornerRadius="25dp"
+                    android:padding="@dimen/dp_12"
                     android:textColor="@color/white"
                     app:buttonGradientStartColor="#4568DC"
                     app:buttonGradientEndColor="#B06AB3"
-
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/main_layout"
+            <LinearLayout
+                android:id="@+id/main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
-    android:orientation="vertical">
+                android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_above="@id/cartRecycleView"
-        android:indeterminate="true"
-        android:visibility="gone"
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_above="@id/cartRecycleView"
+                    android:indeterminate="true"
+                    android:visibility="gone"
 
-        />
-<androidx.recyclerview.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_margin="2dp"
-    android:id="@+id/cartRecycleView"
-    android:layout_weight="1"
-    android:layout_height="wrap_content"/>
+                    />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="12dp"
-
-    android:background="@drawable/store_item_background"
-    >
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total"
-        android:layout_gravity="center_vertical"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:textSize="12sp"
-        android:textStyle="bold"
-
-        android:layout_marginLeft="@dimen/dp_6"
-        android:textAllCaps="true"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/total_price"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_marginLeft="@dimen/dp_6"
-android:textStyle="bold"
-        tools:text="$60,00"
-        android:layout_gravity="center_vertical"
-
-        />
-    </LinearLayout>
-    <life.sabujak.roundedbutton.RoundedButton
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-        android:layout_width="wrap_content"
-        android:textAllCaps="true"
-        android:text="checkout"
-
-        app:buttonCornerRadius="10dp"
-        android:layout_margin="@dimen/dp_12"
-        android:layout_gravity="center"
-        android:id="@+id/checkout_button"
-        android:padding="@dimen/dp_20"
-        app:buttonGradientStartColor="#360033"
-        app:buttonGradientEndColor="#0b8793"
-        android:layout_height="wrap_content"
-        />
-
-</LinearLayout>
-
-</LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cartRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1" />
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/store_item_background"
+                    android:elevation="12dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Body1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:text="Total"
+                            android:textAllCaps="true"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_price"
+                            style="@style/TextAppearance.MaterialComponents.Headline5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:textStyle="bold"
+                            tools:text="$60,00" />
+                    </LinearLayout>
+
+                    <life.sabujak.roundedbutton.RoundedButton
+                        android:id="@+id/checkout_button"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/dp_12"
+                        android:padding="@dimen/dp_20"
+                        android:text="checkout"
+                        android:textAllCaps="true"
+                        app:buttonCornerRadius="10dp"
+                        app:buttonGradientEndColor="#0b8793"
+                        app:buttonGradientStartColor="#360033" />
+                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
 
 
@@ -188,10 +183,7 @@ android:textStyle="bold"
                 android:layout_gravity="center"
                 app:navigationIcon="@drawable/shr_close_menu"
                 app:title="cart">
-
             </androidx.appcompat.widget.Toolbar>
-
         </com.google.android.material.appbar.AppBarLayout>
     </RelativeLayout>
-
 </layout>

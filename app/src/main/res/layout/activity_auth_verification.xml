@@ -54,17 +54,19 @@
         android:text="@string/email_verification"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="0dp"
-        android:textColor="@color/white"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimary"
         tools:layout_editor_absoluteY="356dp" />
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
-        style="@style/AppTheme.outLineButton"
         android:id="@+id/send_ver_Button"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_margin="20dp"
+        android:layout_margin="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:textSize="20sp"
         android:text="Send Email "/>
 
 </LinearLayout>

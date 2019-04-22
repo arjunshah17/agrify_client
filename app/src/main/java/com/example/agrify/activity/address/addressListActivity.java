@@ -84,9 +84,21 @@ public class addressListActivity extends AppCompatActivity implements AddressAda
         // Start listening for Firestore updates
         if (addressAdapter!= null) {
             addressAdapter.startListening();
+            productLoadingState(true);
         }
     }
 
+
+    private void productLoadingState(boolean state) {
+        if (state) {
+            binding.addressListRv.setVisibility(View.INVISIBLE);
+            binding.shimmerRecyclerView.showShimmerAdapter();
+        } else {
+            binding.addressListRv.setVisibility(View.VISIBLE);
+            binding.shimmerRecyclerView.hideShimmerAdapter();
+        }
+
+    }
 
 
     private void INIT() {

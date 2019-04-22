@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
- >
-
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <RelativeLayout
+        style="@style/Platform.MaterialComponents.Light"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:orientation="vertical"
-        style="@style/Platform.MaterialComponents.Light">
-
-
+        android:orientation="vertical">
 
 
         <LinearLayout
@@ -23,7 +18,67 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingTop="100dp"
-            android:paddingBottom="100dp"></LinearLayout>
+            android:paddingBottom="100dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/store_item_background"
+            android:orientation="vertical"
+            tools:context=".activity.address.address">
+
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                android:id="@+id/shimmerRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:shimmer_demo_angle="20"
+                app:shimmer_demo_child_count="10"
+                app:shimmer_demo_grid_child_count="2"
+                app:shimmer_demo_layout="@layout/address_list_loading" />
+            <LinearLayout
+                android:id="@+id/animation_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/animation_view_text"
+                    style="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="no address is saved" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/animation_noaddress" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/address_List_rv"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:layout_margin="@dimen/dp_12"
+                android:layout_weight="1" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/address_button"
+                style="@style/AppTheme.outLineButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/add_address" />
+
+        </LinearLayout>
 
 
         <com.google.android.material.appbar.AppBarLayout
@@ -38,72 +93,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="center"
                 app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
-                app:title="manage address"
-
-                />
+                app:title="manage address" />
         </com.google.android.material.appbar.AppBarLayout>
-
-
-
-        <LinearLayout
-            android:background="@drawable/store_item_background"
-            android:layout_marginTop="60dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".activity.address.address">
-            <LinearLayout
-                android:id="@+id/animation_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:gravity="center"
-                >
-                <TextView
-                    android:id="@+id/animation_view_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:gravity="center_horizontal"
-style="@style/TextAppearance.MaterialComponents.Headline4"
-android:text="no address is saved"
-
-                    />
-
-                <com.airbnb.lottie.LottieAnimationView
-
-                    android:id="@+id/animation_view"
-                    android:layout_width="match_parent"
-
-                    android:layout_height="600dp"
-                    app:lottie_rawRes="@raw/animation_noaddress"
-
-                    app:lottie_loop="true"
-                    app:lottie_autoPlay="true" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:id="@+id/address_List_rv"
-android:layout_margin="@dimen/dp_12"
-                android:layout_weight="1"
-                android:layout_height="600dp"/>
-
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-
-                android:id="@+id/address_button"
-
-                android:text="@string/add_address"
-                style="@style/AppTheme.outLineButton"
-
-                />
-
-        </LinearLayout>
 
     </RelativeLayout>
 </layout>

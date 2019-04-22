@@ -40,7 +40,6 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/animation_loading" />
         </LinearLayout>
-        <!-- TODO: Update blank fragment layout -->
         <RelativeLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"

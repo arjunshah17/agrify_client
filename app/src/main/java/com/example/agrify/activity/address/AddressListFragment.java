@@ -64,8 +64,6 @@ public class AddressListFragment extends BottomSheetDialogFragment {
     }
 
     private void initFirestore() {
-        // TODO(developer): Implement
-
 
         mQuery = mFirestore.collection("Users").document(auth.getCurrentUser().getUid()).collection("addressList");
 

@@ -58,7 +58,6 @@ public class WishFragment extends Fragment implements StoreAdapter.OnStoreSelect
     }
 
     private void initFirestore() {
-        // TODO(developer): Implement
         mFirestore = FirebaseFirestore.getInstance();
         mQuery = mFirestore.collection("wishlist").document(firebaseAuth.getCurrentUser().getUid()).collection("wishlist");
 
