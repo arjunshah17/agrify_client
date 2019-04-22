@@ -32,6 +32,14 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_image"
+                        android:layout_width="50dp"
+
+                        android:layout_height="50dp"
+                        android:layout_margin="@dimen/dp_3"
+                        tools:src="@color/colorPrimary" />
+
                     <TextView
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
@@ -41,13 +49,7 @@
                         android:layout_margin="@dimen/dp_3"
                         tools:text="jone due" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/user_image"
-                        android:layout_width="50dp"
 
-                        android:layout_height="50dp"
-                        android:layout_margin="@dimen/dp_3"
-                        tools:src="@color/colorPrimary" />
                 </LinearLayout>
 
                 <TextView
@@ -82,3 +84,4 @@
     </com.google.android.material.card.MaterialCardView>
 
 </layout>
+

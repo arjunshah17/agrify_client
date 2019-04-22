@@ -252,6 +252,19 @@
                                         android:layout_height="wrap_content"
                                         android:orientation="vertical">
 
+                                        <TextView
+                                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_margin="@dimen/dp_6"
+                                            android:text="shipping details"
+                                            android:textAllCaps="true" />
+
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="3dp"
+                                            android:background="@drawable/curve_background_secondary_color" />
 
                                         <TextView
                                             android:id="@+id/address_name_tv"
@@ -271,19 +284,7 @@
 
                                     </LinearLayout>
 
-                                    <TextView
-                                        style="@style/TextAppearance.MaterialComponents.Headline6"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_margin="@dimen/dp_6"
-                                        android:text="shipping details"
-                                        android:textAllCaps="true" />
 
-
-                                    <View
-                                        android:layout_width="match_parent"
-                                        android:layout_height="3dp"
-                                        android:background="@drawable/curve_background_secondary_color" />
 
                                 </LinearLayout>
 
