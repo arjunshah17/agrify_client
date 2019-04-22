@@ -212,7 +212,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
 
         if (cartAdapter != null) {
             cartAdapter.startListening();
-            productLoadingState(true);
+            productLoadingState(false);
         }
 
     }
@@ -228,9 +228,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
     private void productLoadingState(boolean state) {
 
         if (state) {
-            //TODO add code for turning on shrimmer
+            bind.cartRecycleView.setVisibility(View.INVISIBLE);
+            bind.shimmerRecyclerView.showShimmerAdapter();
         } else {
-            //TODO add code for turning off shrimmer
+            bind.cartRecycleView.setVisibility(View.VISIBLE);
+            bind.shimmerRecyclerView.hideShimmerAdapter();
         }
 
     }
@@ -238,8 +240,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
     void noProductFound(boolean state) {
         if (state) {
             bind.mainLayout.setVisibility(View.GONE);
-
-
             bind.animationView.playAnimation();
             bind.animationLayout.setVisibility(View.VISIBLE);
         } else {

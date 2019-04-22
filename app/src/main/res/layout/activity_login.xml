@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/colorPrimary"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_marginBottom="8dp">
 
@@ -60,9 +60,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorPrimary"
                         android:inputType="textEmailAddress"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/colorPrimary" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--  Password Label -->
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:passwordToggleEnabled="true"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/colorPrimary"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_marginBottom="8dp">
 
@@ -80,9 +80,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorPrimary"
                         android:inputType="textPassword"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/colorPrimary" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:text="@string/forgot_password"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorPrimary"
                     android:foreground="?attr/selectableItemBackground" />
 
                 <TextView
@@ -113,7 +113,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:text="No account yet? Create one"
                     android:textSize="16sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton

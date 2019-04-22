@@ -28,7 +28,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class OrderListFragment extends Fragment implements OrderAdapter.OnOrderItemClickListener {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     Query query;

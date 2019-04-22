@@ -319,16 +319,12 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
         } else {
             bind.storeRecycleView.setVisibility(View.VISIBLE);
             bind.shimmerRecyclerView.hideShimmerAdapter();
-            // TODO stop shrimmer effect
-
         }
     }
 
     void noProductFound(boolean state) {
         if (state) {
             bind.storeRecycleView.setVisibility(View.GONE);
-
-
             bind.animationView.playAnimation();
             bind.animationLayout.setVisibility(View.VISIBLE);
         } else {
