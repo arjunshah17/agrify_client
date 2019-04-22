@@ -18,7 +18,13 @@
             android:orientation="vertical">
 
 
-
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="give rating and feedback for this product" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -28,19 +34,14 @@
                 android:layout_gravity="center_horizontal"
                 android:max="5" />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:text="give rating and feedback for this product" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-               
+                android:layout_margin="@dimen/dp_3"
+
                 android:hint="write your review">
 
                 <com.google.android.material.textfield.TextInputEditText
