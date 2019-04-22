@@ -101,11 +101,11 @@ public class cartHolder extends RecyclerView.ViewHolder {
             public void valueChanged(int value, ActionEnum action) {
                 if(  activity.getClass().getName().equals(CartActivity.class.getName()))
                 {
-                    firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(finalCart.getProductId()).update("Quantity", value);
+                    firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(finalCart.getProductId()).update("quantity", value);
                 }
                 else
                 {
-                    firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(finalCart.getProductId()).update("Quantity", value);
+                    firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(finalCart.getProductId()).update("quantity", value);
                 }
 
             }

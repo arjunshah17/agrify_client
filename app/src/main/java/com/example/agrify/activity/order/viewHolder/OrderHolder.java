@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.agrify.activity.order.adapter.OrderAdapter;
 import com.example.agrify.activity.order.model.Order;
 import com.example.agrify.databinding.OrderItemBinding;
+import com.example.agrify.databinding.OrderListItemBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.NumberFormat;
@@ -16,10 +17,10 @@ import java.text.SimpleDateFormat;
 
 public class OrderHolder extends RecyclerView.ViewHolder {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
-    OrderItemBinding binding;
+    OrderListItemBinding binding;
     Order order;
 
-    public OrderHolder(OrderItemBinding binding) {
+    public OrderHolder(OrderListItemBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
     }
@@ -32,6 +33,7 @@ public class OrderHolder extends RecyclerView.ViewHolder {
             binding.orderDate.setText("Date:" + simpleDateFormat.format(order.getTimestamp().toDate()));
             binding.orderStatus.setText("status:" + order.getOrderStatus());
             binding.totalPrice.setText("₹" + NumberFormat.getInstance().format(order.getTotalAmount()));
+
 
         } catch (Exception ex) {
             ex.printStackTrace();

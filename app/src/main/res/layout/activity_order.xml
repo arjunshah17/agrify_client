@@ -209,19 +209,19 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_margin="@dimen/dp_24"
 
+                android:layout_margin="@dimen/dp_24"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/payment_method_icon"
-                    android:src="@drawable/fui_ic_googleg_color_24dp"/>
+                    android:src="@drawable/ic_cash" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/payment_method_text"
                     android:layout_height="wrap_content"
-                    android:text="Google pay"/>
+                    android:text="cash on delivery" />
 
 
             </LinearLayout>
@@ -231,9 +231,10 @@
                 android:background="?attr/dividerHorizontal"/>
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
+                android:id="@+id/payment_method_button"
                 android:layout_height="wrap_content"
                 android:text="select or change payment method "
-
+                android:visibility="gone"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:textColor="@color/secondaryColor"
                 android:layout_gravity="center"

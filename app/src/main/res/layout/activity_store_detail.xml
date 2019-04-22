@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -54,69 +55,137 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
 
-        <LinearLayout
-            android:id="@+id/acitvity_detailLayout"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/appbarlayout"
-            android:background="@color/productGridBackgroundColor"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appbarlayout">
 
 
-            <ImageView
-                android:id="@+id/productImageUrl"
+            <LinearLayout
+                android:id="@+id/acitvity_detailLayout"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_height="wrap_content"
+
                 android:background="@color/productGridBackgroundColor"
-                android:cropToPadding="true"
-                android:scaleType="fitCenter"
-                android:transitionName="@string/store_product_transition" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:gravity="center"
-                android:padding="6dp"
-                android:text="@{store.name}"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/productGridBackgroundColor"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="1dp">
 
-            <TextView
-                android:id="@+id/productPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="1dp"
-                android:text="start from ₹200/kg" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/productDes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:inputType="textMultiLine"
+                        <TextView
+                            android:id="@+id/productName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            style="@style/TextAppearance.MaterialComponents.Headline6"
+                            tools:text="wheat"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:text="@{store.name}"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/productPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Subhead"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="1dp"
+                            android:text="start from ₹200/kg" />
+
+                        <com.github.florent37.shapeofview.shapes.RoundRectView
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:background="@color/productGridBackgroundColor"
+                            app:shape_roundRect_borderColor="@android:color/white"
+                            app:shape_roundRect_bottomLeftRadius="10dp"
+                            app:shape_roundRect_bottomRightRadius="10dp"
+                            app:shape_roundRect_topLeftRadius="10dp"
+                            app:shape_roundRect_topRightRadius="10dp">
+
+                            <ImageView
+                                android:id="@+id/productImageUrl"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/activity_vertical_margin"
+                                android:background="@color/productGridBackgroundColor"
+                                android:cropToPadding="true"
+                                tools:src="@drawable/image_place_holder"
+                                android:scaleType="fitCenter"
+                                android:transitionName="@string/store_product_transition" />
+                        </com.github.florent37.shapeofview.shapes.RoundRectView>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:accessibilityPaneTitle="@string/hello_world"
+                    android:background="@color/productGridBackgroundColor"
+                    android:hapticFeedbackEnabled="true"
+                    android:shadowRadius="3"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="10dp">
 
 
-                android:padding="10dp"
-                android:scrollbars="vertical"
-                android:text="@{store.des}" />
+                    <LinearLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_marginTop="25dp"
-                android:id="@+id/sellerlist_button"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:textAlignment="center"
-                android:textSize="25sp"
-                android:layout_height="wrap_content"
-                />
+                        <TextView
+                            android:id="@+id/textQuantity"
+                            style="@style/TextAppearance.MaterialComponents.Headline5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
 
-        </LinearLayout>
+                            android:text="product description" />
+
+                        <TextView
+                            android:id="@+id/productDes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:inputType="textMultiLine"
+                            style="@style/TextAppearance.MaterialComponents.Body1"
+                            tools:text="@string/move_wishlist"
+                            android:padding="10dp"
+                            android:text="@{store.des}" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="?attr/dividerHorizontal" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_marginTop="25dp"
+                    android:id="@+id/sellerlist_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 </layout>

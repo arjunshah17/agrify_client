@@ -33,6 +33,8 @@ public class addressActivity extends AppCompatActivity {
     ActivityAddressBinding bind;
     Place place;
     Address address;
+    String AddressRef;
+    boolean isEdited = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,10 @@ public class addressActivity extends AppCompatActivity {
         // setContentView(R.layout.activity_address);
         bind = DataBindingUtil.setContentView(this, R.layout.activity_address);
 address=new Address();
-
+        if (getIntent().getStringExtra("addressRef") != null) {
+            AddressRef = getIntent().getStringExtra("addressRef");
+            isEdited = true;
+        }
         bind.appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,15 +56,14 @@ address=new Address();
         firebaseFirestore= FirebaseFirestore.getInstance();
         auth=FirebaseAuth.getInstance();
         firebaseUser= auth.getCurrentUser();
-        bind.addressButton.setOnClickListener(v -> {
-            try {
+        try {
 
-                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         bind.saveAddress.setOnClickListener(v-> {
 
             if (place != null)
@@ -68,21 +72,20 @@ address=new Address();
                 address.setName(bind.addressNameTv.getText().toString());
                 address.setHouseNum(bind.houseFlatTv.getText().toString());
                 address.setLocation(bind.locationTv.getText().toString());
+                DocumentReference addRef;
+                if (!isEdited) {
+                    addRef = firebaseFirestore.collection("Users").document(firebaseUser.getUid()).collection("addressList").document();
+                } else {
+                    addRef = firebaseFirestore.document(AddressRef);
+                }
+                addRef.set(address).addOnCompleteListener(task -> {
+                    dataLoading(false);
+                    if (task.isSuccessful()) {
+                        Toasty.info(getApplicationContext(), "uploaded address in server").show();
+                        onBackPressed();
 
-                firebaseFirestore.collection("Users").document(firebaseUser.getUid()).collection("addressList").add(address).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        dataLoading(false);
-                        if(task.isSuccessful())
-                        {
-                            Toasty.info(getApplicationContext(),"uploaded address in server").show();
-                            onBackPressed();
-
-                        }
-                        else
-                        {
-                            Toasty.error(getApplicationContext(),task.getException().getLocalizedMessage()).show();
-                        }
+                    } else {
+                        Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage()).show();
                     }
                 });
             }
@@ -92,11 +95,12 @@ address=new Address();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-                    place = PlacePicker.getPlace(data, this);
+                place = PlacePicker.getPlace(data, this);
                 String Name = String.format("%s", place.getName());
-                Toasty.info(getApplicationContext(),place.getLatLng().toString(),Toasty.LENGTH_SHORT).show();
+                Toasty.info(getApplicationContext(), place.getLatLng().toString(), Toasty.LENGTH_SHORT).show();
                 bind.houseFlatTv.setText(Name);
                 String Address = String.format("%s", place.getAddress(), "\n" + place.getLatLng().latitude, "\n" + place.getLatLng().longitude);
                 bind.locationTv.setText(place.getAddress());

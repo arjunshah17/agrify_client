@@ -201,6 +201,10 @@ android:id="@+id/minQuantity"
         style="@style/TextAppearance.MaterialComponents.Headline5"
         tools:text="enter quantity"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?attr/dividerHorizontal" />
     <it.sephiroth.android.library.numberpicker.NumberPicker
         android:id="@+id/quantity_numberpicker"
         android:layout_width="match_parent"
@@ -216,7 +220,8 @@ android:id="@+id/minQuantity"
 
         </com.google.android.material.card.MaterialCardView>
 
-<com.google.android.material.card.MaterialCardView
+
+        <com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/productGridBackgroundColor"
@@ -243,6 +248,11 @@ android:id="@+id/minQuantity"
     style="@style/TextAppearance.MaterialComponents.Headline6"
     android:layout_margin="@dimen/dp_6"
     />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?attr/dividerHorizontal" />
     <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -250,46 +260,17 @@ android:id="@+id/text_info"
          tools:text="Wheat is a grass widely cultivated for its seed, a cereal grain which is a worldwide staple food. The many species of wheat together make up the genus Triticum; the most widely grown is common wheat (T. aestivum)."
        android:layout_margin="@dimen/dp_6"
        style="@style/TextAppearance.AppCompat.Body1"/>
+
 </LinearLayout>
 
 
 
 </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/productGridBackgroundColor"
-            app:cardCornerRadius="2dp"
-            android:visibility="gone"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            app:cardElevation="15dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="seller recommendatiosn"
-                android:textColor="@color/black"
-                android:textAllCaps="true"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_margin="@dimen/dp_6"
-                />
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/seller_recom_rv"
-/>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
+        <include
+            android:id="@+id/ratting_card"
+            layout="@layout/ratingcard" />
     </LinearLayout>
 
 

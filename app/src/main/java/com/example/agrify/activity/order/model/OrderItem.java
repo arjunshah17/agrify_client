@@ -3,12 +3,14 @@ package com.example.agrify.activity.order.model;
 import com.google.firebase.firestore.DocumentReference;
 
 public class OrderItem {
-    String productId, sellerId, name, productImageUrl, unit;
-    DocumentReference SellerProductRef;
-    int Quantity;
-    private float price;
+    private String productId, sellerId, name, productImageUrl, unit;
+    private DocumentReference SellerProductRef;
+    private int quantity;
+    private float price, rating;
+    private boolean reviewed;
 
-    public OrderItem(String productId, String sellerId, String name, String productImageUrl, String unit, DocumentReference sellerProductRef, float price, int quantity) {
+
+    public OrderItem(String productId, String sellerId, String name, String productImageUrl, String unit, DocumentReference sellerProductRef, float price, int quantity, boolean reviewed, float rating) {
         this.productId = productId;
         this.sellerId = sellerId;
         this.name = name;
@@ -16,11 +18,25 @@ public class OrderItem {
         this.unit = unit;
         SellerProductRef = sellerProductRef;
         this.price = price;
-        Quantity = quantity;
+        this.quantity = quantity;
+        this.rating = rating;
+        this.reviewed = reviewed;
     }
 
     public OrderItem() {
 
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public boolean isReviewed() {
+        return reviewed;
     }
 
     public String getProductId() {
@@ -71,19 +87,23 @@ public class OrderItem {
         SellerProductRef = sellerProductRef;
     }
 
+    public void setReviewed(boolean reviewed) {
+        this.reviewed = reviewed;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
     public float getPrice() {
         return price;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public int getQuantity() {
-        return Quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        Quantity = quantity;
     }
 }

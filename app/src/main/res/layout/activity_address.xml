@@ -90,16 +90,8 @@
         android:orientation="vertical"
         tools:context=".activity.address.address">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/address_button"
-            style="@style/AppTheme.primaryButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="@dimen/dp_12"
-            android:text="@string/add_address" />
 
-        <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

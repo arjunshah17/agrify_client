@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_6"
+            android:background="@color/productGridBackgroundColor"
+            android:hapticFeedbackEnabled="true"
+            android:shadowRadius="3"
+
+            app:cardCornerRadius="2dp"
+            app:cardElevation="10dp"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <RatingBar
+                        android:id="@+id/Rating"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="true" />
+
+                    <TextView
+                        android:id="@+id/NumRatings"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignTop="@+id/Rating"
+                        android:layout_alignBottom="@+id/Rating"
+                        android:layout_marginLeft="4dp"
+                        android:layout_toRightOf="@+id/Rating"
+                        android:gravity="center"
+                        tools:text="(10)" />
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rating and Reviews" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerHorizontal" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ratingList_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</layout>

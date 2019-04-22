@@ -9,10 +9,9 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.adapter.FirestoreAdapter;
-import com.example.agrify.activity.order.model.Order;
 import com.example.agrify.activity.order.viewHolder.OrderHolder;
-import com.example.agrify.activity.sellerProduct.viewHolder.cartHolder;
 import com.example.agrify.databinding.OrderItemBinding;
+import com.example.agrify.databinding.OrderListItemBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
@@ -29,8 +28,8 @@ public class OrderAdapter extends FirestoreAdapter<OrderHolder> {
     @NonNull
     @Override
     public OrderHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        OrderItemBinding binding = DataBindingUtil.
-                inflate(LayoutInflater.from(parent.getContext()), R.layout.order_item, parent, false);
+        OrderListItemBinding binding = DataBindingUtil.
+                inflate(LayoutInflater.from(parent.getContext()), R.layout.order_list_item, parent, false);
 
 
         return new OrderHolder(binding);

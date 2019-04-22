@@ -2,6 +2,7 @@ package com.example.agrify.activity.address;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +35,11 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
         }
         Address address=snapshot.toObject(Address.class);
         binding.setAddress(address);
-
+        binding.editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, addressActivity.class);
+            intent.putExtra("addressRef", snapshot.getReference().getPath());
+            activity.startActivity(intent);
+        });
         blurDialog=new BlurDialog();
         BlurDialog.Builder builder = new BlurDialog.Builder()
                 .isCancelable(true).radius(10)

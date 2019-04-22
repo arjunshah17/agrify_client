@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Cart {
-    DocumentReference sellerCartProductRef, userCartProductRef, SellerProductRef;
+    private DocumentReference sellerCartProductRef, userCartProductRef, SellerProductRef;
     private String productId, sellerId, name, productImageUrl, unit;
     private float price;
 
-    int Quantity,minQuantity,maxQuantity;
+    private int quantity, minQuantity, maxQuantity;
 
 
     public Cart(String productId, String sellerId, String name, String productImageUrl, String unit, DocumentReference sellerCartProductRef, DocumentReference userCartProductRef, DocumentReference sellerProductRef, float price, int quantity, int minQuantity, int maxQuantity) {
@@ -24,7 +24,7 @@ public class Cart {
         this.userCartProductRef = userCartProductRef;
         SellerProductRef = sellerProductRef;
         this.price = price;
-        Quantity = quantity;
+        this.quantity = quantity;
         this.minQuantity = minQuantity;
         this.maxQuantity = maxQuantity;
     }
@@ -33,7 +33,29 @@ public class Cart {
 
     }
 
+    public DocumentReference getSellerCartProductRef() {
+        return sellerCartProductRef;
+    }
 
+    public void setSellerCartProductRef(DocumentReference sellerCartProductRef) {
+        this.sellerCartProductRef = sellerCartProductRef;
+    }
+
+    public DocumentReference getUserCartProductRef() {
+        return userCartProductRef;
+    }
+
+    public void setUserCartProductRef(DocumentReference userCartProductRef) {
+        this.userCartProductRef = userCartProductRef;
+    }
+
+    public DocumentReference getSellerProductRef() {
+        return SellerProductRef;
+    }
+
+    public void setSellerProductRef(DocumentReference sellerProductRef) {
+        SellerProductRef = sellerProductRef;
+    }
 
     public String getProductId() {
         return productId;
@@ -75,30 +97,6 @@ public class Cart {
         this.unit = unit;
     }
 
-    public DocumentReference getSellerCartProductRef() {
-        return sellerCartProductRef;
-    }
-
-    public void setSellerCartProductRef(DocumentReference sellerCartProductRef) {
-        this.sellerCartProductRef = sellerCartProductRef;
-    }
-
-    public DocumentReference getUserCartProductRef() {
-        return userCartProductRef;
-    }
-
-    public void setUserCartProductRef(DocumentReference userCartProductRef) {
-        this.userCartProductRef = userCartProductRef;
-    }
-
-    public DocumentReference getSellerProductRef() {
-        return SellerProductRef;
-    }
-
-    public void setSellerProductRef(DocumentReference sellerProductRef) {
-        SellerProductRef = sellerProductRef;
-    }
-
     public float getPrice() {
         return price;
     }
@@ -108,11 +106,11 @@ public class Cart {
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     public int getMinQuantity() {

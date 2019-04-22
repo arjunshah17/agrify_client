@@ -62,7 +62,7 @@ public class OrderListFragment extends Fragment implements OrderAdapter.OnOrderI
     }
 
     private void initCartRecycleView() {
-        query = firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList");
+        query = firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList").orderBy("timestamp", Query.Direction.DESCENDING);
         orderAdapter = new OrderAdapter(query, getActivity(), this) {
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {

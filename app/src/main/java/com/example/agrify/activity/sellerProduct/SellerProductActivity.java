@@ -13,12 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.Utils.CartCounter;
+import com.example.agrify.activity.Utils.RatingUtils;
 import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.Store;
+import com.example.agrify.activity.order.adapter.RatingAdapter;
 import com.example.agrify.activity.order.model.OrderItem;
+import com.example.agrify.activity.order.model.Rating;
 import com.example.agrify.activity.order.orderActivity;
 import com.example.agrify.activity.sellerProduct.adpater.SellerRecomAdpater;
 import com.example.agrify.activity.sellerProduct.model.Cart;
@@ -48,7 +52,9 @@ import com.vincent.blurdialog.listener.OnPositiveClick;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -62,7 +68,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
     String TAG = "SellerProductActivity";
     FirebaseFirestore firebaseFirestore;
     ActivitySellerProductBinding binding;
-    SellerRecomAdpater adapter;
+    RatingAdapter adapter;
     Query query;
     WriteBatch cartBatch;
     WriteBatch clearBatch;
@@ -89,6 +95,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             Log.i("product_id", product_id);
             Log.i("seller_id", seller_id);
         }
+        binding.bottomButton.setVisibility(View.GONE);
         store = new Store();
 
         auth = FirebaseAuth.getInstance();
@@ -109,7 +116,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             onBackPressed();
 
         });
-        initSellerRecomProductRecycleView();
+        initRatingRecycleView();
 
         binding.addToCartButton.setOnClickListener(v -> {
             addToCart();
@@ -179,6 +186,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         cart.setUnit(store.getUnit());
         cart.setSellerProductRef(seller.getSellerProductRef());
         cart.setPrice(seller.getPrice());
+
         cart.setMaxQuantity(seller.getMaxQuantity());
         cart.setMinQuantity(seller.getMinQuantity());
         DocumentReference tempOrderCart = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(product_id);
@@ -385,11 +393,25 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         sellerProductListener = mSellerProductRef.addSnapshotListener(this);
     }
 
-    private void initSellerRecomProductRecycleView() {
-        query = firebaseFirestore.collection("Sellers").document(seller_id).collection("productList");
-        adapter = new SellerRecomAdpater(query, this, this);
-        binding.sellerRecomRv.setLayoutManager(new GridLayoutManager(this, 3));
-        binding.sellerRecomRv.setAdapter(adapter);
+    private void initRatingRecycleView() {
+        query = firebaseFirestore.collection("Sellers").document(seller_id).collection("productList").document(product_id).collection("ratingList");
+        adapter = new RatingAdapter(query, this) {
+
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                super.onEvent(documentSnapshots, e);
+                ArrayList<Rating> ratings = new ArrayList<Rating>();
+                for (int i = 0; i < getItemCount(); i++) {
+                    ratings.add(adapter.getRating(i));
+
+                }
+                binding.rattingCard.Rating.setRating((float) RatingUtils.getAverageRating(ratings));
+                binding.rattingCard.NumRatings.setText(String.valueOf(getItemCount()));
+
+            }
+        };
+        binding.rattingCard.ratingListRv.setLayoutManager(new LinearLayoutManager(this));
+        binding.rattingCard.ratingListRv.setAdapter(adapter);
 
     }
 

@@ -17,6 +17,10 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="colorControlActivated">@color/secondaryColor</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
+
+
+        <!-- Assign custom text styles for title, description, comment -->
+
     </style>
 
     <style name="AppTheme.Actionbar" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -113,6 +117,31 @@
         <item name="android:layout_marginBottom">4dp</item>
     </style>
 
+    <style name="AppTheme.Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">#BDBDBD</item>
+    </style>
+
+    <style name="AppTheme.Subheader">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTheme.TextDivider">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:textColor">@color/greySecondary</item>
+    </style>
+
+    <style name="AppTheme.Body1">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+    </style>
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/white</item>
@@ -126,6 +155,7 @@
         <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
+
     <color name="secondaryColor">#8E24AA</color>
 
     <color name="buttonNormalColor">#8e24aa</color>

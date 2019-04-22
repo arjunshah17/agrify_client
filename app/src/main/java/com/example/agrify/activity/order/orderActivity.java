@@ -2,12 +2,17 @@ package com.example.agrify.activity.order;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.MainActivity;
@@ -33,6 +38,7 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -41,16 +47,19 @@ import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
 import com.google.type.Date;
 
+
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
 
-public class orderActivity extends AppCompatActivity implements AddressAdapter.OnAddressSelectedListener ,CartAdapter.OnOutOfStockListener {
+public class orderActivity extends AppCompatActivity implements AddressAdapter.OnAddressSelectedListener, CartAdapter.OnOutOfStockListener, PaymentMethodSelectionFragment.RadioClickedListener {
     CartAdapter cartAdapter;
     Query query;
     FirebaseFirestore firebaseFirestore;
@@ -63,7 +72,10 @@ public class orderActivity extends AppCompatActivity implements AddressAdapter.O
     boolean isOutOfStock;
     boolean isCartActivity = false;
     boolean isAddressSelected=false;
+    boolean isPaymentSelected = false;
+    boolean isGooglePay = true;
     CollectionReference Total_amount_ref;
+    PaymentMethodSelectionFragment paymentMethodSelectionFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +87,7 @@ public class orderActivity extends AppCompatActivity implements AddressAdapter.O
                 isCartActivity = true;
             }
         }
-
+        paymentMethodSelectionFragment = new PaymentMethodSelectionFragment(this::isGooglePay);
 
         Total_amount_ref = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart");
 order=new Order();
@@ -85,8 +97,7 @@ address=new Address();
 
         initCartRecycleView();
 
-        if(!isAddressSelected)
-        {
+        if (!isAddressSelected) {
             bind.addressLayout.setVisibility(View.GONE);
         }
         Total_amount_ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -110,26 +121,32 @@ address=new Address();
             addressListFragment.show(getSupportFragmentManager(),TAG);
         });
         bind.placeOrderButton.setOnClickListener(v->{
-            if(isAddressSelected) {
+            if (isAddressSelected && isPaymentSelected) {
                 if (isOutOfStock) {
                     Toasty.error(getApplicationContext(), "some of products are out of stock ,try to reduce quantity", Toasty.LENGTH_SHORT).show();
                 } else {
-                    try {
+                    if (isGooglePay) {
+                        makeOnlinePayment();
+                    } else {
                         placeOrder();
                     }
-                    catch (Exception ex)
-                    {
-                        ex.printStackTrace();
-                    }
+
+
                 }
-            }
-            else
-            {
-                Toasty.info(getApplicationContext(), "select address for Order", Toasty.LENGTH_SHORT).show();
+            } else {
+                Toasty.info(getApplicationContext(), "select address for Order or payment details", Toasty.LENGTH_SHORT).show();
             }
 
 
         });
+        bind.paymentMethodButton.setOnClickListener(v -> {
+            paymentMethodSelectionFragment.show(getSupportFragmentManager(), "orderActivity");
+
+        });
+    }
+
+    private void makeOnlinePayment() {
+
 
     }
 
@@ -159,21 +176,28 @@ loadingState(true);
                               order.setOrderStatus("pendding");
                               order.setTotalAmount(total_price);
 
+                              order.setPaymentMode("cash on delivery");
+
+
 
 
 
                                        String orderId=UUID.randomUUID().toString();
                                        order.setOrderId(String.valueOf(Timestamp.now().getSeconds()));
-                                       order.setTimestamp(Timestamp.now());
+                              order.setTimestamp(null);
                                        DocumentReference UserOrderRef=firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList").document(orderId);
                                        DocumentReference sellerOrderRef=firebaseFirestore.collection("Sellers").document(order.getSellerId()).collection("orderList").document(orderId);
                                        orderBatch.set(UserOrderRef,order);
                                        orderBatch.set(sellerOrderRef,order);
+                              orderBatch.update(UserOrderRef, "timestamp", FieldValue.serverTimestamp());
+                              orderBatch.update(sellerOrderRef, "timestamp", FieldValue.serverTimestamp());
+
 
                                        for(int i=0;i<cartAdapter.getItemCount();i++) {
                                            Cart cartItem = cartAdapter.getCart(i);
                                            OrderItem orderItem = new OrderItem();
                                            orderItem.setName(cartItem.getName());
+                                           orderItem.setReviewed(false);
                                            orderItem.setPrice(cartItem.getPrice());
                                            orderItem.setProductId(cartItem.getProductId());
                                            orderItem.setSellerId(cartItem.getSellerId());
@@ -181,11 +205,27 @@ loadingState(true);
                                            orderItem.setProductImageUrl(cartItem.getProductImageUrl());
                                            orderItem.setUnit(cartItem.getUnit());
                                            orderItem.setProductImageUrl(cartItem.getProductImageUrl());
-
-
-
+                                           orderItem.setQuantity(cartItem.getQuantity());
                                            DocumentReference userOrderItem=firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
                                            DocumentReference sellerOrderItem=firebaseFirestore.collection("Sellers").document(order.getSellerId()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
+
+                                           firebaseFirestore.runTransaction(new Transaction.Function<Integer>() {
+                                               @androidx.annotation.Nullable
+                                               @Override
+                                               public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                                                   DocumentSnapshot doc = transaction.get(cartItem.getSellerProductRef());
+                                                   int stock = doc.getDouble("stock").intValue();
+
+
+                                                   stock = stock - cartItem.getQuantity();
+                                                   cartItem.getSellerProductRef().update("stock", "stock", stock);
+
+
+                                                   return stock;
+                                               }
+
+                                           });
+
 
 
                                            orderBatch.set(userOrderItem, orderItem);
@@ -299,34 +339,42 @@ loadingState(true);
 
     ArrayList<String> productIdList=new ArrayList();
     @Override
-    public void onOutofStock(boolean status,String product_id) {
-        if(productIdList.contains(product_id))
-        {
-            if(status)
-            {
+    public void onOutofStock(boolean status, String product_id) {
+        if(productIdList.contains(product_id)) {
+            if(status) {
                 productIdList.remove(product_id);
             }
-        }
-        else
-        {
-            if(!status)
-            {
+        } else {
+            if(!status) {
                 productIdList.add(product_id);
             }
 
         }
 
-        if(productIdList.size()==cartAdapter.getItemCount())
-        {
+        if(productIdList.size()==cartAdapter.getItemCount()) {
             isOutOfStock=false;
-        }
-        else
-        {
+        } else {
             isOutOfStock=true;
         }
 
     }
+
+    @Override
+    public void isGooglePay(boolean mode) {
+        paymentMethodSelectionFragment.dismiss();
+        isPaymentSelected = true;
+        if (mode) {
+            isGooglePay = true;
+            bind.paymentMethodIcon.setImageResource(R.drawable.googleg_standard_color_18);
+            bind.paymentMethodText.setText("google pay");
+        } else {
+            isGooglePay = false;
+            bind.paymentMethodIcon.setImageResource(R.drawable.ic_cash);
+            bind.paymentMethodText.setText("cash on delivery");
+        }
+
     }
+}
 
 
 

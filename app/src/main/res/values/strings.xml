@@ -11,7 +11,7 @@
     <string name="title_activity_intro_slider">introSlider</string>
     <string name="email_hint">Email</string>
     <string name="phone_hint">Phone Number</string>
-
+    <string name="divider_bullet">•</string>
     <string name="changeProfile">Change Profile</string>
 
 
@@ -60,6 +60,7 @@
     <string name="place_address">Place Address</string>
     <string name="save_address">Save Address</string>
     <string name="add_address">ADD NEW ADDRESS</string>
+
     <string-array name="categories_names">
 
         <item>all</item>
