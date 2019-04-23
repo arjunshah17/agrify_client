@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -54,6 +55,31 @@ public class SellerListFragment extends BottomSheetDialogFragment implements Sel
         binding = DataBindingUtil.inflate(inflater, R.layout.sellerlistfragment, container,
                 false);
 getSellerList();
+        binding.serachView.setQueryHint("Search");
+        binding.serachView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                Query queryName;
+                if (query != null) {
+                    queryName = firebaseFirestore.collection("store").document(product_id).collection("sellerList").orderBy("name").startAt(query.toLowerCase()).endAt(query.toLowerCase() + "\uf8ff");
+                    mAdapter.setQuery(queryName);
+
+                }
+                return false;
+            }
+        });
+        binding.serachView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mAdapter.setQuery(mQuery);
+                return false;
+            }
+        });
         return binding.getRoot();
 
     }

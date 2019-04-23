@@ -260,7 +260,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
             public boolean onQueryTextChange(String query) {
                 Query queryName;
                 if (query != null) {
-                    queryName = mFirestore.collection("store").orderBy("name").startAt(query.toLowerCase()).endAt(query.toLowerCase() + "\uf8ff");
+                    queryName = mFirestore.collection("store").orderBy("name").startAt(query.trim().toLowerCase()).endAt(query.trim().toLowerCase() + "\uf8ff");
                     mAdapter.setQuery(queryName);
 
                 }

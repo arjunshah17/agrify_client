@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.agrify.R;
 import com.example.agrify.activity.MainActivity;
+import com.example.agrify.activity.Utils.SwipeToDeleteCallBack;
 import com.example.agrify.activity.Utils.cartUtils;
 import com.example.agrify.activity.address.AddressAdapter;
 import com.example.agrify.activity.address.AddressListFragment;
@@ -96,6 +99,7 @@ user=new User();
 address=new Address();
 
         initCartRecycleView();
+        enableSwipeToDelete();
 
         if (!isAddressSelected) {
             bind.addressLayout.setVisibility(View.GONE);
@@ -120,22 +124,25 @@ address=new Address();
 
             addressListFragment.show(getSupportFragmentManager(),TAG);
         });
-        bind.placeOrderButton.setOnClickListener(v->{
-            if (isAddressSelected && isPaymentSelected) {
-                if (isOutOfStock) {
-                    Toasty.error(getApplicationContext(), "some of products are out of stock ,try to reduce quantity", Toasty.LENGTH_SHORT).show();
-                } else {
-                    if (isGooglePay) {
-                        makeOnlinePayment();
+        bind.placeOrderButton.setOnClickListener(v -> {
+
+            if (cartAdapter.getItemCount() != 0) {
+
+                if (isAddressSelected) {
+                    if (isOutOfStock) {
+                        Toasty.error(getApplicationContext(), "some of products are out of stock ,try to reduce quantity", Toasty.LENGTH_SHORT).show();
                     } else {
+
                         placeOrder();
                     }
-
+                } else {
+                    Toasty.error(getApplicationContext(), "no items in order", Toasty.LENGTH_SHORT).show();
 
                 }
             } else {
-                Toasty.info(getApplicationContext(), "select address for Order or payment details", Toasty.LENGTH_SHORT).show();
+                Toasty.info(getApplicationContext(), "select address ", Toasty.LENGTH_SHORT).show();
             }
+
 
 
         });
@@ -374,6 +381,26 @@ loadingState(true);
         }
 
     }
+
+    private void enableSwipeToDelete() {
+        SwipeToDeleteCallBack swipeToDeleteCallback = new SwipeToDeleteCallBack(this) {
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
+                final int position = viewHolder.getAdapterPosition();
+
+                Cart cart = cartAdapter.getCart(position);
+                cartUtils.deleteorderItem(cart.getProductId(), cart.getSellerId(), getApplicationContext());
+                cartAdapter.notifyItemRemoved(position);
+            }
+        };
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchhelper.attachToRecyclerView(bind.orderRecycleView);
+    }
+
 }
 
 

@@ -56,6 +56,18 @@
                     app:lottie_loop="true"
                     app:lottie_autoPlay="true" />
             </LinearLayout>
+
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                android:id="@+id/shimmerRecyclerView"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dp_12"
+                android:layout_weight="1"
+                app:shimmer_demo_angle="20"
+                app:shimmer_demo_child_count="10"
+                app:shimmer_demo_grid_child_count="10"
+                app:shimmer_demo_layout="@layout/address_list_loading" />
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:id="@+id/address_List_rv"

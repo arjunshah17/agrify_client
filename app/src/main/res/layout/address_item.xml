@@ -21,6 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/address_name_tv"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_6"
+                tools:text="@{address.name}"/>
 
             <TextView
                 android:id="@+id/address_location"
@@ -29,13 +36,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_6"
                 tools:text="102,h,browun avenue maple county 2, thaltej ahmedabad,-380058" />
-            <TextView
-                android:id="@+id/address_name_tv"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_6"
-                tools:text="@{address.name}"/>
+
 
             <LinearLayout
                 android:id="@+id/button_layout"

@@ -46,4 +46,8 @@ public class OrderItemAdapter extends FirestoreAdapter<OrderItemHolder> {
     public interface OnClickRateListener {
         void onClikedRating(DocumentSnapshot snapshot, OrderItem orderItem);
     }
+
+    public OrderItem getOrderItem(int pos) {
+        return getSnapshot(pos).toObject(OrderItem.class);
+    }
 }

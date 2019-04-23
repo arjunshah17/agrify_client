@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.agrify.R;
+import com.example.agrify.activity.MainActivity;
 import com.example.agrify.activity.order.adapter.OrderAdapter;
 import com.example.agrify.activity.order.model.Order;
 import com.example.agrify.activity.sellerProduct.adpater.CartAdapter;
@@ -57,7 +58,11 @@ public class OrderListFragment extends Fragment implements OrderAdapter.OnOrderI
         firebaseFirestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         initCartRecycleView();
+        bind.cartEmpty.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), MainActivity.class));
+        });
         return bind.getRoot();
+
     }
 
     private void initCartRecycleView() {
@@ -88,10 +93,17 @@ public class OrderListFragment extends Fragment implements OrderAdapter.OnOrderI
         bind.orderRecycleView.setAdapter(orderAdapter);
     }
 
-    private void noProductFound(boolean b) {
-    }
 
-    private void productLoadingState(boolean b) {
+    private void productLoadingState(boolean state) {
+        if (state) {
+            bind.orderRecycleView.setVisibility(View.INVISIBLE);
+            bind.shimmerRecyclerView.showShimmerAdapter();
+            bind.shimmerRecyclerView.setVisibility(View.VISIBLE);
+        } else {
+            bind.orderRecycleView.setVisibility(View.VISIBLE);
+            bind.shimmerRecyclerView.hideShimmerAdapter();
+            bind.shimmerRecyclerView.setVisibility(View.GONE);
+        }
     }
 
 
@@ -119,6 +131,18 @@ public class OrderListFragment extends Fragment implements OrderAdapter.OnOrderI
         super.onStop();
         if (orderAdapter != null) {
             orderAdapter.stopListening();
+        }
+    }
+
+    void noProductFound(boolean state) {
+        if (state) {
+            bind.mainLayout.setVisibility(View.GONE);
+            bind.animationView.playAnimation();
+            bind.animationLayout.setVisibility(View.VISIBLE);
+        } else {
+            bind.animationLayout.setVisibility(View.GONE);
+            bind.mainLayout.setVisibility(View.VISIBLE);
+            bind.animationView.cancelAnimation();
         }
     }
 }

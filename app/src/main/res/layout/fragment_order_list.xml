@@ -19,26 +19,51 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view_text"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-
-
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/animation_loading_text" />
-
-            <com.airbnb.lottie.LottieAnimationView
-
-                android:id="@+id/animation_view"
-                android:layout_width="match_parent"
-
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:lottie_autoPlay="true"
+                android:layout_gravity="center_horizontal"
+                android:text="you have not ordered any thing"
+                android:textAllCaps="true"
+                android:textColor="@color/secondaryColor"
+                android:textStyle="bold"
+                android:typeface="monospace" />
 
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:text="load up with fresh vegitables and friuts"
+                android:textColor="@color/secondaryColor" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="400dp"
+                android:layout_height="350dp"
+                android:layout_gravity="center_horizontal"
+                app:lottie_autoPlay="true"
+                android:layout_margin="@dimen/dp_6"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/animation_loading" />
+                android:layout_marginTop="200dp"
+                app:lottie_rawRes="@raw/no_order" />
+
+            <life.sabujak.roundedbutton.RoundedButton
+
+                android:id="@+id/cart_empty"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dp_12"
+                android:padding="@dimen/dp_12"
+                android:text="cotinue shoping"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                app:buttonCornerRadius="25dp"
+                app:buttonGradientEndColor="#B06AB3"
+                app:buttonGradientStartColor="#4568DC" />
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/main_layout"
@@ -63,6 +88,17 @@
                 android:layout_below="@id/appbarlayout"
                 android:background="@drawable/curve_background_secondary_color">
 
+                <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                    android:id="@+id/shimmerRecyclerView"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_6"
+                    app:shimmer_demo_angle="20"
+                    app:shimmer_demo_child_count="10"
+
+                    app:shimmer_demo_grid_child_count="10"
+                    app:shimmer_demo_layout="@layout/cart_item_loading" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/order_recycleView"
                     android:layout_width="match_parent"

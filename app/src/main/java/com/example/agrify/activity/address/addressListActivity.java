@@ -41,7 +41,7 @@ public class addressListActivity extends AppCompatActivity implements AddressAda
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 super.onEvent(documentSnapshots, e);
 
-
+                productLoadingState(false);
                 if (getItemCount() == 0) {
 
                 } else {
@@ -93,9 +93,11 @@ public class addressListActivity extends AppCompatActivity implements AddressAda
         if (state) {
             binding.addressListRv.setVisibility(View.INVISIBLE);
             binding.shimmerRecyclerView.showShimmerAdapter();
+            binding.shimmerRecyclerView.setVisibility(View.VISIBLE);
         } else {
             binding.addressListRv.setVisibility(View.VISIBLE);
             binding.shimmerRecyclerView.hideShimmerAdapter();
+            binding.shimmerRecyclerView.setVisibility(View.GONE);
         }
 
     }

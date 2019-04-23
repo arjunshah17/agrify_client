@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class RatingHolder extends RecyclerView.ViewHolder {
     private static final SimpleDateFormat FORMAT = new SimpleDateFormat(
-            "MM/dd/yyyy");
+            "dd/MM/yyyy");
     ItemRatingBinding binding;
     FirebaseFirestore firebaseFirestore;
 

@@ -42,6 +42,8 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
     OrderItemAdapter orderItemAdapter;
     ActivityOrderDetailBinding binding;
 
+    Order order;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,9 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
         }
         InitUi();
         initCartRecycleView();
+        binding.downloadInvoice.setOnClickListener(v -> {
+            DownloadInvoice();
+        });
 
 
     }
@@ -91,6 +96,16 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
         binding.orderRecycleView.setAdapter(orderItemAdapter);
     }
 
+    private void DownloadInvoice() {
+        //TODO intilize order object with invoice
+        //like this order.getOrderId();
+        for (int i = 0; i < orderItemAdapter.getItemCount(); i++) {
+            OrderItem orderItem = orderItemAdapter.getOrderItem(i);//object for product information
+            //TODO intilize products with orderItem in for loop
+
+        }
+    }
+
     private void InitUi() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
         firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList").document(orderId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -99,7 +114,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
                 try {
                     {
 
-                        Order order = snapshot.toObject(Order.class);
+                        order = snapshot.toObject(Order.class);
                         binding.orderId.setText(order.getOrderId());
                         binding.orderDate.setText(simpleDateFormat.format(order.getTimestamp().toDate()));
                         binding.orderStatus.setText(order.getOrderStatus());

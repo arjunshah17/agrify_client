@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/main_layout"
+            style="@style/Platform.MaterialComponents.Light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/product_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_12" />
+
+                <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                    android:id="@+id/shimmerRecyclerView"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dp_12"
+                    app:shimmer_demo_angle="20"
+                    app:shimmer_demo_child_count="10"
+
+                    app:shimmer_demo_grid_child_count="10"
+                    app:shimmer_demo_layout="@layout/address_list_loading" />
+
+            </LinearLayout>
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="top"
+                android:fitsSystemWindows="true"
+
+                app:elevation="0dp"
+
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    style="@style/Widget.Shrine.Toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+
+                    android:layout_gravity="center"
+                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                    app:title="seller store"
+                    tools:title="arjun shah"
+
+                    />
+            </com.google.android.material.appbar.AppBarLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
+</layout>

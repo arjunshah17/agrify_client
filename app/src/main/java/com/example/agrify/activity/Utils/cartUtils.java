@@ -41,7 +41,7 @@ public class cartUtils {
                         String productId = doc.getId();
                         String sellerId = doc.getString("sellerId");
                         DocumentReference Prodref = firebaseFirestore.collection("store").document(productId).collection("product_user_cart").document(auth.getUid());
-                        DocumentReference sellerProductRef = firebaseFirestore.collection("Sellers").document(sellerId).collection("cartItemUser").document(auth.getUid());
+                        DocumentReference sellerProductRef = firebaseFirestore.collection("Sellers").document(sellerId).collection("productList").document(productId).collection("cartItemUser").document(auth.getUid());
                         clearBatch.delete(Prodref);
                         clearBatch.delete(sellerProductRef);
                     }
@@ -64,5 +64,38 @@ public class cartUtils {
                 }
             }
         });
+    }
+
+    public static void deletecartItem(String productId, String sellerId, Context context) {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        WriteBatch clearBatch = firebaseFirestore.batch();
+
+
+        HashMap<String, Object> storeHash = new HashMap<>();
+        DocumentReference Prodref = firebaseFirestore.collection("store").document(productId).collection("product_user_cart").document(auth.getUid());
+        DocumentReference sellerProductRef = firebaseFirestore.collection("Sellers").document(sellerId).collection("productList").document(productId).collection("cartItemUser").document(auth.getUid());
+        clearBatch.delete(Prodref);
+        clearBatch.delete(sellerProductRef);
+        DocumentReference ref = firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(productId);
+        clearBatch.delete(ref);
+        clearBatch.commit();
+
+    }
+
+    public static void deleteorderItem(String productId, String sellerId, Context applicationContext) {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        WriteBatch clearBatch = firebaseFirestore.batch();
+
+
+        HashMap<String, Object> storeHash = new HashMap<>();
+        // DocumentReference Prodref = firebaseFirestore.collection("store").document(productId).collection("product_user_cart").document(auth.getUid());
+        DocumentReference sellerProductRef = firebaseFirestore.collection("Sellers").document(sellerId).collection("productList").document(productId).collection("tempOrderCart").document(auth.getUid());
+        //  clearBatch.delete(Prodref);
+        clearBatch.delete(sellerProductRef);
+        DocumentReference ref = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(productId);
+        clearBatch.delete(ref);
+        clearBatch.commit();
     }
 }

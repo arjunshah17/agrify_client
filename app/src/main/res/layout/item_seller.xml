@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -26,7 +27,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -41,17 +42,40 @@
 
                 <LinearLayout
                     android:id="@+id/item_seller_user"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/userName"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{seller.name}"
-                        android:textSize="20sp" />
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical">
+
+
+                        <RatingBar
+                            android:id="@+id/Rating"
+                            style="@style/Widget.MaterialRatingBar.RatingBar.Indicator"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp_3"
+                            android:isIndicator="true" />
+
+                        <TextView
+                            android:id="@+id/NumRatings"
+                            style="@style/TextAppearance.MaterialComponents.Body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_alignTop="@+id/Rating"
+                            android:layout_alignBottom="@+id/Rating"
+
+                            android:layout_toRightOf="@+id/Rating"
+                            android:gravity="bottom"
+                            tools:text="(10)" />
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/price"
@@ -59,7 +83,19 @@
                         android:layout_height="wrap_content"
                         android:text="price"
                         android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/userName"
+                        tools:text="arjun shah"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{seller.name}"
+                        android:textSize="20sp" />
+
+
                 </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout

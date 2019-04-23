@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".activity.order.OrderDetailActivity"></activity>
+        <activity android:name=".activity.sellerProduct.SellerProductStoreActivity"></activity>
+        <activity android:name=".activity.order.OrderDetailActivity" />
         <activity android:name=".activity.order.orderActivity" />
         <activity android:name=".activity.address.addressListActivity" />
         <activity android:name=".activity.address.addressActivity" />
@@ -46,18 +47,16 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCvpN7qZPXwrahdKwx-XPYLuEm3vib9v7M" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
-    <dist:module dist:instant="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
+    <dist:module dist:instant="true" />
 
 </manifest>

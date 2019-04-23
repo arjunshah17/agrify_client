@@ -8,18 +8,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.model.Store;
-import com.example.agrify.activity.sellerProduct.adpater.SellerRecomAdpater;
-import com.example.agrify.databinding.RecomProductItemBinding;
+import com.example.agrify.activity.sellerProduct.adpater.SellerStoreAdpater;
+
+import com.example.agrify.databinding.SellerProductItemBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class SellerRecomHolder extends RecyclerView.ViewHolder {
+import java.text.NumberFormat;
+
+public class SellerProductHolder extends RecyclerView.ViewHolder {
     FirebaseFirestore firebaseFirestore;
     Store store;
-    RecomProductItemBinding binding;
-    public SellerRecomHolder(@NonNull RecomProductItemBinding binding) {
+    SellerProductItemBinding binding;
+
+    public SellerProductHolder(@NonNull SellerProductItemBinding binding) {
         super(binding.getRoot());
         this.binding=binding;
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -27,7 +30,7 @@ public class SellerRecomHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(DocumentSnapshot sellerSnapshot, SellerRecomAdpater.OnProductSelectedListener listener, Activity activity) {
+    public void bind(DocumentSnapshot sellerSnapshot, SellerStoreAdpater.OnProductSelectedListener listener, Activity activity) {
 
         String productId=sellerSnapshot.getString("productId");
         String sellerId=sellerSnapshot.getId();
@@ -37,7 +40,7 @@ public class SellerRecomHolder extends RecyclerView.ViewHolder {
             public void onSuccess(DocumentSnapshot snapshot) {
                 store=snapshot.toObject(Store.class);
                 binding.productName.setText(store.getName());
-                binding.productPrice.setText("₹"+sellerSnapshot.getDouble("price").toString()+"/"+store.getUnit());
+                binding.productPrice.setText("₹" + NumberFormat.getInstance().format(sellerSnapshot.getDouble("price")) + "/" + store.getUnit());
 
                 // Load image
                 if (activity != null) {

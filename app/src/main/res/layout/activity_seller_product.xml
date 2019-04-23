@@ -291,7 +291,7 @@ android:id="@+id/bottom_button"
                 android:layout_width="wrap_content"
                android:background="@drawable/item_ripple_effect"
                 android:layout_height="match_parent"
-                
+                android:id="@+id/store_button"
                 android:orientation="vertical"
                 android:focusable="true">
 

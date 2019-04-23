@@ -37,7 +37,12 @@
                 app:lottie_loop="true"
                 app:lottie_autoPlay="true" />
         </LinearLayout>
-    <RelativeLayout
+
+        <include
+            android:id="@+id/progress_bar_layout"
+            layout="@layout/circle_progressbar" />
+
+        <RelativeLayout
         android:id="@+id/main_layout"
         style="@style/Platform.MaterialComponents.Light"
         android:layout_width="match_parent"

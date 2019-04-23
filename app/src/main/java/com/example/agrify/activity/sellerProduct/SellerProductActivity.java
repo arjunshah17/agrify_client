@@ -2,6 +2,7 @@ package com.example.agrify.activity.sellerProduct;
 
 import android.content.Intent;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,19 +13,18 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.agrify.R;
+import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.Utils.CartCounter;
 import com.example.agrify.activity.Utils.RatingUtils;
 import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.Store;
 import com.example.agrify.activity.order.adapter.RatingAdapter;
-import com.example.agrify.activity.order.model.OrderItem;
 import com.example.agrify.activity.order.model.Rating;
 import com.example.agrify.activity.order.orderActivity;
-import com.example.agrify.activity.sellerProduct.adpater.SellerRecomAdpater;
+import com.example.agrify.activity.sellerProduct.adpater.SellerStoreAdpater;
 import com.example.agrify.activity.sellerProduct.model.Cart;
 import com.example.agrify.databinding.ActivitySellerProductBinding;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,7 +54,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -62,7 +61,7 @@ import es.dmoral.toasty.Toasty;
 import it.sephiroth.android.library.numberpicker.NumberPicker;
 
 
-public class SellerProductActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>, SellerRecomAdpater.OnProductSelectedListener {
+public class SellerProductActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>, SellerStoreAdpater.OnProductSelectedListener {
     String seller_id;
     String product_id;
     String TAG = "SellerProductActivity";
@@ -95,7 +94,20 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             Log.i("product_id", product_id);
             Log.i("seller_id", seller_id);
         }
-        binding.bottomButton.setVisibility(View.GONE);
+        binding.scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > 0) {
+
+
+                    binding.bottomButton.setVisibility(View.GONE);
+
+                } else {
+
+                    binding.bottomButton.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         store = new Store();
 
         auth = FirebaseAuth.getInstance();
@@ -145,6 +157,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
                 Toasty.error(getApplicationContext(), "some of products are not in stock,try to reduce quantity", Toasty.LENGTH_SHORT).show();
             } else {
                 WriteBatch deleteBatch = firebaseFirestore.batch();
+                productLoading(true);
                 firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -172,6 +185,16 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
 
             }
         });
+        binding.storeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), SellerProductStoreActivity.class);
+            intent.putExtra("sellerId", seller_id);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
+
+        });
+
     }
 
     private void createTempOrderCart() {
@@ -199,6 +222,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    productLoading(false);
                     startActivity(new Intent(getApplicationContext(), orderActivity.class));
                 } else {
                     Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT);
@@ -394,7 +418,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
     }
 
     private void initRatingRecycleView() {
-        query = firebaseFirestore.collection("Sellers").document(seller_id).collection("productList").document(product_id).collection("ratingList");
+        query = firebaseFirestore.collection("Sellers").document(seller_id).collection("productList").document(product_id).collection("ratingList").orderBy("timestamp", Query.Direction.DESCENDING);
         adapter = new RatingAdapter(query, this) {
 
             @Override
@@ -406,7 +430,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
 
                 }
                 binding.rattingCard.Rating.setRating((float) RatingUtils.getAverageRating(ratings));
-                binding.rattingCard.NumRatings.setText(String.valueOf(getItemCount()));
+                binding.rattingCard.NumRatings.setText("(" + String.valueOf(getItemCount()) + ")");
 
             }
         };
@@ -494,6 +518,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             binding.appBar.setTitle(seller.getName());
             binding.sellerPrice.setText(seller.getPrice() + "/" + unit);
             binding.textQuantity.setText("enter quantity of " + name + " in " + unit);
+            initSellerDetails();
             if (seller.getStock() >= binding.quantityNumberpicker.getProgress())
                 setOutOfStock(false);
             else setOutOfStock(true);
@@ -558,4 +583,47 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             binding.outOfStock.setVisibility(View.GONE);
         }
     }
+
+    void initSellerDetails() {
+        binding.rattingCard.userName.setText(seller.getName());
+
+        try {
+
+
+            GlideApp.with(this)
+                    .load(seller.getProfilePhotoUrl())
+                    .into(binding.rattingCard.profilePhoto);
+        } catch (Exception ex) {
+
+        }
+        binding.rattingCard.location.setOnClickListener(v -> {
+            SellerAddressFragment sellerAddressFragment = new SellerAddressFragment(seller.getAddressRef());
+            sellerAddressFragment.show(getSupportFragmentManager(), "SellerProductActivity");
+        });
+        binding.rattingCard.call.setOnClickListener(v -> {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + seller.getPhone()));
+            try {
+
+
+                startActivity(callIntent);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        });
+        binding.rattingCard.email.setOnClickListener(v -> {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:" + seller.getEmail()));
+            try {
+
+
+                startActivity(emailIntent);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        });
+    }
+
 }

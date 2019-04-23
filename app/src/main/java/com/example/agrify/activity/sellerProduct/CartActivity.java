@@ -1,21 +1,28 @@
 package com.example.agrify.activity.sellerProduct;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agrify.R;
+import com.example.agrify.activity.MainActivity;
+import com.example.agrify.activity.Utils.SwipeToDeleteCallBack;
+import com.example.agrify.activity.Utils.cartUtils;
 import com.example.agrify.activity.order.orderActivity;
 import com.example.agrify.activity.sellerProduct.adpater.CartAdapter;
 import com.example.agrify.activity.sellerProduct.model.Cart;
 import com.example.agrify.databinding.ActivityCartBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
@@ -112,8 +119,32 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
             }
 
         });
+        enableSwipeToDelete();
+        bind.cartEmpty.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
+        });
     }
+
+    private void enableSwipeToDelete() {
+        SwipeToDeleteCallBack swipeToDeleteCallback = new SwipeToDeleteCallBack(this) {
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
+                final int position = viewHolder.getAdapterPosition();
+
+                Cart cart = cartAdapter.getCart(position);
+                cartUtils.deletecartItem(cart.getProductId(), cart.getSellerId(), getApplicationContext());
+                cartAdapter.notifyItemRemoved(position);
+            }
+        };
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchhelper.attachToRecyclerView(bind.cartRecycleView);
+    }
+
 
     private void createTempOrderCart() {
 
@@ -170,6 +201,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 super.onEvent(documentSnapshots, e);
                 productLoadingState(false);
+
 
                 if (getItemCount() == 0) {
                     noProductFound(true);
@@ -230,9 +262,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
         if (state) {
             bind.cartRecycleView.setVisibility(View.INVISIBLE);
             bind.shimmerRecyclerView.showShimmerAdapter();
+            bind.shimmerRecyclerView.setVisibility(View.VISIBLE);
         } else {
             bind.cartRecycleView.setVisibility(View.VISIBLE);
             bind.shimmerRecyclerView.hideShimmerAdapter();
+            bind.shimmerRecyclerView.setVisibility(View.GONE);
         }
 
     }
@@ -270,10 +304,13 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
 
     void progressLoading(boolean state) {
         if (state) {
-            bind.progressBar.setVisibility(View.VISIBLE);
+            bind.progressBarLayout.progressBarLoader.setVisibility(View.VISIBLE);
+            bind.wholeLayout.setVisibility(View.GONE);
         } else {
-            bind.progressBar.setVisibility(View.GONE);
+            bind.progressBarLayout.progressBarLoader.setVisibility(View.GONE);
+            bind.wholeLayout.setVisibility(View.VISIBLE);
         }
 
     }
+
 }
