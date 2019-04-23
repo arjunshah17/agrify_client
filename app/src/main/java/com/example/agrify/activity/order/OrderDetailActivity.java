@@ -70,7 +70,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
         binding.downloadInvoice.setOnClickListener(v -> {
             DownloadInvoice();
         });
-
+        initSellerDetails();
 
     }
 
