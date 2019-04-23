@@ -13,6 +13,7 @@ import com.example.agrify.R;
 import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.MainActivity;
 import com.example.agrify.activity.model.Seller;
+import com.example.agrify.activity.model.User;
 import com.example.agrify.activity.order.adapter.OrderAdapter;
 import com.example.agrify.activity.order.adapter.OrderItemAdapter;
 import com.example.agrify.activity.order.model.Order;
@@ -101,11 +102,20 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
     }
 
     private void DownloadInvoice() {
-        //TODO intilize order object with invoice
-        //like this order.getOrderId();
+
+
+        firebaseFirestore.collection("Users").document(order.getUserId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                User user=snapshot.toObject(User.class);
+                //objects are arlready created,no need to create new object
+                //TODO use user,seller and order object to initilize invoice header
+            }
+        });
         for (int i = 0; i < orderItemAdapter.getItemCount(); i++) {
-            OrderItem orderItem = orderItemAdapter.getOrderItem(i);//object for product information
-            //TODO intilize products with orderItem in for loop
+            OrderItem orderItem = orderItemAdapter.getOrderItem(i);
+            //object for product information
+            //TODO user order item for intilization of product
 
         }
     }
@@ -124,11 +134,9 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
                         binding.orderStatus.setText(order.getOrderStatus());
                         binding.addressNameTv.setText(order.getUserAddressname());
                         binding.addressLocation.setText(order.getUserHouseNum() + order.getUserLocation());
-                        binding.totalAmount.setText(NumberFormat.getInstance().format(order.getTotalAmount()));
+                        binding.totalAmount.setText("₹"+NumberFormat.getInstance().format(order.getTotalAmount()));
                         initSellerDetails();
-                        binding.downloadInvoice.setOnClickListener(v -> {
-                            DownloadInvoice();
-                        });
+
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -165,13 +173,16 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
         fragment.show(getSupportFragmentManager(), "OrderDetailActivity");
 
     }
+    Seller seller;
     void initSellerDetails() {
        firebaseFirestore.collection("Sellers").document( order.getSellerId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
            @Override
            public void onSuccess(DocumentSnapshot snapshot) {
-               Seller seller=snapshot.toObject(Seller.class);
+                seller=snapshot.toObject(Seller.class);
                binding.userName.setText(seller.getName());
-
+               binding.downloadInvoice.setOnClickListener(v -> {
+                   DownloadInvoice();
+               });
                try {
 
 

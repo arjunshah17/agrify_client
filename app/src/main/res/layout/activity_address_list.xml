@@ -30,34 +30,38 @@
 
             <LinearLayout
                 android:id="@+id/animation_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+android:visibility="gone"
 
-                <TextView
-                    android:id="@+id/animation_view_text"
-                    style="@style/TextAppearance.MaterialComponents.Headline4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="no address is saved" />
+                android:orientation="vertical"
+               >
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/animation_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp"
+                    android:layout_width="400dp"
+                    android:layout_height="300dp"
                     app:lottie_autoPlay="true"
+                    android:layout_gravity="center_vertical"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/animation_noaddress" />
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="no address are saved"
+                    android:textAllCaps="true"
+                    android:textColor="@color/secondaryColor"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
             </LinearLayout>
 
             <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                 android:id="@+id/shimmerRecyclerView"
                 android:layout_width="match_parent"
-
+android:visibility="gone"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/dp_12"
                 android:layout_weight="1"
@@ -77,7 +81,7 @@
                 android:id="@+id/address_button"
                 style="@style/AppTheme.outLineButton"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:text="@string/add_address" />
 
         </LinearLayout>

@@ -3,16 +3,21 @@ package com.example.agrify.activity.Utils;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 import com.google.firebase.firestore.WriteBatch;
+import com.google.firebase.firestore.model.value.FieldValueOptions;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
@@ -44,6 +49,8 @@ public class cartUtils {
                         DocumentReference sellerProductRef = firebaseFirestore.collection("Sellers").document(sellerId).collection("productList").document(productId).collection("cartItemUser").document(auth.getUid());
                         clearBatch.delete(Prodref);
                         clearBatch.delete(sellerProductRef);
+                        DocumentReference userRef=firebaseFirestore.collection("Users").document(auth.getUid());
+                        clearBatch.update(userRef,"cartCounter",0);
                     }
 
                     CollectionReference ref = firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList");
@@ -73,6 +80,8 @@ public class cartUtils {
 
 
         HashMap<String, Object> storeHash = new HashMap<>();
+        DocumentReference userRef=firebaseFirestore.collection("Users").document(auth.getUid());
+     clearBatch.update(userRef,"cartCounter", FieldValue.increment(- 1));
         DocumentReference Prodref = firebaseFirestore.collection("store").document(productId).collection("product_user_cart").document(auth.getUid());
         DocumentReference sellerProductRef = firebaseFirestore.collection("Sellers").document(sellerId).collection("productList").document(productId).collection("cartItemUser").document(auth.getUid());
         clearBatch.delete(Prodref);

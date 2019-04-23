@@ -170,35 +170,37 @@
                                         </TableRow>
 
                                         <TableRow>
+                                            <TextView
+                                                style="@style/TextAppearance.AppCompat.Subhead"
+                                                android:layout_margin="@dimen/dp_3"
+                                                android:text="payment mode"
+                                                android:textAllCaps="true" />
 
                                             <LinearLayout
                                                 android:layout_width="match_parent"
 
-
+                                              android:layout_margin="@dimen/dp_3"
                                                 android:layout_height="wrap_content">
 
                                                 <ImageView
                                                     android:id="@+id/payment_method_icon"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:src="@drawable/fui_ic_googleg_color_24dp" />
+
+                                                    android:src="@drawable/ic_cash" />
 
                                                 <TextView
                                                     android:id="@+id/payment_method_text"
                                                     style="@style/TextAppearance.MaterialComponents.Body1"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:text="Google pay" />
+                                                    android:text="cash on delivery" />
 
 
                                             </LinearLayout>
 
-                                            <TextView
-                                                style="@style/TextAppearance.AppCompat.Subhead"
-                                                android:layout_margin="@dimen/dp_3"
-                                                android:text="payment mode"
-                                                android:textAllCaps="true" />
                                         </TableRow>
+
 
                                         <TableRow>
 
@@ -255,7 +257,7 @@
                                 android:hapticFeedbackEnabled="true"
                                 android:shadowRadius="3"
                                 android:layout_margin="@dimen/dp_3"
-                                
+
                                 app:cardCornerRadius="10dp"
 
                                 app:cardElevation="10dp"

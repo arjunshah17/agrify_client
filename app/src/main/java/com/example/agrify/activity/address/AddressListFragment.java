@@ -150,7 +150,7 @@ public class AddressListFragment extends BottomSheetDialogFragment {
 
     void productLoadingState(boolean state) {
         if (state) {
-            binding.addressListRv.setVisibility(View.INVISIBLE);
+            binding.addressListRv.setVisibility(View.GONE);
             binding.shimmerRecyclerView.showShimmerAdapter();
             binding.shimmerRecyclerView.setVisibility(View.VISIBLE);
         } else {

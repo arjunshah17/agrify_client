@@ -156,6 +156,17 @@
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
 
+    <style name="materialCard" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="android:background">@color/productGridBackgroundColor</item>
+        <item name="android:hapticFeedbackEnabled">true</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="cardElevation">10dp</item>
+        <item name="android:layout_margin">@dimen/dp_3</item>
+    </style>
+
     <color name="secondaryColor">#8E24AA</color>
 
     <color name="buttonNormalColor">#8e24aa</color>
