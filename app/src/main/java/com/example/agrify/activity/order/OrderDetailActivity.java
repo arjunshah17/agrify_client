@@ -4,17 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.agrify.R;
+import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.MainActivity;
+import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.order.adapter.OrderAdapter;
 import com.example.agrify.activity.order.adapter.OrderItemAdapter;
 import com.example.agrify.activity.order.model.Order;
 import com.example.agrify.activity.order.model.OrderItem;
+import com.example.agrify.activity.sellerProduct.SellerAddressFragment;
 import com.example.agrify.activity.sellerProduct.adpater.CartAdapter;
 import com.example.agrify.databinding.ActivityOrderDetailBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -155,6 +161,51 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
     public void onClikedRating(DocumentSnapshot snapshot, OrderItem orderItem) {
         RatingDialogFragment fragment = new RatingDialogFragment(snapshot, orderItem);
         fragment.show(getSupportFragmentManager(), "OrderDetailActivity");
+
+    }
+    void initSellerDetails() {
+       firebaseFirestore.collection("Sellers").document( order.getSellerId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+           @Override
+           public void onSuccess(DocumentSnapshot snapshot) {
+               Seller seller=snapshot.toObject(Seller.class);
+               binding.userName.setText(seller.getName());
+
+               try {
+
+
+                   GlideApp.with(getApplicationContext())
+                           .load(seller.getProfilePhotoUrl())
+                           .into(binding.profilePhoto);
+               } catch (Exception ex) {
+
+               }
+
+               binding.call.setOnClickListener(v -> {
+                   Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                   callIntent.setData(Uri.parse("tel:" + seller.getPhone()));
+                   try {
+
+
+                       startActivity(callIntent);
+                   } catch (Exception ex) {
+                       ex.printStackTrace();
+                   }
+
+               });
+               binding.email.setOnClickListener(v -> {
+                   Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                   emailIntent.setData(Uri.parse("mailto:" + seller.getEmail()));
+                   try {
+
+
+                       startActivity(emailIntent);
+                   } catch (Exception ex) {
+                       ex.printStackTrace();
+                   }
+
+               });
+           }
+       });
 
     }
 }
