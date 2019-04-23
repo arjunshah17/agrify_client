@@ -25,7 +25,22 @@
                 android:orientation="vertical"
                 android:paddingTop="100dp"
                 android:paddingBottom="100dp" />
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbarlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
 
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/app_bar"
+                    style="@style/Widget.Shrine.Toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="center"
+                    android:tooltipText="back"
+                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                    app:title="order details" />
+            </com.google.android.material.appbar.AppBarLayout>
             <RelativeLayout
 
                 android:layout_width="match_parent"
@@ -235,12 +250,14 @@
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/dp_6"
+
                                 android:background="@color/productGridBackgroundColor"
                                 android:hapticFeedbackEnabled="true"
                                 android:shadowRadius="3"
+                                android:layout_margin="@dimen/dp_3"
+                                
+                                app:cardCornerRadius="10dp"
 
-                                app:cardCornerRadius="2dp"
                                 app:cardElevation="10dp"
 
                                 >
@@ -334,17 +351,7 @@
 
                                     </LinearLayout>
 
-                                    <TextView
-                                        style="@style/TextAppearance.MaterialComponents.Headline6"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="seller details"
-                                        android:textAllCaps="true" />
 
-                                    <View
-                                        android:layout_width="match_parent"
-                                        android:layout_height="2dp"
-                                        android:background="?attr/dividerHorizontal" />
                                 </LinearLayout>
                             </com.google.android.material.card.MaterialCardView>
                             <com.google.android.material.card.MaterialCardView
@@ -418,22 +425,7 @@
             </RelativeLayout>
 
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbarlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:elevation="0dp">
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/app_bar"
-                    style="@style/Widget.Shrine.Toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="center"
-                    android:tooltipText="back"
-                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
-                    app:title="order details" />
-            </com.google.android.material.appbar.AppBarLayout>
         </RelativeLayout>
     </RelativeLayout>
 </layout>

@@ -67,10 +67,8 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
         }
         InitUi();
         initCartRecycleView();
-        binding.downloadInvoice.setOnClickListener(v -> {
-            DownloadInvoice();
-        });
-        initSellerDetails();
+
+
 
     }
 
@@ -127,6 +125,10 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
                         binding.addressNameTv.setText(order.getUserAddressname());
                         binding.addressLocation.setText(order.getUserHouseNum() + order.getUserLocation());
                         binding.totalAmount.setText(NumberFormat.getInstance().format(order.getTotalAmount()));
+                        initSellerDetails();
+                        binding.downloadInvoice.setOnClickListener(v -> {
+                            DownloadInvoice();
+                        });
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();

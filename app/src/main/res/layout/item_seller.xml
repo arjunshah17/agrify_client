@@ -35,7 +35,7 @@
                     android:id="@+id/profilePhoto"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_gravity="center"
+
                     android:layout_margin="10dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/add_photo" />
@@ -47,6 +47,23 @@
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
+
+                    <TextView
+                        android:id="@+id/userName"
+                        tools:text="arjun shah"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{seller.name}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="price"
+                        android:textSize="20sp" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -56,7 +73,7 @@
 
                         <RatingBar
                             android:id="@+id/Rating"
-                            style="@style/Widget.MaterialRatingBar.RatingBar.Indicator"
+                            style="?attr/ratingBarStyleIndicator"
                             android:layout_width="wrap_content"
 
                             android:layout_height="wrap_content"
@@ -76,22 +93,6 @@
                             android:gravity="bottom"
                             tools:text="(10)" />
                     </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="price"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/userName"
-                        tools:text="arjun shah"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{seller.name}"
-                        android:textSize="20sp" />
-
 
                 </LinearLayout>
 
