@@ -357,12 +357,7 @@
                                 </LinearLayout>
                             </com.google.android.material.card.MaterialCardView>
                             <com.google.android.material.card.MaterialCardView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/dp_3"
-                                android:background="@color/productGridBackgroundColor"
-                                app:cardCornerRadius="10dp"
-                                app:cardElevation="2dp">
+                              style="@style/materialCard">
 
 
                                 <LinearLayout

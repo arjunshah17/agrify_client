@@ -212,6 +212,8 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
 
         cart.setMaxQuantity(seller.getMaxQuantity());
         cart.setMinQuantity(seller.getMinQuantity());
+        DocumentReference ref=firebaseFirestore.collection("Users").document(auth.getUid());
+        orderBatch.update(ref,"tempOrderSellerId",seller_id);
         DocumentReference tempOrderCart = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(product_id);
         DocumentReference sellerTempOrderCart = firebaseFirestore.document(seller.getSellerProductRef().getPath()).collection("tempOrderCart").document(auth.getUid());
         HashMap<String, DocumentReference> sellerIdHash = new HashMap<>();
