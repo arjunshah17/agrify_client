@@ -216,22 +216,11 @@ loadingState(true);
                                            DocumentReference userOrderItem=firebaseFirestore.collection("Users").document(auth.getUid()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
                                            DocumentReference sellerOrderItem=firebaseFirestore.collection("Sellers").document(order.getSellerId()).collection("orderList").document(orderId).collection("orderList").document(cartItem.getProductId());
 
-                                           firebaseFirestore.runTransaction(new Transaction.Function<Integer>() {
-                                               @androidx.annotation.Nullable
-                                               @Override
-                                               public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                                                   DocumentSnapshot doc = transaction.get(cartItem.getSellerProductRef());
-                                                   int stock = doc.getDouble("stock").intValue();
+
+orderBatch.update(orderItem.getSellerProductRef(),"stock",FieldValue.increment(- orderItem.getQuantity()));
+orderBatch.update(orderItem.getSellerProductRef(),"orderCount",FieldValue.increment(1));
 
 
-                                                   stock = stock - cartItem.getQuantity();
-                                                   cartItem.getSellerProductRef().update("stock", "stock", stock);
-
-
-                                                   return stock;
-                                               }
-
-                                           });
 
 
 
