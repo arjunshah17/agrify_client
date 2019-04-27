@@ -47,7 +47,7 @@
                 android:layout_margin="@dimen/dp_6"
                 app:lottie_loop="true"
                 android:layout_marginTop="200dp"
-                app:lottie_rawRes="@raw/no_order" />
+                app:lottie_rawRes="@raw/no_product" />
 
             <life.sabujak.roundedbutton.RoundedButton
 

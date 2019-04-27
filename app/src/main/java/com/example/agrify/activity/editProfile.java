@@ -50,6 +50,7 @@ import java.util.regex.Pattern;
 
 import es.dmoral.toasty.Toasty;
 import id.zelory.compressor.Compressor;
+import kotlin.text.Regex;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
@@ -383,9 +384,10 @@ if(getIntent().getExtras()!=null) {
     }
     private void initializeValidators()
     {
+        String phone="((\\+*)((0[ -]+)*|(91 )*)(\\d{12}+|\\d{10}+))|\\d{5}([- ]*)\\d{6}";
 
         validator.addValidation(this,bind.name.getId(), RegexTemplate.NOT_EMPTY,R.string.username_empty);
-        validator.addValidation(this,bind.phone.getId(), Patterns.PHONE,R.string.phone_error);
+        validator.addValidation(this,bind.phone.getId(), phone,R.string.phone_error);
 
 
     }

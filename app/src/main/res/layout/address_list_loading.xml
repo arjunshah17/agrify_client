@@ -22,16 +22,16 @@
             android:layout_margin="5dp">
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_width="377dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="40dp"
                 android:background="@color/colorPlaceHolderBG"
                 android:padding="@dimen/dp_6" />
 
             <View
+                android:layout_width="381dp"
+                android:layout_height="59dp"
                 android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
                 android:layout_marginEnd="40dp"
                 android:background="@color/colorPlaceHolderBG"
                 android:padding="@dimen/dp_6" />
@@ -52,6 +52,7 @@
                     android:background="@color/colorPlaceHolderBG"/>
 
                 <View
+                    android:layout_marginTop="10dp"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"

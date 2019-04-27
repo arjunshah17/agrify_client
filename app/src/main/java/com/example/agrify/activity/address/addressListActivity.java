@@ -93,6 +93,7 @@ public class addressListActivity extends AppCompatActivity implements AddressAda
         if (state) {
             binding.addressListRv.setVisibility(View.GONE);
             binding.shimmerRecyclerView.showShimmerAdapter();
+
             binding.shimmerRecyclerView.setVisibility(View.VISIBLE);
         } else {
             binding.addressListRv.setVisibility(View.VISIBLE);
@@ -124,11 +125,12 @@ public class addressListActivity extends AppCompatActivity implements AddressAda
     private void noProductFound(boolean state) {
         if (state) {
             binding.addressListRv.setVisibility(View.GONE);
-
+          binding.shimmerRecyclerView.setVisibility(View.GONE);
 
             binding.animationView.playAnimation();
             binding.animationLayout.setVisibility(View.VISIBLE);
         } else {
+
             binding.animationLayout.setVisibility(View.GONE);
             binding.addressListRv.setVisibility(View.VISIBLE);
             binding.animationView.cancelAnimation();

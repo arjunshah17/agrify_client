@@ -30,11 +30,12 @@
 
             <LinearLayout
                 android:id="@+id/animation_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
+                android:layout_width="500dp"
+                android:layout_height="500dp"
+                android:layout_gravity="center"
+
+
 android:visibility="gone"
-android:layout_weight="1"
                 android:orientation="vertical"
                >
 
@@ -43,7 +44,7 @@ android:layout_weight="1"
                     android:layout_width="400dp"
                     android:layout_height="300dp"
                     app:lottie_autoPlay="true"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/animation_noaddress" />
                 <TextView
