@@ -21,10 +21,14 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.travijuu.numberpicker.library.Enums.ActionEnum;
 import com.travijuu.numberpicker.library.Interface.ValueChangedListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.NumberFormat;
 import java.util.Objects;
 
 import javax.annotation.Nullable;
+
+import it.sephiroth.android.library.numberpicker.NumberPicker;
 
 import static java.text.NumberFormat.getInstance;
 
@@ -44,77 +48,90 @@ public class cartHolder extends RecyclerView.ViewHolder {
     }
     Cart cart;
     public void bind(DocumentSnapshot snapshot, Activity activity, CartAdapter.OnOutOfStockListener listener) {
-         cart=new Cart();
-        cart=snapshot.toObject(Cart.class);
+        cart = new Cart();
+        cart = snapshot.toObject(Cart.class);
 
- firebaseFirestore.document(cart.getSellerProductRef().getPath()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-    @Override
-    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-
-        itemCartBinding.quantityNumberpicker.setDisplayFocusable(true);
-        itemCartBinding.quantityNumberpicker.setMin(Objects.requireNonNull(cart).getMinQuantity());
-        itemCartBinding.quantityNumberpicker.setMax(cart.getMaxQuantity());
-        float total_product_price = cart.getPrice() * cart.getQuantity();
-        itemCartBinding.productPrice.setText("₹" + getInstance().format(total_product_price));
-
-        itemCartBinding.productName.setText(cart.getName());
-        itemCartBinding.quantityNumberpicker.setValue(cart.getQuantity());
-//        itemCartBinding.textQuantity.setText("quantity of "+cart.getName()+"/"+cart.getUnit());
-        if (activity != null) {
-            try {
-
-
-                GlideApp.with(activity)
-                        .load(cart.getProductImageUrl())
-                        .into(itemCartBinding.productImage);
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace();
-            }
-        }
-        int stock=0;
-        try {
-
-
-             stock = documentSnapshot.getDouble("stock").intValue();
-            if (cart.getQuantity() <= stock) {
-                itemCartBinding.outOfStock.setVisibility(View.GONE);
-                listener.onOutofStock(false,cart.getProductId());
-            } else {
-                itemCartBinding.outOfStock.setVisibility(View.VISIBLE);
-                listener.onOutofStock(true,cart.getProductId());
-            }
-        }
-        catch (NullPointerException ex)
-        {
-            ex.printStackTrace();
-        }
-
-
-
-        Cart finalCart = cart;
-
-        itemCartBinding.quantityNumberpicker.setValueChangedListener(new ValueChangedListener() {
+        firebaseFirestore.document(cart.getSellerProductRef().getPath()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-            public void valueChanged(int value, ActionEnum action) {
-                if(  activity.getClass().getName().equals(CartActivity.class.getName()))
-                {
-                    firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(finalCart.getProductId()).update("quantity", value);
+
+                itemCartBinding.quantityNumberpicker.setMinValue(Objects.requireNonNull(cart).getMinQuantity());
+                itemCartBinding.quantityNumberpicker.setMaxValue(cart.getMaxQuantity());
+                float total_product_price = cart.getPrice() * cart.getQuantity();
+                itemCartBinding.productPrice.setText("₹" + getInstance().format(total_product_price));
+
+                itemCartBinding.productName.setText(cart.getName());
+                itemCartBinding.quantityNumberpicker.setProgress(cart.getQuantity());
+//        itemCartBinding.textQuantity.setText("quantity of "+cart.getName()+"/"+cart.getUnit());
+                if (activity != null) {
+                    try {
+
+
+                        GlideApp.with(activity)
+                                .load(cart.getProductImageUrl())
+                                .into(itemCartBinding.productImage);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
-                else
-                {
-                    firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(finalCart.getProductId()).update("quantity", value);
+                int stock = 0;
+                boolean avalibity=false;
+                try {
+
+
+                    stock = documentSnapshot.getDouble("stock").intValue();
+                    if (cart.getQuantity() <= stock) {
+                        itemCartBinding.outOfStock.setVisibility(View.GONE);
+                        listener.onOutofStock(false, cart.getProductId());
+                    } else {
+                        itemCartBinding.outOfStock.setVisibility(View.VISIBLE);
+                        listener.onOutofStock(true, cart.getProductId());
+                    }
+                    avalibity=documentSnapshot.getBoolean("avalibity");
+                    if(avalibity)
+                    {
+                        itemCartBinding.avalibityTextview.setVisibility(View.GONE);
+                        listener.onChangeAvalibity(false, cart.getProductId());
+                    }
+                    else
+                    {
+                        itemCartBinding.avalibityTextview.setVisibility(View.VISIBLE);
+                        listener.onChangeAvalibity(true, cart.getProductId());
+                    }
+
+                } catch (NullPointerException ex) {
+                    ex.printStackTrace();
                 }
+
+
+                Cart finalCart = cart;
+
+
+                itemCartBinding.quantityNumberpicker.setNumberPickerChangeListener(new NumberPicker.OnNumberPickerChangeListener() {
+                    @Override
+                    public void onProgressChanged(@NotNull NumberPicker numberPicker, int i, boolean b) {
+                        if (activity.getClass().getName().equals(CartActivity.class.getName())) {
+                            firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(finalCart.getProductId()).update("quantity", numberPicker.getProgress());
+                        } else {
+                            firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(finalCart.getProductId()).update("quantity", numberPicker.getProgress());
+                        }
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(@NotNull NumberPicker numberPicker) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(@NotNull NumberPicker numberPicker) {
+
+                    }
+                });
+
 
             }
         });
-    }
-
-});
-
-
     }
 
 }

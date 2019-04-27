@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.agrify.activity.Utils.internetConnectionUtils;
 import com.example.agrify.activity.address.model.Address;
 import com.example.agrify.databinding.AddressItemBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -36,9 +37,11 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
         Address address=snapshot.toObject(Address.class);
         binding.setAddress(address);
         binding.editButton.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, addressActivity.class);
-            intent.putExtra("addressRef", snapshot.getReference().getPath());
-            activity.startActivity(intent);
+            if(internetConnectionUtils.isInternetConnected(activity)) {
+                Intent intent = new Intent(activity, addressActivity.class);
+                intent.putExtra("addressRef", snapshot.getReference().getPath());
+                activity.startActivity(intent);
+            }
         });
         blurDialog=new BlurDialog();
         BlurDialog.Builder builder = new BlurDialog.Builder()
@@ -61,10 +64,10 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
         binding.addressLocation.setText(comAdress);
        this.activity=activity;
         binding.deleteButton.setOnClickListener(v -> {
+            if(internetConnectionUtils.isInternetConnected(activity)) {
+                blurDialog.show();
 
-            blurDialog.show();
-
-
+            }
 
         });
     }

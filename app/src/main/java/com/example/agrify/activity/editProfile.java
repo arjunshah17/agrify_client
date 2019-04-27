@@ -24,6 +24,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.basgeekball.awesomevalidation.validators.Validator;
 import com.example.agrify.R;
+import com.example.agrify.activity.Utils.internetConnectionUtils;
 import com.example.agrify.activity.address.addressListActivity;
 import com.example.agrify.activity.model.User;
 import com.example.agrify.databinding.ActivityEditProfileBinding;
@@ -294,8 +295,10 @@ if(getIntent().getExtras()!=null) {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //add the function to perform here
-        if(validator.validate()) {
-            saveProfile();
+        if(internetConnectionUtils.isInternetConnected(getApplicationContext())) {
+            if (validator.validate()) {
+                saveProfile();
+            }
         }
         return (true);
 

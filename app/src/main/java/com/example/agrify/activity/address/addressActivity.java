@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.agrify.R;
+import com.example.agrify.activity.Utils.internetConnectionUtils;
 import com.example.agrify.activity.address.model.Address;
 import com.example.agrify.databinding.ActivityAddressBinding;
 import com.google.android.gms.location.places.Place;
@@ -24,6 +27,8 @@ import com.google.firebase.firestore.GeoPoint;
 
 import es.dmoral.toasty.Toasty;
 
+import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
+
 public class addressActivity extends AppCompatActivity {
 
     int PLACE_PICKER_REQUEST = 1;
@@ -32,6 +37,7 @@ public class addressActivity extends AppCompatActivity {
     FirebaseAuth auth;
     ActivityAddressBinding bind;
     Place place;
+    AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
     Address address;
     String AddressRef;
     boolean isEdited = false;
@@ -40,8 +46,14 @@ public class addressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.activity_address);
+
+
         bind = DataBindingUtil.setContentView(this, R.layout.activity_address);
+
 address=new Address();
+        mAwesomeValidation.addValidation(this, bind.addressNameTv.getId(), RegexTemplate.NOT_EMPTY, R.string.empty);
+        mAwesomeValidation.addValidation(this, bind.houseFlatTv.getId(), RegexTemplate.NOT_EMPTY, R.string.empty);
+        mAwesomeValidation.addValidation(this, bind.locationTv.getId(), RegexTemplate.NOT_EMPTY, R.string.empty);
         if (getIntent().getStringExtra("addressRef") != null) {
             AddressRef = getIntent().getStringExtra("addressRef");
             isEdited = true;
@@ -65,32 +77,38 @@ address=new Address();
         }
 
         bind.saveAddress.setOnClickListener(v-> {
+            if(mAwesomeValidation.validate()) {
+                if (internetConnectionUtils.isInternetConnected(getApplicationContext())) {
+                    if (place != null) {
+                        dataLoading(true);
+                        address.setGeoLocation(new GeoPoint(place.getLatLng().latitude, place.getLatLng().longitude));
+                        address.setName(bind.addressNameTv.getText().toString());
+                        address.setHouseNum(bind.houseFlatTv.getText().toString());
+                        address.setLocation(bind.locationTv.getText().toString());
+                        DocumentReference addRef;
+                        if (!isEdited) {
+                            addRef = firebaseFirestore.collection("Users").document(firebaseUser.getUid()).collection("addressList").document();
+                        } else {
+                            addRef = firebaseFirestore.document(AddressRef);
+                        }
+                        addRef.set(address).addOnCompleteListener(task -> {
+                            dataLoading(false);
+                            if (task.isSuccessful()) {
+                                Toasty.info(getApplicationContext(), "uploaded address in server").show();
+                                onBackPressed();
 
-            if (place != null)
-            {dataLoading(true);
-                address.setGeoLocation(new GeoPoint(place.getLatLng().latitude,place.getLatLng().longitude));
-                address.setName(bind.addressNameTv.getText().toString());
-                address.setHouseNum(bind.houseFlatTv.getText().toString());
-                address.setLocation(bind.locationTv.getText().toString());
-                DocumentReference addRef;
-                if (!isEdited) {
-                    addRef = firebaseFirestore.collection("Users").document(firebaseUser.getUid()).collection("addressList").document();
-                } else {
-                    addRef = firebaseFirestore.document(AddressRef);
-                }
-                addRef.set(address).addOnCompleteListener(task -> {
-                    dataLoading(false);
-                    if (task.isSuccessful()) {
-                        Toasty.info(getApplicationContext(), "uploaded address in server").show();
-                        onBackPressed();
-
-                    } else {
-                        Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage()).show();
+                            } else {
+                                Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage()).show();
+                            }
+                        });
                     }
-                });
+
+                }
             }
-
-
+            else
+            {
+                Toasty.error(getApplicationContext(), "enter information properly ",Toasty.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -98,6 +116,7 @@ address=new Address();
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
+
                 place = PlacePicker.getPlace(data, this);
                 String Name = String.format("%s", place.getName());
                 Toasty.info(getApplicationContext(), place.getLatLng().toString(), Toasty.LENGTH_SHORT).show();

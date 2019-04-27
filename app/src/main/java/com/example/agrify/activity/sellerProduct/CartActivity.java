@@ -16,6 +16,7 @@ import com.example.agrify.R;
 import com.example.agrify.activity.MainActivity;
 import com.example.agrify.activity.Utils.SwipeToDeleteCallBack;
 import com.example.agrify.activity.Utils.cartUtils;
+import com.example.agrify.activity.Utils.internetConnectionUtils;
 import com.example.agrify.activity.order.orderActivity;
 import com.example.agrify.activity.sellerProduct.adpater.CartAdapter;
 import com.example.agrify.activity.sellerProduct.model.Cart;
@@ -54,9 +55,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
     FirebaseAuth auth;
     CollectionReference Total_amount_ref;
     boolean isOutOfStock;
+    boolean isUnavaliable;
     WriteBatch deleteBatch;
     float total_price = 0;
     ArrayList<String> productIdList = new ArrayList();
+    ArrayList<String> unAvaliableProductIdList = new ArrayList();
     private ListenerRegistration cartItemListener;
 
     @Override
@@ -85,37 +88,44 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
             }
         });
         bind.checkoutButton.setOnClickListener(v -> {
-
-            if (isOutOfStock) {
-                Toasty.error(getApplicationContext(), "some of products are not in stock,try to reduce quantity", Toasty.LENGTH_SHORT).show();
-            } else {
-                progressLoading(true);
-                firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            if(internetConnectionUtils.isInternetConnected(getApplicationContext())) {
+                if(!isUnavaliable) {
+                    if (isOutOfStock) {
+                        Toasty.error(getApplicationContext(), "some of products are not in stock,try to reduce quantity", Toasty.LENGTH_SHORT).show();
+                    } else {
                         progressLoading(true);
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            DocumentReference SellerProductref = firebaseFirestore.collection("Sellers").document(doc.getString("sellerId")).collection("productList").document(doc.getString("productId")).collection("tempOrderCart").document(auth.getUid());
-                            DocumentReference UserProductRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(doc.getString("productId"));
-                            deleteBatch.delete(SellerProductref);
-                            deleteBatch.delete(UserProductRef);
-                        }
-                        deleteBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    createTempOrderCart();
-                                } else {
-                                    Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                progressLoading(true);
+                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                    DocumentReference SellerProductref = firebaseFirestore.collection("Sellers").document(doc.getString("sellerId")).collection("productList").document(doc.getString("productId")).collection("tempOrderCart").document(auth.getUid());
+                                    DocumentReference UserProductRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(doc.getString("productId"));
+                                    deleteBatch.delete(SellerProductref);
+                                    deleteBatch.delete(UserProductRef);
                                 }
+                                deleteBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            createTempOrderCart();
+                                        } else {
+                                            Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                });
 
                             }
                         });
 
+
                     }
-                });
-
-
+                }
+                else
+                {
+                    Toasty.error(getApplicationContext(), "some of products are not avaliable,try to remove products", Toasty.LENGTH_SHORT).show();
+                }
             }
 
         });
@@ -299,6 +309,23 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnOut
         }
 
         isOutOfStock = productIdList.size() != cartAdapter.getItemCount();
+
+    }
+
+    @Override
+    public void onChangeAvalibity(boolean status, String product_Id) {
+        if(unAvaliableProductIdList.contains(product_Id)) {
+            if (status) {
+               unAvaliableProductIdList.remove(product_Id);
+            }
+        } else {
+            if (!status) {
+                unAvaliableProductIdList.add(product_Id);
+            }
+
+        }
+
+        isUnavaliable = unAvaliableProductIdList.size() != cartAdapter.getItemCount();
 
     }
 

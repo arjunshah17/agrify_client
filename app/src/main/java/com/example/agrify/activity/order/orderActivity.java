@@ -20,6 +20,7 @@ import com.example.agrify.R;
 import com.example.agrify.activity.MainActivity;
 import com.example.agrify.activity.Utils.SwipeToDeleteCallBack;
 import com.example.agrify.activity.Utils.cartUtils;
+import com.example.agrify.activity.Utils.internetConnectionUtils;
 import com.example.agrify.activity.address.AddressAdapter;
 import com.example.agrify.activity.address.AddressListFragment;
 import com.example.agrify.activity.address.model.Address;
@@ -73,6 +74,8 @@ public class orderActivity extends AppCompatActivity implements AddressAdapter.O
     final String TAG="orderActivity";
     float total_price=0;
     boolean isOutOfStock;
+    ArrayList<String> unAvaliableProductIdList = new ArrayList();
+    boolean isUnavaliable;
     boolean isCartActivity = false;
     boolean isAddressSelected=false;
     boolean isPaymentSelected = false;
@@ -125,24 +128,29 @@ address=new Address();
             addressListFragment.show(getSupportFragmentManager(),TAG);
         });
         bind.placeOrderButton.setOnClickListener(v -> {
+if(internetConnectionUtils.isInternetConnected(getApplicationContext())) {
+    if (cartAdapter.getItemCount() != 0) {
 
-            if (cartAdapter.getItemCount() != 0) {
+        if (isAddressSelected) {
+if(!isUnavaliable) {
+    if (isOutOfStock) {
+        Toasty.error(getApplicationContext(), "some of products are out of stock ,try to reduce quantity", Toasty.LENGTH_SHORT).show();
+    } else {
 
-                if (isAddressSelected) {
-                    if (isOutOfStock) {
-                        Toasty.error(getApplicationContext(), "some of products are out of stock ,try to reduce quantity", Toasty.LENGTH_SHORT).show();
-                    } else {
+        placeOrder();
+    }
+}
+else {
+    Toasty.error(getApplicationContext(), "some of products are not avaliable ,remove that products", Toasty.LENGTH_SHORT).show();
+}
+        } else {
+            Toasty.error(getApplicationContext(), "select address ", Toasty.LENGTH_SHORT).show();
 
-                        placeOrder();
-                    }
-                } else {
-                    Toasty.error(getApplicationContext(), "no items in order", Toasty.LENGTH_SHORT).show();
-
-                }
-            } else {
-                Toasty.info(getApplicationContext(), "select address ", Toasty.LENGTH_SHORT).show();
-            }
-
+        }
+    } else {
+        Toasty.info(getApplicationContext(), "no items in order ", Toasty.LENGTH_SHORT).show();
+    }
+}
 
 
         });
@@ -352,6 +360,23 @@ orderBatch.update(orderItem.getSellerProductRef(),"orderCount",FieldValue.increm
         } else {
             isOutOfStock=true;
         }
+
+    }
+
+    @Override
+    public void onChangeAvalibity(boolean status, String product_Id) {
+        if(unAvaliableProductIdList.contains(product_Id)) {
+            if (status) {
+                unAvaliableProductIdList.remove(product_Id);
+            }
+        } else {
+            if (!status) {
+                unAvaliableProductIdList.add(product_Id);
+            }
+
+        }
+
+        isUnavaliable = unAvaliableProductIdList.size() != cartAdapter.getItemCount();
 
     }
 

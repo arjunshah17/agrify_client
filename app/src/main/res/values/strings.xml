@@ -60,6 +60,7 @@
     <string name="place_address">Place Address</string>
     <string name="save_address">Save Address</string>
     <string name="add_address">ADD NEW ADDRESS</string>
+    <string name="empty">this field cannot be empty</string>
 
     <string-array name="categories_names">
 

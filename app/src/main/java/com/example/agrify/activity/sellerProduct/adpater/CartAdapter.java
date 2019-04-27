@@ -19,6 +19,7 @@ public class CartAdapter extends FirestoreAdapter<cartHolder> {
     public interface OnOutOfStockListener {
 
         void onOutofStock(boolean status, String product_id);
+         void onChangeAvalibity(boolean status ,String product_Id);
 
     }
     private OnOutOfStockListener Listener;

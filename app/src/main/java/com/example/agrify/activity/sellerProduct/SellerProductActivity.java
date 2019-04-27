@@ -19,6 +19,7 @@ import com.example.agrify.R;
 import com.example.agrify.activity.GlideApp;
 import com.example.agrify.activity.Utils.CartCounter;
 import com.example.agrify.activity.Utils.RatingUtils;
+import com.example.agrify.activity.Utils.internetConnectionUtils;
 import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.Store;
 import com.example.agrify.activity.order.adapter.RatingAdapter;
@@ -156,42 +157,42 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             }
         });
         binding.buyNow.setOnClickListener(v -> {
-            if(seller.isAvalibity()) {
-                if (isOutOfStock) {
-                    Toasty.error(getApplicationContext(), "some of products are not in stock,try to reduce quantity", Toasty.LENGTH_SHORT).show();
-                } else {
-                    WriteBatch deleteBatch = firebaseFirestore.batch();
-                    productLoading(true);
-                    firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            if(internetConnectionUtils.isInternetConnected(getApplicationContext())) {
+                if (seller.isAvalibity()) {
+                    if (isOutOfStock) {
+                        Toasty.error(getApplicationContext(), "some of products are not in stock,try to reduce quantity", Toasty.LENGTH_SHORT).show();
+                    } else {
+                        WriteBatch deleteBatch = firebaseFirestore.batch();
+                        productLoading(true);
+                        firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                DocumentReference SellerProductref = firebaseFirestore.collection("Sellers").document(doc.getString("sellerId")).collection("productList").document(doc.getString("productId")).collection("tempOrderCart").document(auth.getUid());
-                                DocumentReference UserProductRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(doc.getString("productId"));
-                                deleteBatch.delete(SellerProductref);
-                                deleteBatch.delete(UserProductRef);
-                            }
-                            deleteBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        createTempOrderCart();
-                                    } else {
-                                        Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
-                                    }
-
+                                for (QueryDocumentSnapshot doc : task.getResult()) {
+                                    DocumentReference SellerProductref = firebaseFirestore.collection("Sellers").document(doc.getString("sellerId")).collection("productList").document(doc.getString("productId")).collection("tempOrderCart").document(auth.getUid());
+                                    DocumentReference UserProductRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(doc.getString("productId"));
+                                    deleteBatch.delete(SellerProductref);
+                                    deleteBatch.delete(UserProductRef);
                                 }
-                            });
-                        }
-                    });
+                                deleteBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            createTempOrderCart();
+                                        } else {
+                                            Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                });
+                            }
+                        });
 
 
+                    }
+                } else {
+                    Toasty.error(getApplicationContext(), "currently product is not avaliable", Toasty.LENGTH_SHORT).show();
                 }
-            }
-            else
-            {
-                  Toasty.error(getApplicationContext(),"currently product is not avaliable",Toasty.LENGTH_SHORT).show();
             }
         });
 
@@ -525,6 +526,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             seller = snapshot.toObject(Seller.class);
             binding.quantityNumberpicker.setMaxValue(seller.getMaxQuantity());
             binding.quantityNumberpicker.setMinValue(seller.getMinQuantity());
+            binding.quantityNumberpicker.setProgress(seller.getMinQuantity());
             if (seller.isAvalibity()) {
                 binding.avalibityTextview.setVisibility(View.GONE);
             } else {

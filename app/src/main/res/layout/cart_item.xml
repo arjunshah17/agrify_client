@@ -73,16 +73,27 @@
                         android:text="out of stock"
                         android:textColor="@color/vw_dialog_red"
                         android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/avalibity_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+android:visibility="gone"
+                        android:layout_margin="@dimen/dp_12"
+                        android:textColor="@color/vw_dialog_red"
+                        android:text="currently product is not avaliable"
+                      />
                 </LinearLayout>
             </LinearLayout>
 
-            <com.travijuu.numberpicker.library.NumberPicker
+            <it.sephiroth.android.library.numberpicker.NumberPicker
                 android:id="@+id/quantity_numberpicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="@dimen/dp_6"
-                app:custom_layout="@layout/number_picker_theme" />
+                android:showDividers="none"
+
+
+                style="@style/NumberPicker.Outlined.Horizontal"/>
 
         </LinearLayout>
     </LinearLayout>
