@@ -14,7 +14,7 @@
         android:background="@color/productGridBackgroundColor"
         app:cardCornerRadius="10dp"
         app:cardElevation="2dp"
-        app:cardUseCompatPadding="true"
+      android:layout_margin="3dp"
         app:rippleColor="@color/primary_color_ripple">
 
         <LinearLayout
