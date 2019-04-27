@@ -131,7 +131,10 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         initRatingRecycleView();
 
         binding.addToCartButton.setOnClickListener(v -> {
+            if(seller.isAvalibity())
+
             addToCart();
+            else Toasty.error(getApplicationContext(),"currently product is not avaliable",Toasty.LENGTH_SHORT).show();
         });
         binding.quantityNumberpicker.setNumberPickerChangeListener(new NumberPicker.OnNumberPickerChangeListener() {
             @Override
@@ -153,38 +156,46 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             }
         });
         binding.buyNow.setOnClickListener(v -> {
-            if (isOutOfStock) {
-                Toasty.error(getApplicationContext(), "some of products are not in stock,try to reduce quantity", Toasty.LENGTH_SHORT).show();
-            } else {
-                WriteBatch deleteBatch = firebaseFirestore.batch();
-                productLoading(true);
-                firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            if(seller.isAvalibity()) {
+                if (isOutOfStock) {
+                    Toasty.error(getApplicationContext(), "some of products are not in stock,try to reduce quantity", Toasty.LENGTH_SHORT).show();
+                } else {
+                    WriteBatch deleteBatch = firebaseFirestore.batch();
+                    productLoading(true);
+                    firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            DocumentReference SellerProductref = firebaseFirestore.collection("Sellers").document(doc.getString("sellerId")).collection("productList").document(doc.getString("productId")).collection("tempOrderCart").document(auth.getUid());
-                            DocumentReference UserProductRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(doc.getString("productId"));
-                            deleteBatch.delete(SellerProductref);
-                            deleteBatch.delete(UserProductRef);
-                        }
-                        deleteBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    createTempOrderCart();
-                                } else {
-                                    Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
-                                }
-
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                DocumentReference SellerProductref = firebaseFirestore.collection("Sellers").document(doc.getString("sellerId")).collection("productList").document(doc.getString("productId")).collection("tempOrderCart").document(auth.getUid());
+                                DocumentReference UserProductRef = firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(doc.getString("productId"));
+                                deleteBatch.delete(SellerProductref);
+                                deleteBatch.delete(UserProductRef);
                             }
-                        });
-                    }
-                });
+                            deleteBatch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        createTempOrderCart();
+                                    } else {
+                                        Toasty.error(getApplicationContext(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+                        }
+                    });
 
 
+                }
+            }
+            else
+            {
+                  Toasty.error(getApplicationContext(),"currently product is not avaliable",Toasty.LENGTH_SHORT).show();
             }
         });
+
+
         binding.storeButton.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), SellerProductStoreActivity.class);
             intent.putExtra("sellerId", seller_id);
@@ -514,6 +525,11 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             seller = snapshot.toObject(Seller.class);
             binding.quantityNumberpicker.setMaxValue(seller.getMaxQuantity());
             binding.quantityNumberpicker.setMinValue(seller.getMinQuantity());
+            if (seller.isAvalibity()) {
+                binding.avalibityTextview.setVisibility(View.GONE);
+            } else {
+                binding.avalibityTextview.setVisibility(View.VISIBLE);
+            }
             binding.minQuantity.setText("min quantity:" + seller.getMinQuantity() + "/" + unit);
             binding.maxQuantity.setText("mxn quantity:" + seller.getMaxQuantity() + "/" + unit);
             binding.textInfo.setText(seller.getInfo());

@@ -6,6 +6,7 @@ import com.google.firebase.firestore.DocumentReference;
 public class Seller {
     private String name, profilePhotoUrl, phone,email,info,productId,sellerId;
     private DocumentReference StoreProductRef,SellerProductRef,AddressRef;
+boolean  avalibity;
 
     private float price;
     private int stock,minQuantity,maxQuantity,imageCount,orderCount;;
@@ -126,13 +127,14 @@ public class Seller {
         this.imageCount = imageCount;
     }
 
-    public Seller(String name, String profilePhotoUrl, String phone, String email, String info, String productId, DocumentReference storeProductRef, DocumentReference sellerProductRef, DocumentReference addressRef, float price, int stock, int minQuantity, int maxQuantity, int imageCount,String sellerId,int orderCount) {
+    public Seller(String name, String profilePhotoUrl, String phone, String email, String info, String productId, DocumentReference storeProductRef, DocumentReference sellerProductRef, DocumentReference addressRef, float price, int stock, int minQuantity, int maxQuantity, int imageCount,String sellerId,int orderCount,boolean avalibity) {
         this.name = name;
         this.profilePhotoUrl = profilePhotoUrl;
         this.phone = phone;
         this.email = email;
         this.info = info;
         this.productId = productId;
+        this.avalibity=avalibity;
         StoreProductRef = storeProductRef;
         SellerProductRef = sellerProductRef;
         AddressRef = addressRef;
@@ -151,6 +153,14 @@ public class Seller {
 
     public void setOrderCount(int orderCount) {
         this.orderCount = orderCount;
+    }
+
+    public boolean isAvalibity() {
+        return avalibity;
+    }
+
+    public void setAvalibity(boolean avalibity) {
+        this.avalibity = avalibity;
     }
 
     public String getSellerId() {

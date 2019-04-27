@@ -41,37 +41,48 @@ public class SellerHolder extends RecyclerView.ViewHolder {
     public void bind(final DocumentSnapshot snapshot, final Activity activity, final SellerAdapter.OnSellerSelectedListener listener) {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        seller = snapshot.toObject(Seller.class);
-        binding.setSeller(seller);
-        binding.price.setText("₹" + NumberFormat.getInstance().format(seller.getPrice()));
-        phoneNumber = seller.getPhone();
-        // Load image
-        if (activity != null) {
-            GlideApp.with(activity)
-                    .load(seller.getProfilePhotoUrl())
-                    .into(binding.profilePhoto);
-        }
+        try {
+            seller = snapshot.toObject(Seller.class);
+            binding.setSeller(seller);
+            binding.price.setText("₹" + NumberFormat.getInstance().format(seller.getPrice()));
 
-        db.document(seller.getSellerProductRef().getPath()).collection("ratingList").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-
-                    try {
-                        ArrayList<Rating> ratings = new ArrayList<>();
-                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-
-                            ratings.add(documentSnapshot.toObject(Rating.class));
-                        }
-                        binding.Rating.setRating((float) RatingUtils.getAverageRating(ratings));
-                        binding.NumRatings.setText("(" + ratings.size() + ")");
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-
+            if (seller.isAvalibity()) {
+                binding.avalibityTextview.setVisibility(View.GONE);
+            } else {
+                binding.avalibityTextview.setVisibility(View.VISIBLE);
             }
-        });
+            // Load image
+            if (activity != null) {
+                GlideApp.with(activity)
+                        .load(seller.getProfilePhotoUrl())
+                        .into(binding.profilePhoto);
+            }
+
+            db.document(seller.getSellerProductRef().getPath()).collection("ratingList").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+
+                        try {
+                            ArrayList<Rating> ratings = new ArrayList<>();
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+
+                                ratings.add(documentSnapshot.toObject(Rating.class));
+                            }
+                            binding.Rating.setRating((float) RatingUtils.getAverageRating(ratings));
+                            binding.NumRatings.setText("(" + ratings.size() + ")");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
         Resources resources = itemView.getResources();
 
 
