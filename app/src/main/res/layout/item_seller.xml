@@ -75,7 +75,10 @@
                             android:id="@+id/Rating"
                             style="?attr/ratingBarStyleIndicator"
                             android:layout_width="wrap_content"
-
+                            android:backgroundTint="@color/colorPrimary"
+                            android:progressTint="@color/colorPrimary"
+                            android:secondaryProgressTint="@android:color/transparent"
+                            android:numStars="5"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dp_3"
                             android:isIndicator="true" />

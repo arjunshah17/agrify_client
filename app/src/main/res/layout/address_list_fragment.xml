@@ -16,7 +16,9 @@
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="select address"
+    android:text="@string/select_address"
+    android:textSize="25sp"
+    android:textAllCaps="true"
     android:layout_centerHorizontal="true"
     style="@style/TextAppearance.MaterialComponents.Headline4"/>
 

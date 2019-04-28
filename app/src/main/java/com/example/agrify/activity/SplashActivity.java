@@ -7,6 +7,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.agrify.activity.AppIntro.WelcomeActivity;
 import com.example.agrify.activity.auth.LoginActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -35,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, WelcomeActivity.class));
     }
 
 

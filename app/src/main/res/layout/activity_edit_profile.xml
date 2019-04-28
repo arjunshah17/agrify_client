@@ -174,17 +174,23 @@
                                 android:text="@{user.email}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical">
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/address_button"
                             style="@style/AppTheme.outLineButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="20dp"
-                            android:text="manage address" />
+                            android:text="@string/manage_address" />
 
 
                     </LinearLayout>
-                </LinearLayout>
+                    </LinearLayout>
 
             </LinearLayout>
 

@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp_12"
-                    android:hint=" address nick name"
+                    android:hint="@string/address_name"
 
                     app:hintEnabled="true">
 

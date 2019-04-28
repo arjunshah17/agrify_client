@@ -333,8 +333,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center_horizontal"
                                             android:layout_margin="@dimen/dp_6"
-
-                                            android:text="call"
+                                            android:text="@string/call"
                                             app:chipBackgroundColor="@color/secondaryColor"
                                             app:chipIcon="@drawable/ic_call" />
 

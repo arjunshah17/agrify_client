@@ -9,13 +9,15 @@
         android:layout_marginTop="@dimen/dp_3"
         android:background="@color/white"
         android:padding="@dimen/dp_12"
-
-        app:cardElevation="5dp">
+        app:cardElevation="5dp"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal">
 
 
             <TextView
@@ -24,13 +26,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:text="give rating and feedback for this product" />
+                android:text="@string/give_feedback_for_this_product" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center_horizontal"
                 android:max="5" />
 
@@ -41,8 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_6"
-
-                android:hint="write your review">
+                android:hint="@string/give_your_review">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/review_text"
@@ -60,13 +60,6 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_cancel"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dp_12"
-                    android:text="@string/cancel" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_send"
@@ -74,8 +67,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_12"
-                    android:text="send review" />
-
+                    android:text="@string/add_review" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_cancel"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_12"
+                    android:text="@string/cancel" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

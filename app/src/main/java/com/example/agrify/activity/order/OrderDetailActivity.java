@@ -79,8 +79,8 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
     String orderId;
     OrderItemAdapter orderItemAdapter;
     ActivityOrderDetailBinding binding;
-
     Order order;
+    String mBuyerName,mBuyerPhone,mBuyerAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,43 +201,73 @@ String s;
                 User user=snapshot.toObject(User.class);
                 //objects are arlready created,no need to create new object
 
-                PdfPCell BuyerDetailsCell = new PdfPCell();
-                Paragraph BuyerDetails = new Paragraph("Buyer Details",mUserFont);
-                BuyerDetails.setAlignment(Element.ALIGN_CENTER);
-                BuyerDetailsCell.setColspan(3);
-                BuyerDetailsCell.addElement(BuyerDetails);
-                table.addCell(BuyerDetailsCell).setBorder(Rectangle.NO_BORDER);
-                try {
-                    document.add(new Chunk(lineSeparator));
-                } catch (DocumentException e) {
-                    e.printStackTrace();
-                }
-                //Buyer Name
-                PdfPCell BuyerNameCell = new PdfPCell();
-                Paragraph BuyerName = new Paragraph(user.getName(),mUserFont);
-                BuyerNameCell.addElement(BuyerName);
-                BuyerNameCell.setColspan(3);
-                table.addCell(BuyerNameCell).setBorder(Rectangle.NO_BORDER);
-
-                //Buyer Number
-                PdfPCell BuyerNumberCell = new PdfPCell();
-                Paragraph BuyerNumber = new Paragraph(user.getPhone(),mUserFont);
-                BuyerNumberCell.addElement(BuyerNumber);
-                BuyerNumberCell.setColspan(3);
-                table.addCell(BuyerNumberCell).setBorder(Rectangle.NO_BORDER);
-
-                //Buyer Address
-                PdfPCell BuyerAddressCell = new PdfPCell();
-                Paragraph BuyerAddress = new Paragraph(order.getUserHouseNum()+order.getUserLocation());
-                BuyerAddressCell.addElement(BuyerAddress);
-                BuyerAddressCell.setColspan(3);
-                table.addCell(BuyerAddressCell).setBorder(Rectangle.NO_BORDER);
-
+                mBuyerName = user.getName();
+                mBuyerPhone = user.getPhone();
+                mBuyerAddress= order.getUserHouseNum()+order.getUserLocation();
+//                PdfPCell BuyerDetailsCell = new PdfPCell();
+//                Paragraph BuyerDetails = new Paragraph("Buyer Details",mUserFont);
+//                BuyerDetails.setAlignment(Element.ALIGN_CENTER);
+//                BuyerDetailsCell.setColspan(3);
+//                BuyerDetailsCell.addElement(BuyerDetails);
+//                table.addCell(BuyerDetailsCell).setBorder(Rectangle.NO_BORDER);
+//                try {
+//                    document.add(new Chunk(lineSeparator));
+//                } catch (DocumentException e) {
+//                    e.printStackTrace();
+//                }
+//                //Buyer Name
+//                PdfPCell BuyerNameCell = new PdfPCell();
+//                Paragraph BuyerName = new Paragraph(user.getName(),mUserFont);
+//                BuyerNameCell.addElement(BuyerName);
+//                BuyerNameCell.setColspan(3);
+//                table.addCell(BuyerNameCell).setBorder(Rectangle.NO_BORDER);
+//
+//                //Buyer Number
+//                PdfPCell BuyerNumberCell = new PdfPCell();
+//                Paragraph BuyerNumber = new Paragraph(user.getPhone(),mUserFont);
+//                BuyerNumberCell.addElement(BuyerNumber);
+//                BuyerNumberCell.setColspan(3);
+//                table.addCell(BuyerNumberCell).setBorder(Rectangle.NO_BORDER);
+//
+//                //Buyer Address
+//                PdfPCell BuyerAddressCell = new PdfPCell();
+//                Paragraph BuyerAddress = new Paragraph(order.getUserHouseNum()+order.getUserLocation());
+//                BuyerAddressCell.addElement(BuyerAddress);
+//                BuyerAddressCell.setColspan(3);
+//                table.addCell(BuyerAddressCell).setBorder(Rectangle.NO_BORDER);
+//
 
                 //TODO use user,seller and order object to initilize invoice header
             }
         });
 
+        PdfPCell BuyerDetailsCell = new PdfPCell();
+        Paragraph BuyerDetails = new Paragraph("Buyer Details", mUserFont);
+        BuyerDetails.setAlignment(Element.ALIGN_CENTER);
+        BuyerDetailsCell.setColspan(3);
+        BuyerDetailsCell.addElement(BuyerDetails);
+        table.addCell(BuyerDetailsCell).setBorder(Rectangle.NO_BORDER);
+        document.add(new Chunk(lineSeparator));
+        //Buyer Name
+        PdfPCell BuyerNameCell = new PdfPCell();
+        Paragraph BuyerName = new Paragraph("Buyer Name : " + mBuyerName);
+        BuyerNameCell.addElement(BuyerName);
+        BuyerNameCell.setColspan(3);
+        table.addCell(BuyerNameCell).setBorder(Rectangle.NO_BORDER);
+
+        //Buyer Number
+        PdfPCell BuyerNumberCell = new PdfPCell();
+        Paragraph BuyerNumber = new Paragraph("Buyer Phone N0 : " + mBuyerPhone);
+        BuyerNumberCell.addElement(BuyerNumber);
+        BuyerNumberCell.setColspan(3);
+        table.addCell(BuyerNumberCell).setBorder(Rectangle.NO_BORDER);
+
+        //Buyer Address
+        PdfPCell BuyerAddressCell = new PdfPCell();
+        Paragraph BuyerAddress = new Paragraph("Buyer Address : " + mBuyerAddress);
+        BuyerAddressCell.addElement(BuyerAddress);
+        BuyerAddressCell.setColspan(3);
+        table.addCell(BuyerAddressCell).setBorder(Rectangle.NO_BORDER);
 
         //Seller Details
         PdfPCell SellerDetailsCell = new PdfPCell();
@@ -250,38 +280,35 @@ String s;
 
         //Seller Name
         PdfPCell SellerNameCell = new PdfPCell();
-        Paragraph SellerName = new Paragraph(seller.getName(),mUserFont);
+        Paragraph SellerName = new Paragraph("Seller Name : "+seller.getName());
         SellerNameCell.addElement(SellerName);
         SellerNameCell.setColspan(3);
         table.addCell(SellerNameCell).setBorder(Rectangle.NO_BORDER);
 
         //Seller Number
         PdfPCell SellerNumberCell = new PdfPCell();
-        Paragraph SellerNumber = new Paragraph(seller.getPhone(),mUserFont);
+        Paragraph SellerNumber = new Paragraph("Seller No. : "+seller.getPhone());
         SellerNumberCell.addElement(SellerNumber);
         SellerNumberCell.setColspan(3);
         table.addCell(SellerNumberCell).setBorder(Rectangle.NO_BORDER);
 
-        //SellerAddress
-
-
         //OrderId
         PdfPCell EmptyCell = new PdfPCell();
-        Paragraph emptyrow = new Paragraph("  ");
+        Paragraph emptyrow = new Paragraph(" ");
         EmptyCell.setColspan(3);
         EmptyCell.addElement(emptyrow);
         table.addCell(EmptyCell).setBorder(Rectangle.NO_BORDER);
 
         //OrderId
         PdfPCell OrderIdCell = new PdfPCell();
-        Paragraph orderID = new Paragraph(order.getOrderId());
+        Paragraph orderID = new Paragraph("OrderID : "+order.getOrderId());
         OrderIdCell.setColspan(3);
         OrderIdCell.addElement(orderID);
         table.addCell(OrderIdCell);
 
         // OrderDate
         PdfPCell OrderDateCell = new PdfPCell();
-        Paragraph orderDate = new Paragraph(order.getTimestamp().toDate().toString());
+        Paragraph orderDate = new Paragraph("Date : "+order.getTimestamp().toDate().toString());
         OrderDateCell.setColspan(3);
         OrderDateCell.addElement(orderDate);
         table.addCell(OrderDateCell);
@@ -290,19 +317,19 @@ String s;
         PdfPCell ProductName = new PdfPCell();
         Paragraph productName = new Paragraph("Product");
         ProductName.addElement(productName);
-        table.addCell(ProductName).setBorder(Rectangle.NO_BORDER);
+        table.addCell(ProductName);
 
         //Cell Qty
         PdfPCell ProductQty = new PdfPCell();
         Paragraph productQty = new Paragraph("Qty");
         ProductQty.addElement(productQty);
-        table.addCell(ProductQty).setBorder(Rectangle.NO_BORDER);
+        table.addCell(ProductQty);
 
         //Cell amount
         PdfPCell ProductAmount = new PdfPCell();
         Paragraph productAmount = new Paragraph("Amount");
         ProductAmount.addElement(productAmount);
-        table.addCell(ProductAmount).setBorder(Rectangle.NO_BORDER);
+        table.addCell(ProductAmount);
 
         for (int i = 0; i < orderItemAdapter.getItemCount(); i++) {
             OrderItem orderItem = orderItemAdapter.getOrderItem(i);
@@ -311,19 +338,16 @@ String s;
             table.addCell(orderItem.getName());
             table.addCell(String.valueOf(orderItem.getQuantity()));
             table.addCell(String.valueOf(orderItem.getPrice()));
-            //TODO user order item for intilization of product
-
         }
 
 
-        Chunk mSubTotal = new Chunk("SubTotal :"+order.getTotalAmount());
+        Chunk mSubTotal = new Chunk("Total :"+order.getTotalAmount());
         Paragraph SubTotal = new Paragraph(mSubTotal);
         SubTotal.setAlignment(Element.ALIGN_RIGHT);
         PdfPCell subTotalCell = new PdfPCell();
         subTotalCell.setColspan(3);
         subTotalCell.addElement(SubTotal);
         table.addCell(subTotalCell);
-
         document.add(table);
         document.close();
 

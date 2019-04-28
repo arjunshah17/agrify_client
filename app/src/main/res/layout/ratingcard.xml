@@ -17,13 +17,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="5dp">
 
                 <TextView
                     style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="seller details"
+                    android:text="@string/seller_details"
+                    android:textSize="20sp"
                     android:textAllCaps="true" />
 
                 <View
@@ -70,9 +72,10 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_weight="3">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/call"
@@ -81,8 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="@dimen/dp_6"
-
-                        android:text="call"
+                        android:text="@string/call"
                         app:chipBackgroundColor="@color/secondaryColor"
                         app:chipIcon="@drawable/ic_call" />
 
@@ -93,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="@dimen/dp_6"
-                        android:text="email"
+                        android:text="@string/email_hint"
                         app:chipBackgroundColor="@color/secondaryColor"
                         app:chipIcon="@drawable/ic_email_black_24dp" />
 
@@ -104,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="@dimen/dp_6"
-                        android:text="location"
+                        android:text="@string/location"
                         app:chipBackgroundColor="@color/secondaryColor"
                         app:chipIcon="@drawable/ic_location" />
 
@@ -113,28 +115,26 @@
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            style="@style/materialCard"
+
+        <com.google.android.material.card.MaterialCardView style="@style/materialCard"
 
             >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:orientation="vertical">
 
-
-
                 <TextView
-                    style="@style/TextAppearance.MaterialComponents.Headline4"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rating and Reviews" />
+                    android:text="@string/rating_and_reviews"
+                    android:textAllCaps="true"
+                    android:textSize="20sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="?attr/dividerHorizontal" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -142,30 +142,35 @@
 
                     <RatingBar
                         android:id="@+id/Rating"
-
+                        style="?android:attr/ratingBarStyleIndicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:isIndicator="true" />
+                        android:isIndicator="true"
+                        android:numStars="5" />
 
                     <TextView
                         android:id="@+id/NumRatings"
                         style="@style/TextAppearance.MaterialComponents.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_alignTop="@+id/Rating"
                         android:layout_alignBottom="@+id/Rating"
-                        android:layout_marginLeft="4dp"
-                        android:layout_toRightOf="@+id/Rating"
+                        android:layout_marginStart="4dp"
+                        android:layout_toEndOf="@+id/Rating"
                         android:gravity="center"
                         tools:text="(10)" />
                 </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerHorizontal" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ratingList_rv"
-
-                    android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
             </LinearLayout>
 
 

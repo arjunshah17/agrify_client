@@ -19,41 +19,38 @@
 
 
     <string name="shr_search_title">Search</string>
-    <string name="username">user name</string>
+    <string name="username">Username</string>
 
 
     <!-- Shrine backdrop menu labels -->
-    <string name="editProfileBtn">edit profile</string>
-    <string name="profile_menu_save">save</string>
+    <string name="editProfileBtn">Edit Profile</string>
+    <string name="profile_menu_save">Save</string>
     <string name="forgot_password">Forgot password?</string>
 
 
     //authentication
-    <string name="password_error">password must be of 6 char or greater and no  space is allowed</string>
+    <string name="password_error">Password must be of 6 char or greater and no  space is allowed</string>
 
 
     //validation auth
-    <string name="username_empty">user name cannot empty</string>
-    <string name="phone_error">phone no is invalid</string>
-    <string name="password_match_error">both password must match</string>
+    <string name="username_empty">Username cannot empty</string>
+    <string name="phone_error">Phone no is invalid</string>
+    <string name="password_match_error">Both password must match</string>
     <string name="email_verification">You will receive an email with instructions of verification of email.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     //transaction names
-
-
-    <string name="no_products_found">no product found</string>
+    <string name="no_products_found">No product found</string>
 
     <string name="productimageslider">ProductImageSlider</string>
 
     <string name="productname">ProductName</string>
     <string name="seller_location">Location</string>
     <string name="buy_now">Buy Now</string>
-    <string name="products">products</string>
-    <string name="rating_bar_title">rating bar</string>
+    <string name="products">Products</string>
+    <string name="rating_bar_title">Rating bar</string>
     <string name="store_product_transition">store_product_transition</string>
-    <string name="add_to_cart">Add to cart</string>
+    <string name="add_to_cart">Add to Cart</string>
     <string name="remove">Remove</string>
     <string name="move_wishlist">Move WishList</string>
     <string name="place_name">Place Name</string>
@@ -63,16 +60,51 @@
     <string name="empty">this field cannot be empty</string>
 
     <string-array name="categories_names">
-
-        <item>all</item>
-        <item>fruits</item>
-        <item>vegetables</item>
-        <item>seeds</item>
-        <item>grains</item>
-        <item>pulses</item>
-
-        <item>dairy products</item>
-
+        <item>All</item>
+        <item>Fruits</item>
+        <item>Vegetables</item>
+        <item>Seeds</item>
+        <item>Grains</item>
+        <item>Pulses</item>
+        <item>Dairy products</item>
     </string-array>
+<!-- Welcome Screen-->
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Fresh Products</string>
+    <string name="slide_1_desc">Get fresh products direct from Farmer  !</string>
+
+    <string name="slide_2_title">No Extra Rates</string>
+    <string name="slide_2_desc">Get Direct Product From Framer so no commission to pay !</string>
+
+    <string name="slide_3_title">Hassle Free Payments</string>
+    <string name="slide_3_desc">You can easily pay in a minute !</string>
+
+    <string name="slide_4_title">Chat Bot</string>
+    <string name="slide_4_desc">AI Chatbot for User Support !</string>
+    <string name="address_name">ADDRESS NAME</string>
+    <string name="send_email">Send Email</string>
+    <string name="manage_address">manage address</string>
+    <string name="shipping_details">shipping details</string>
+    <string name="place_order">place order</string>
+    <string name="total">Total</string>
+    <string name="select_or_change_address">SELECT OR CHANGE ADDRESS</string>
+    <string name="cod_cash_on_delivery">COD (CASH ON DELIVERY)</string>
+    <string name="review_your_order">Review your Order</string>
+    <string name="call">Call</string>
+    <string name="product_description">Product Description</string>
+    <string name="status_pendding">status:pendding</string>
+    <string name="total_amount">total amount</string>
+    <string name="add_review">Add Review</string>
+    <string name="give_your_review">Give your review</string>
+    <string name="give_feedback_for_this_product">Give feedback for this product</string>
+    <string name="location">location</string>
+    <string name="seller_details">seller details</string>
+    <string name="rating_and_reviews">Rating and Reviews</string>
+    <string name="address_of_seller">address of seller</string>
+    <string name="select_address">select address</string>
+    <!---->
 </resources>
 

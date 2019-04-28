@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".activity.sellerProduct.SellerProductStoreActivity"></activity>
+        <activity android:name=".activity.AppIntro.WelcomeActivity"></activity>
+        <activity android:name=".activity.sellerProduct.SellerProductStoreActivity" />
         <activity android:name=".activity.order.OrderDetailActivity" />
         <activity android:name=".activity.order.orderActivity" />
         <activity android:name=".activity.address.addressListActivity" />
@@ -54,7 +55,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name = "android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <dist:module dist:instant="true" />

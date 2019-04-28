@@ -84,272 +84,259 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_below="@id/appbarlayout"
-            android:background="@drawable/curve_background_secondary_color"
-            >
+            android:background="@drawable/curve_background_secondary_color">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-
                 android:orientation="vertical">
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:orientation="vertical"
-    android:layout_weight="1">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/productGridBackgroundColor"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
 
-        android:layout_margin="@dimen/dp_3"
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp_3"
+                            android:background="@color/productGridBackgroundColor"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="2dp">
 
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
 
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="shipping details"
-                android:textAllCaps="true"
-                android:layout_margin="@dimen/dp_6"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@drawable/curve_background_secondary_color"/>
+                                <LinearLayout
+                                    android:id="@+id/address_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/address_layout">
+                                    <TextView
+                                        android:id="@+id/address_name_tv"
+                                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="@dimen/dp_6"
+                                        tools:text="home" />
+
+                                    <TextView
+                                        android:id="@+id/address_location"
+                                        style="@style/TextAppearance.MaterialComponents.Body1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:padding="@dimen/dp_6"
+                                        tools:text="102,h,browun avenue maple county 2, thaltej ahmedabad,-380058" />
+
+                                </LinearLayout>
+
+                                <TextView
+                                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp_6"
+                                    android:text="@string/shipping_details"
+                                    android:textAllCaps="true" />
 
 
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="3dp"
+                                    android:background="@drawable/curve_background_secondary_color" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:background="?attr/dividerHorizontal" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/order_address_button"
+                                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:text="@string/select_or_change_address" />
+                            </LinearLayout>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_6"
-                android:id="@+id/address_name_tv"
-                tools:text="home"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
+                        </com.google.android.material.card.MaterialCardView>
 
-                />
-            <TextView
-                android:id="@+id/address_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_6"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                tools:text="102,h,browun avenue maple county 2, thaltej ahmedabad,-380058"/>
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp_3"
+                            android:background="@color/productGridBackgroundColor"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="2dp">
 
-</LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="?attr/dividerHorizontal"/>
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/order_address_button"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_height="wrap_content"
-                android:text="select or change address"/>
-        </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
 
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
 
-    </com.google.android.material.card.MaterialCardView>
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/productGridBackgroundColor"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="@dimen/dp_3"
-        app:cardElevation="2dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+                                    <TextView
+                                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/dp_6"
+                                        android:text="payment methods"
+                                        android:textAllCaps="true" />
 
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2dp"
+                                        android:background="?attr/dividerHorizontal" />
 
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/dp_24">
 
-            >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="payment methods"
-            android:textAllCaps="true"
-            android:layout_margin="@dimen/dp_6"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="?attr/dividerHorizontal"/>
+                                        <ImageView
+                                            android:id="@+id/payment_method_icon"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:src="@drawable/ic_cash" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
+                                        <TextView
+                                            android:id="@+id/payment_method_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginStart="5dp"
+                                            android:text="@string/cod_cash_on_delivery" />
+                                    </LinearLayout>
 
-                android:layout_margin="@dimen/dp_24"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/payment_method_icon"
-                    android:src="@drawable/ic_cash" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:id="@+id/payment_method_text"
-                    android:layout_height="wrap_content"
-                    android:text="cash on delivery" />
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2dp"
+                                        android:background="?attr/dividerHorizontal" />
+
+                                    <com.google.android.material.button.MaterialButton
+                                        android:id="@+id/payment_method_button"
+                                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="select or change payment method "
+                                        android:textColor="@color/secondaryColor"
+                                        android:visibility="gone"
+                                        />
+                                </LinearLayout>
+
+                            </LinearLayout>
 
 
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="?attr/dividerHorizontal"/>
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:id="@+id/payment_method_button"
-                android:layout_height="wrap_content"
-                android:text="select or change payment method "
-                android:visibility="gone"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:textColor="@color/secondaryColor"
-                android:layout_gravity="center"
+                        </com.google.android.material.card.MaterialCardView>
 
-                />
-        </LinearLayout>
-        </LinearLayout>
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/dp_3"
+                            android:background="@color/productGridBackgroundColor"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="2dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
 
 
-    </com.google.android.material.card.MaterialCardView>
+                                >
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/productGridBackgroundColor"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="@dimen/dp_3"
-        app:cardElevation="2dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+                                <TextView
+                                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dp_6"
+                                    android:text="@string/review_your_order"
+                                    android:textAllCaps="true" />
 
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:background="?attr/dividerHorizontal" />
 
-
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="review your order"
-            android:textAllCaps="true"
-            android:layout_margin="@dimen/dp_6"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="?attr/dividerHorizontal"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-android:nestedScrollingEnabled="false"
-            android:id="@+id/order_recycleView"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/order_recycleView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:nestedScrollingEnabled="false" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
 
 
+                    </LinearLayout>
 
-
-</LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
-
+                </androidx.core.widget.NestedScrollView>
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:elevation="12dp"
-
                     android:background="@drawable/store_item_background"
-                    >
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                    android:elevation="12dp">
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total"
-                            android:layout_gravity="center_vertical"
                             style="@style/TextAppearance.MaterialComponents.Body1"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-
-                            android:layout_marginLeft="@dimen/dp_6"
-                            android:textAllCaps="true"
-                            />
-                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:text="@string/total"
+                            android:textAllCaps="true"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
                             android:id="@+id/total_price"
                             style="@style/TextAppearance.MaterialComponents.Headline5"
-                            android:layout_marginLeft="@dimen/dp_6"
-                            android:textStyle="bold"
-                            tools:text="$60,00"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-
-                            />
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:textStyle="bold"
+                            tools:text="$60,00" />
                     </LinearLayout>
+
                     <life.sabujak.roundedbutton.RoundedButton
+                        android:id="@+id/place_order_button"
                         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                         android:layout_width="wrap_content"
-                        android:textAllCaps="true"
-                        android:text="place order"
-
-
-                        app:buttonCornerRadius="10dp"
-                        android:layout_margin="@dimen/dp_12"
-                        android:layout_gravity="center"
-                        android:id="@+id/place_order_button"
-                        android:padding="@dimen/dp_20"
-                        app:buttonGradientStartColor="#cc2b5e"
-                        app:buttonGradientEndColor="#753a88"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/dp_12"
+                        android:padding="@dimen/dp_20"
+                        android:text="@string/place_order"
+                        android:textAllCaps="true"
+                        app:buttonCornerRadius="10dp"
+                        app:buttonGradientEndColor="#753a88"
+                        app:buttonGradientStartColor="#cc2b5e" />
 
                 </LinearLayout>
 

@@ -49,7 +49,73 @@ android:layout_gravity="top"
 
 
 
-<androidx.core.widget.NestedScrollView
+<LinearLayout
+        android:id="@+id/bottom_button"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:elevation="@dimen/dp_24"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/store_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/item_ripple_effect"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+
+            <ImageButton
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="clip_vertical"
+                android:layout_margin="0dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:src="@drawable/ic_store_custom_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="false"
+                android:focusable="false"
+                android:text="@string/store"
+                android:textColor="@color/secondaryColor" />
+        </LinearLayout>
+
+        <life.sabujak.roundedbutton.RoundedButton
+            android:id="@+id/add_to_cart_button"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_20"
+            android:text="@string/add_to_cart"
+            android:textAllCaps="true"
+            app:buttonGradientEndColor="#8E54E9"
+            app:buttonGradientStartColor="#4776E6" />
+
+        <life.sabujak.roundedbutton.RoundedButton
+            android:id="@+id/buy_now"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_20"
+            android:text="buy now"
+            android:textAllCaps="true"
+            app:buttonGradientEndColor="#4A569D"
+            app:buttonGradientStartColor="#DC2424" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
     android:layout_height="match_parent"
     android:layout_width="match_parent"
 android:id="@+id/scrollView"
@@ -90,6 +156,7 @@ android:id="@+id/scrollView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </com.github.florent37.shapeofview.shapes.RoundRectView>
+
             <LinearLayout
 
                 android:layout_width="match_parent"
@@ -97,81 +164,78 @@ android:id="@+id/scrollView"
                 android:orientation="vertical">
 
 
-                <TextView
-                    android:id="@+id/seller_price"
-                    style="@style/TextAppearance.MaterialComponents.Headline4"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-android:gravity="right"
-                    tools:text="200/kg"
-                    android:layout_weight="1"
 
-                  />
                 <TextView
                     android:id="@+id/productName"
+                    style="@style/TextAppearance.MaterialComponents.Headline4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    tools:text="wheat"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    tools:text="wheat" />
+
+                <TextView
+                    android:id="@+id/seller_price"
                     style="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    tools:text="200/kg" />
 
-
-                    />
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/out_of_stock"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_6"
-                android:text="out of stock"
-                android:textColor="@color/vw_dialog_red"
-                android:visibility="gone" />
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/minQuantity"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:padding="@dimen/dp_6"
+                    tools:text="Min Quantity:25 kg" />
+
+                <TextView
+                    android:id="@+id/maxQuantity"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/dp_6"
+                    tools:text="Max Quantity:25 kg" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/avalibity_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:layout_gravity="center_horizontal"
+                android:textStyle="italic"
                 android:layout_margin="@dimen/dp_12"
+                android:text="currently product is unavailable"
                 android:textColor="@color/vw_dialog_red"
-                android:text="currently product is not avaliable"
-               android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-
-            <!-- YOUR CONTENT -->
-
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"/>
 
 
             <TextView
+                android:id="@+id/out_of_stock"
                 android:layout_width="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_height="wrap_content"
-android:id="@+id/minQuantity"
-                android:layout_weight="1"
-                android:layout_gravity="start"
-                android:padding="@dimen/dp_6"
-                tools:text="min quantity:25 kg"/>
-
-    <TextView
-        android:id="@+id/maxQuantity"
-        style="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_6"
-        android:layout_gravity="right"
-        tools:text="max quantity:25 kg" />
-</LinearLayout>
+                android:layout_margin="@dimen/dp_6"
+                android:text="out of stock"
+                android:textStyle="italic"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/vw_dialog_red"
+                android:visibility="gone"/>
         </LinearLayout>
 
 
@@ -180,85 +244,80 @@ android:id="@+id/minQuantity"
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:background="@color/productGridBackgroundColor"
             app:cardCornerRadius="2dp"
-            app:cardElevation="10dp"
-            android:layout_margin="2dp">
+            app:cardElevation="10dp">
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_margin="@dimen/dp_12"
-    android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_12"
+                android:orientation="vertical">
 
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/textQuantity"
-        android:layout_weight="1"
-       android:gravity="center"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        tools:text="enter quantity"/>
+                <TextView
+                    android:id="@+id/textQuantity"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    tools:text="Enter Quantity" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?attr/dividerHorizontal" />
-    <it.sephiroth.android.library.numberpicker.NumberPicker
-        android:id="@+id/quantity_numberpicker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerHorizontal" />
 
-                      android:showDividers="none"
-
-       
-      style="@style/NumberPicker.Outlined.Horizontal"
-        android:orientation="horizontal"
-      />
-</LinearLayout>
+                <it.sephiroth.android.library.numberpicker.NumberPicker
+                    android:id="@+id/quantity_numberpicker"
+                    style="@style/NumberPicker.Outlined.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:showDividers="none" />
+            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/materialCard"
+        <com.google.android.material.card.MaterialCardView style="@style/materialCard"
 
-   >
+            >
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="product description"
-    android:textColor="@color/black"
-    android:textAllCaps="true"
-    style="@style/TextAppearance.MaterialComponents.Headline6"
-    android:layout_margin="@dimen/dp_6"
-    />
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_6"
+                    android:textSize="25sp"
+                    android:text="Product Description"
+                    android:textColor="@color/black" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?attr/dividerHorizontal" />
-    <TextView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-android:id="@+id/text_info"
-         tools:text="Wheat is a grass widely cultivated for its seed, a cereal grain which is a worldwide staple food. The many species of wheat together make up the genus Triticum; the most widely grown is common wheat (T. aestivum)."
-       android:layout_margin="@dimen/dp_6"
-       style="@style/TextAppearance.AppCompat.Body1"/>
+                <TextView
+                    android:id="@+id/text_info"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_6"
+                    tools:text="Wheat is a grass widely cultivated for its seed, a cereal grain which is a worldwide staple food. The many species of wheat together make up the genus Triticum; the most widely grown is common wheat (T. aestivum)." />
 
-</LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerHorizontal" />
 
+            </LinearLayout>
 
 
-</com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
 
         <include
@@ -268,71 +327,6 @@ android:id="@+id/text_info"
 
 
 </androidx.core.widget.NestedScrollView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-
-            android:elevation="@dimen/dp_24"
-android:background="@color/white"
-            android:gravity="bottom"
-android:id="@+id/bottom_button"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:clickable="true"
-                android:layout_width="wrap_content"
-               android:background="@drawable/item_ripple_effect"
-                android:layout_height="match_parent"
-                android:id="@+id/store_button"
-                android:orientation="vertical"
-                android:focusable="true">
-
-
-<ImageButton
-android:clickable="false"
-    android:focusable="false"
-    android:layout_width="wrap_content"
-    android:layout_height="30dp"
-    android:layout_gravity="clip_vertical"
-    android:layout_margin="0dp"
-    android:src="@drawable/ic_store_custom_24dp"
-    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/store"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:textColor="@color/secondaryColor"
-                    android:layout_gravity="center"
-                    />
-            </LinearLayout>
-            <life.sabujak.roundedbutton.RoundedButton
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:layout_width="match_parent"
-                android:text="@string/add_to_cart"
-                android:layout_weight="1"
-                android:textAllCaps="true"
-                android:id="@+id/add_to_cart_button"
-                app:buttonGradientStartColor="#4776E6"
-                app:buttonGradientEndColor="#8E54E9"
-                android:padding="@dimen/dp_20"
-                android:layout_height="wrap_content" />
-            <life.sabujak.roundedbutton.RoundedButton
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:layout_width="match_parent"
-                android:textAllCaps="true"
-                android:id="@+id/buy_now"
-                android:text="buy now"
-                android:layout_weight="1"
-                android:padding="@dimen/dp_20"
-                app:buttonGradientStartColor="#DC2424"
-                app:buttonGradientEndColor="#4A569D"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -24,11 +24,10 @@
                 app:defaultQueryHint="search product" />
 
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sellerListRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="600dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sellerListRecycleView"
+                android:layout_width="match_parent"
+                android:layout_height="600dp" />
         </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
