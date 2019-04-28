@@ -60,6 +60,7 @@ import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
 import it.sephiroth.android.library.numberpicker.NumberPicker;
+import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 
 
 public class SellerProductActivity extends AppCompatActivity implements EventListener<DocumentSnapshot>, SellerStoreAdpater.OnProductSelectedListener {
@@ -137,24 +138,16 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             addToCart();
             else Toasty.error(getApplicationContext(),"currently product is not avaliable",Toasty.LENGTH_SHORT).show();
         });
-        binding.quantityNumberpicker.setNumberPickerChangeListener(new NumberPicker.OnNumberPickerChangeListener() {
+        binding.quantityNumberpicker.setListener(new OnValueChangeListener() {
             @Override
-            public void onProgressChanged(@NotNull NumberPicker numberPicker, int i, boolean b) {
-                if (seller.getStock() > numberPicker.getProgress())
+            public void onValueChanged(int oldValue, int newValue) {
+                if (seller.getStock() > newValue)
                     setOutOfStock(false);
                 else setOutOfStock(true);
 
             }
 
-            @Override
-            public void onStartTrackingTouch(@NotNull NumberPicker numberPicker) {
 
-            }
-
-            @Override
-            public void onStopTrackingTouch(@NotNull NumberPicker numberPicker) {
-
-            }
         });
         binding.buyNow.setOnClickListener(v -> {
             if(internetConnectionUtils.isInternetConnected(getApplicationContext())) {
@@ -215,7 +208,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         cart.setSellerId(seller_id);
         cart.setProductId(seller.getProductId());
         cart.setSellerProductRef(seller.getSellerProductRef());
-        cart.setQuantity(binding.quantityNumberpicker.getProgress());
+        cart.setQuantity(binding.quantityNumberpicker.getValue());
         cart.setName(store.getName());
         cart.setProductImageUrl(store.getProductImageUrl());
         cart.setUnit(store.getUnit());
@@ -252,8 +245,8 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         final int[] Quantity = {0};
         Cart cart = new Cart();
 
-        if (!(String.valueOf(binding.quantityNumberpicker.getProgress())).isEmpty()) {
-            Quantity[0] = binding.quantityNumberpicker.getProgress();
+        if (!(String.valueOf(binding.quantityNumberpicker.getValue())).isEmpty()) {
+            Quantity[0] = binding.quantityNumberpicker.getValue();
             if (Quantity[0] >= seller.getMinQuantity() && Quantity[0] <= seller.getMaxQuantity()) {
                 if (Quantity[0] <= seller.getStock()) {
                     cart.setSellerId(seller_id);
@@ -378,7 +371,12 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             binding.textQuantity.setError("enter currect quantity");
         }
 
-
+        binding.quantityNumberpicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toasty.success(getApplicationContext(),"clicked",Toasty.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void insertItemToCart(Cart cart) {
@@ -526,7 +524,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             seller = snapshot.toObject(Seller.class);
             binding.quantityNumberpicker.setMaxValue(seller.getMaxQuantity());
             binding.quantityNumberpicker.setMinValue(seller.getMinQuantity());
-            binding.quantityNumberpicker.setProgress(seller.getMinQuantity());
+            binding.quantityNumberpicker.setValue(seller.getMinQuantity());
             if (seller.isAvalibity()) {
                 binding.avalibityTextview.setVisibility(View.GONE);
             } else {
@@ -537,9 +535,10 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             binding.textInfo.setText(seller.getInfo());
             binding.appBar.setTitle(seller.getName());
             binding.sellerPrice.setText(seller.getPrice() + "/" + unit);
+
             binding.textQuantity.setText("enter quantity of " + name + " in " + unit);
             initSellerDetails();
-            if (seller.getStock() >= binding.quantityNumberpicker.getProgress())
+            if (seller.getStock() >= binding.quantityNumberpicker.getValue())
                 setOutOfStock(false);
             else setOutOfStock(true);
         } catch (Exception ex) {

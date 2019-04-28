@@ -271,13 +271,16 @@ android:id="@+id/scrollView"
                     android:layout_height="2dp"
                     android:background="?attr/dividerHorizontal" />
 
-                <it.sephiroth.android.library.numberpicker.NumberPicker
+                <me.angrybyte.numberpicker.view.ActualNumberPicker
                     android:id="@+id/quantity_numberpicker"
-                    style="@style/NumberPicker.Outlined.Horizontal"
                     android:layout_width="match_parent"
+                    app:show_fast_controls="false"
                     android:layout_height="wrap_content"
+                    app:show_bars="false"
+android:layout_gravity="center_horizontal"
+                    app:draw_over_controls="false"
                     android:orientation="horizontal"
-                    android:showDividers="none" />
+                    style="@style/NumberPicker.EditTextStyle"/>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>

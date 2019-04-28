@@ -62,6 +62,7 @@ public class cartHolder extends RecyclerView.ViewHolder {
                 itemCartBinding.productPrice.setText("₹" + getInstance().format(total_product_price));
 
                 itemCartBinding.productName.setText(cart.getName());
+
                 itemCartBinding.quantityNumberpicker.setProgress(cart.getQuantity());
 //        itemCartBinding.textQuantity.setText("quantity of "+cart.getName()+"/"+cart.getUnit());
                 if (activity != null) {
