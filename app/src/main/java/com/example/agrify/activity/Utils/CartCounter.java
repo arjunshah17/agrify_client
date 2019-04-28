@@ -44,7 +44,7 @@ public class CartCounter {
 try {
 
 
-    int count = Objects.requireNonNull(Objects.requireNonNull(snapshot).getDouble("cartCounter")).intValue();
+    int count =snapshot.getDouble("cartCounter").intValue();
     setBadgeCount(context, icon, String.valueOf(count));
 }
 catch (Exception ex)
