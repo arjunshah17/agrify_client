@@ -88,6 +88,7 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderItemA
         binding = DataBindingUtil.setContentView(this, R.layout.activity_order_detail);
         firebaseFirestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+        progressLoading(true);
         binding.appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -388,6 +389,8 @@ String s;
        firebaseFirestore.collection("Sellers").document( order.getSellerId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
            @Override
            public void onSuccess(DocumentSnapshot snapshot) {
+
+               progressLoading(false);
                 seller=snapshot.toObject(Seller.class);
                binding.userName.setText(seller.getName());
                binding.downloadInvoice.setOnClickListener(v -> {
@@ -496,5 +499,15 @@ String s;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+    void progressLoading(boolean state) {
+        if (state) {
+            binding.progressBarLayout.progressBarLoader.setVisibility(View.VISIBLE);
+            binding.mainLayout.setVisibility(View.GONE);
+        } else {
+            binding.progressBarLayout.progressBarLoader.setVisibility(View.GONE);
+            binding.mainLayout.setVisibility(View.VISIBLE);
+        }
+
     }
 }

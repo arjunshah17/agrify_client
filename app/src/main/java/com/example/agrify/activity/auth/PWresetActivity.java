@@ -102,7 +102,7 @@ ActivityPwresetBinding binding;
             binding.progressLoading.setVisibility(View.VISIBLE);
         }
         else {
-            binding.progressLoading.setVisibility(View.INVISIBLE);
+            binding.progressLoading.setVisibility(View.GONE);
         }
     }
 

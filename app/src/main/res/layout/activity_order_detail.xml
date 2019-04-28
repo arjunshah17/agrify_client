@@ -6,7 +6,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+<include android:id="@+id/progress_bar_layout"
+    layout="@layout/circle_progressbar"/>
 
         <RelativeLayout
             android:id="@+id/main_layout"
