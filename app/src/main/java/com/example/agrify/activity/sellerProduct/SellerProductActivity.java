@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,7 +60,6 @@ import java.util.HashMap;
 import javax.annotation.Nullable;
 
 import es.dmoral.toasty.Toasty;
-import it.sephiroth.android.library.numberpicker.NumberPicker;
 import me.angrybyte.numberpicker.listener.OnValueChangeListener;
 
 
@@ -138,17 +138,19 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
             addToCart();
             else Toasty.error(getApplicationContext(),"currently product is not avaliable",Toasty.LENGTH_SHORT).show();
         });
-        binding.quantityNumberpicker.setListener(new OnValueChangeListener() {
+        binding.quantityNumberpicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public void onValueChanged(int oldValue, int newValue) {
-                if (seller.getStock() > newValue)
-                    setOutOfStock(false);
-                else setOutOfStock(true);
-
-            }
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
 
-        });
+
+                    if (seller.getStock() > newVal)
+                        setOutOfStock(false);
+                    else setOutOfStock(true);
+
+                }
+            });
+
         binding.buyNow.setOnClickListener(v -> {
             if(internetConnectionUtils.isInternetConnected(getApplicationContext())) {
                 if (seller.isAvalibity()) {

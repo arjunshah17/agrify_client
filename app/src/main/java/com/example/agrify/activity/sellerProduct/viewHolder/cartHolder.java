@@ -63,7 +63,7 @@ public class cartHolder extends RecyclerView.ViewHolder {
 
                 itemCartBinding.productName.setText(cart.getName());
 
-                itemCartBinding.quantityNumberpicker.setProgress(cart.getQuantity());
+                itemCartBinding.quantityNumberpicker.setValue(cart.getQuantity());
 //        itemCartBinding.textQuantity.setText("quantity of "+cart.getName()+"/"+cart.getUnit());
                 if (activity != null) {
                     try {
@@ -109,27 +109,16 @@ public class cartHolder extends RecyclerView.ViewHolder {
                 Cart finalCart = cart;
 
 
-                itemCartBinding.quantityNumberpicker.setNumberPickerChangeListener(new NumberPicker.OnNumberPickerChangeListener() {
+                itemCartBinding.quantityNumberpicker.setOnValueChangedListener(new android.widget.NumberPicker.OnValueChangeListener() {
                     @Override
-                    public void onProgressChanged(@NotNull NumberPicker numberPicker, int i, boolean b) {
+                    public void onValueChange(android.widget.NumberPicker picker, int oldVal, int newVal) {
                         if (activity.getClass().getName().equals(CartActivity.class.getName())) {
-                            firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(finalCart.getProductId()).update("quantity", numberPicker.getProgress());
+                            firebaseFirestore.collection("Users").document(auth.getUid()).collection("cartItemList").document(finalCart.getProductId()).update("quantity", newVal);
                         } else {
-                            firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(finalCart.getProductId()).update("quantity", numberPicker.getProgress());
+                            firebaseFirestore.collection("Users").document(auth.getUid()).collection("tempOrderCart").document(finalCart.getProductId()).update("quantity", newVal);
                         }
                     }
-
-                    @Override
-                    public void onStartTrackingTouch(@NotNull NumberPicker numberPicker) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(@NotNull NumberPicker numberPicker) {
-
-                    }
                 });
-
 
             }
         });

@@ -66,9 +66,9 @@ android:visibility="gone"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                app:shimmer_demo_angle="20"
+
                 app:shimmer_demo_child_count="10"
-                app:shimmer_demo_grid_child_count="10"
+                app:shimmer_demo_grid_child_count="1"
                 app:shimmer_demo_layout="@layout/address_list_loading" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/address_List_rv"

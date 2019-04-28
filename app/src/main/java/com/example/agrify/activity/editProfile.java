@@ -156,6 +156,8 @@ if(getIntent().getExtras()!=null) {
     }
 
     private void loadData() {
+        bind.email.setText(firebaseUser.getEmail());
+
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

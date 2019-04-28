@@ -254,33 +254,31 @@ android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_12"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textQuantity"
                     style="@style/TextAppearance.MaterialComponents.Headline5"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
                     tools:text="Enter Quantity" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="?attr/dividerHorizontal" />
 
-                <me.angrybyte.numberpicker.view.ActualNumberPicker
+
+                <NumberPicker
                     android:id="@+id/quantity_numberpicker"
-                    android:layout_width="match_parent"
-                    app:show_fast_controls="false"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="100dp"
                     app:show_bars="false"
 android:layout_gravity="center_horizontal"
+                    style="@style/NumberPicker.Outlined.Horizontal"
                     app:draw_over_controls="false"
-                    android:orientation="horizontal"
-                    style="@style/NumberPicker.EditTextStyle"/>
+
+                 />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>

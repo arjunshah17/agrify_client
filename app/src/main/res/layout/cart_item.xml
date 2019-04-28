@@ -86,10 +86,10 @@ android:visibility="gone"
                 </LinearLayout>
             </LinearLayout>
 
-            <it.sephiroth.android.library.numberpicker.NumberPicker
+            <NumberPicker
                 android:id="@+id/quantity_numberpicker"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_gravity="center_vertical"
                 android:showDividers="none"
 android:layout_margin="@dimen/dp_12"

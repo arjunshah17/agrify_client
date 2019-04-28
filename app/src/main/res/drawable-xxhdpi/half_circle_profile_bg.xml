@@ -9,7 +9,7 @@
         android:right="-100dp"
         android:top="-80dp">
         <shape android:shape="oval">
-            <solid android:color="@color/colorPrimary" />
+            <solid android:color="@color/colorPrimaryDark" />
         </shape>
     </item>
 </layer-list>
