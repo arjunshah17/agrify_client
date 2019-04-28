@@ -22,5 +22,10 @@
     <color name="hintTextColor">#55000000</color>
     <color name="greyPrimary">#DE000000</color>
     <color name="greySecondary">#8B000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorPurple">#983CFF</color>
+    <color name="colorPurpleT">#64983cff</color>
+    <color name="colorBlue">#2FB4FF</color>
+    <color name="colorBlueT">#642fb4ff</color>
     <color name="greyDisabled">#61000000</color>
 </resources>

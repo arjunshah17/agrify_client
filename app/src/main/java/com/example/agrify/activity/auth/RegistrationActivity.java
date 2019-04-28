@@ -2,12 +2,16 @@
 package com.example.agrify.activity.auth;
 
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,18 +44,23 @@ ActivityRegistrationBinding binding;
 
     AwesomeValidation validator;
     private FirebaseAuth firebaseAuth;
+    private Animation animation;
 
-
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       binding= DataBindingUtil. setContentView(this,R.layout.activity_registration);
-        validator=new AwesomeValidation(BASIC);
-        firebaseAuth= FirebaseAuth.getInstance();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_registration);
+        validator = new AwesomeValidation(BASIC);
+        firebaseAuth = FirebaseAuth.getInstance();
+        setSupportActionBar(binding.bgHeader);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        animation = AnimationUtils.loadAnimation(this,R.animator.uptodowndiagonal);
+        binding.rlayout.setAnimation(animation);
         initializeValidators();
         initializeGUI();
     }
-
 
     private void initializeValidators() {
 
@@ -92,8 +101,7 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
         binding.linkLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-                Bungee.inAndOut(RegistrationActivity.this);
+               onBackPressed();
             }
         });
     }
@@ -109,10 +117,13 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
         }
     }
     @Override
-    public void onBackPressed() {
-        startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-        Bungee.inAndOut(RegistrationActivity.this);
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home :
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
