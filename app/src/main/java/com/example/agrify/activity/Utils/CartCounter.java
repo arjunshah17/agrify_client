@@ -41,12 +41,16 @@ public class CartCounter {
         userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+try {
 
 
-
-                    int count = Objects.requireNonNull(Objects.requireNonNull(snapshot).getDouble("cartCounter")).intValue();
-                    setBadgeCount(context, icon, String.valueOf(count));
-
+    int count = Objects.requireNonNull(Objects.requireNonNull(snapshot).getDouble("cartCounter")).intValue();
+    setBadgeCount(context, icon, String.valueOf(count));
+}
+catch (Exception ex)
+{
+    ex.printStackTrace();
+}
 
             }
         });

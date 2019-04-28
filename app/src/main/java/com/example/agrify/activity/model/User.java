@@ -6,18 +6,28 @@ import java.util.Map;
 public class User {
     private String name, email, phone, profilePhotoUrl,cartSellerId,tempOrderSellerId;
     int cartCounter;
+    boolean isAdmin;
 
     public User() {
     }
 
-    public User(String name, String email, String phone, String profilePhotoUrl,String cartSellerId,int cartCounter,String tempOrderSellerId) {
+    public User(String name, String email, String phone, String profilePhotoUrl,String cartSellerId,int cartCounter,String tempOrderSellerId,boolean isAdmin) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.profilePhotoUrl = profilePhotoUrl;
         this.cartSellerId=cartSellerId;
+        this.isAdmin=isAdmin;
         this.cartCounter=cartCounter;
         this.tempOrderSellerId=tempOrderSellerId;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public String getTempOrderSellerId() {
