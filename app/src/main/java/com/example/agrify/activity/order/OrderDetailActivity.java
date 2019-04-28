@@ -140,7 +140,7 @@ String s;
 
         }
 
-        pdfFile = new File(docsFolder.getAbsolutePath(), "Agrify Invoice.pdf");
+        pdfFile = new File(docsFolder.getAbsolutePath(), order.getOrderId()+".pdf");
         OutputStream output = new FileOutputStream(pdfFile);
         Document document = new Document();
         PdfWriter.getInstance(document, output);
