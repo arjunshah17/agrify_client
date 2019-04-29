@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+
+        android:shortcutDisabledMessage="@string/add_to_cart"
+        android:shortcutId="@string/add_to_cart"
+        android:shortcutLongLabel="@string/add_to_cart"
+        android:shortcutShortLabel="@string/add_to_cart">
+        android:icon="@drawable/ic_menu_cart"
+        <!-- Each one of the intents needs an android:action, even if you don't
+             do anything with it. Otherwise you're in for a crash! -->
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.example.agrify.activity.sellerProduct"
+            android:targetPackage="com.example.agrify.activity.sellerProduct.CartActivity"/>
+
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list is what the user sees when they
+             launch this shortcut. The previous intents will be put on the backstack -->
+        <!-- You can also specify the category of the shortcut via the <categories>
+             tag. As of this writing, the only supported category is
+             android.shortcut.conversation, and can be specified using android:name
+             like so: -->
+    </shortcut>
+</shortcuts>
+
+
+

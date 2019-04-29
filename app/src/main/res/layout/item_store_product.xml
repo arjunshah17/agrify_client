@@ -35,24 +35,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
+                tools:src="@drawable/image_place_holder"
                 android:scaleType="fitCenter"
                 android:transitionName="@string/store_product_transition" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginTop="12dp">
 
                 <TextView
                     android:id="@+id/productName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
                     android:layout_gravity="start"
                     android:maxWidth="100dp"
                     android:text="@{store.name}"
                     android:textColor="#0a3142"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="wheat name kskkj jj jj" />
 
                 <TextView
                     android:id="@+id/price"
@@ -64,21 +67,8 @@
                     tools:text="start from 250/kg"
                     style="@style/TextAppearance.MaterialComponents.Body2"/>
 
-                <com.varunest.sparkbutton.SparkButton
-                    android:id="@+id/wise_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
 
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="3dp"
-                    android:visibility="invisible"
-                    app:sparkbutton_activeImage="@drawable/ic_wiselist_state_checked"
-                    app:sparkbutton_iconSize="25dp"
-                    android:layout_centerVertical="true"
-                    app:sparkbutton_inActiveImage="@drawable/ic_wiselist_state_unchecked"
-                    app:sparkbutton_primaryColor="@color/colorPrimary"
-                    app:sparkbutton_secondaryColor="@color/common_google_signin_btn_text_dark_focused" />
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

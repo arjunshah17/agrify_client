@@ -13,35 +13,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".activity.AppIntro.WelcomeActivity"></activity>
-        <activity android:name=".activity.sellerProduct.SellerProductStoreActivity" />
-        <activity android:name=".activity.order.OrderDetailActivity" />
-        <activity android:name=".activity.order.orderActivity" />
-        <activity android:name=".activity.address.addressListActivity" />
-        <activity android:name=".activity.address.addressActivity" />
-        <activity android:name=".activity.ChatBot.chatbotActivity" />
-        <activity android:name=".activity.sellerProduct.CartActivity" />
-        <activity android:name=".activity.auth.authVerification" />
-        <activity android:name=".activity.StoreDetailActivity" />
-        <activity android:name=".activity.sellerProduct.SellerProductActivity" />
+        <activity android:name=".activity.AppIntro.WelcomeActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.sellerProduct.SellerProductStoreActivity"  android:screenOrientation="portrait" />
+        <activity android:name=".activity.order.OrderDetailActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.order.orderActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.address.addressListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.address.addressActivity"  android:screenOrientation="portrait" />
+        <activity android:name=".activity.ChatBot.chatbotActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.sellerProduct.CartActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".activity.auth.authVerification"  />
+        <activity android:name=".activity.StoreDetailActivity"  android:screenOrientation="portrait" />
+        <activity android:name=".activity.sellerProduct.SellerProductActivity"  android:screenOrientation="portrait" />
         <activity
             android:name=".activity.editProfile"
-            android:label="@string/title_activity_edit_profile" />
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
+            android:label="@string/title_activity_edit_profile"   android:screenOrientation="portrait"/>
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"  android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.auth.LoginActivity" />
+        <activity android:name=".activity.auth.LoginActivity"  />
         <activity android:name=".activity.auth.PWresetActivity" />
         <activity android:name=".activity.auth.RegistrationActivity" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.SplashActivity"  android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts"/>
         </activity>
 
         <meta-data

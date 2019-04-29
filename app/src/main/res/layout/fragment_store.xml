@@ -63,7 +63,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/product_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -78,6 +78,7 @@
                 android:layout_height="match_parent"
                 app:shimmer_demo_angle="20"
                 app:shimmer_demo_child_count="10"
+                android:visibility="gone"
                 app:shimmer_demo_grid_child_count="2"
                 app:shimmer_demo_layout="@layout/store_product_grid_loading"
                 app:shimmer_demo_layout_manager_type="grid" />
@@ -85,25 +86,32 @@
             <LinearLayout
                 android:id="@+id/animation_layout"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_centerInParent="true"
+              >
 
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/animation_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     app:lottie_autoPlay="true"
+                    android:layout_gravity="center_horizontal"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/productempty" />
 
                 <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="no products found"
-                    android:textSize="24sp" />
+                    android:text="@string/no_products_found"
+                    android:textAllCaps="true"
+                    android:textColor="@color/secondaryColor"
+                    android:textStyle="bold"
+                    android:typeface="monospace" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -118,7 +126,7 @@
                 android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
                 android:scrollbars="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-        </FrameLayout>
+        </RelativeLayout>
     </FrameLayout>
 </layout>
 

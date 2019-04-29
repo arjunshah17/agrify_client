@@ -166,7 +166,7 @@ if(getIntent().getExtras()!=null) {
                 if (task.isSuccessful()) {
                     if (task.getResult().exists()) {
                        user=task.getResult().toObject(User.class);
-                        user.setEmail(firebaseUser.getEmail());
+
 
                     }
                     if (firebaseUser.getPhotoUrl() != null) {
@@ -175,7 +175,8 @@ if(getIntent().getExtras()!=null) {
                         GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).
                                 into(bind.userProfilePhoto);
                     }
-                    bind.setUser(user);
+                    bind.name.setText(user.getName());
+                    bind.phone.setText(user.getPhone());
 
                 } else {
                      if(!isUserFirstTime) {

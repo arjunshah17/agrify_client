@@ -115,7 +115,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
         bind.categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String text = ((TextView) view).getText().toString();
+                String text = ((TextView) view).getText().toString().toLowerCase();
                 Toasty.info(getActivity(), text, Toast.LENGTH_LONG).show();
                 navigationIconClickListener.closeMenu();
                 loadStoreProducts(text);
