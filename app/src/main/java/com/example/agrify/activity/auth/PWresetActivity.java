@@ -23,7 +23,7 @@ import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 
 import com.example.agrify.R;
 import com.example.agrify.databinding.ActivityPwresetBinding;
-import com.example.agrify.databinding.ActivityPwresetBindingImpl;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,7 +66,7 @@ ActivityPwresetBinding binding;
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PWresetActivity.this, LoginActivity.class));
-                Bungee.inAndOut(PWresetActivity.this);
+                Bungee.slideUp(PWresetActivity.this);
             }
         });
         binding.btnReset.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,7 @@ ActivityPwresetBinding binding;
                             {
                                 Toasty.success(PWresetActivity.this,"password reset send to"+binding.emailEditText.getText().toString(),Toasty.LENGTH_SHORT).show();
                                 startActivity(new Intent(PWresetActivity.this, LoginActivity.class));
-                                Bungee.inAndOut(PWresetActivity.this);
+                                Bungee.slideUp(PWresetActivity.this);
                             }
                             else {
                                 Toasty.error(PWresetActivity.this,task.getException().getLocalizedMessage(),Toasty.LENGTH_SHORT).show();

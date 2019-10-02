@@ -16,8 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.example.agrify.R;
-import com.example.agrify.activity.GlideApp;
+
 import com.example.agrify.activity.Utils.CartCounter;
 import com.example.agrify.activity.Utils.RatingUtils;
 import com.example.agrify.activity.Utils.internetConnectionUtils;
@@ -611,7 +612,7 @@ public class SellerProductActivity extends AppCompatActivity implements EventLis
         try {
 
 
-            GlideApp.with(this)
+            Glide.with(this)
                     .load(seller.getProfilePhotoUrl())
                     .into(binding.rattingCard.profilePhoto);
         } catch (Exception ex) {

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 
+import com.bumptech.glide.Glide;
 import com.example.agrify.R;
 import com.example.agrify.activity.adapter.SellerAdapter;
 import com.example.agrify.activity.fragments.SellerListFragment;
@@ -113,7 +114,7 @@ public class StoreDetailActivity extends AppCompatActivity implements EventListe
         else {
             bind.sellerlistButton.setText(store.getSellerCount()+" farmers are selling");
         }
-        GlideApp.with(this)
+        Glide.with(this)
                 .load(store.getProductImageUrl())
                 .into(bind.productImageUrl);
         bind.appBar.setTitle(store.getName());

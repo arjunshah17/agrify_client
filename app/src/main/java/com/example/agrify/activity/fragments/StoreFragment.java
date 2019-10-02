@@ -201,7 +201,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
 
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), SharedView, transitionName);
         startActivity(intent, transitionActivityOptions.toBundle());
-        Bungee.inAndOut(getActivity());
+        Bungee.slideUp(getActivity());
     }
 
     @Override
@@ -298,7 +298,7 @@ public class StoreFragment extends Fragment implements StoreAdapter.OnStoreSelec
                     if (task.isSuccessful()) {
                         Toasty.info(getActivity(), "log out successfully", Toasty.LENGTH_SHORT).show();
                         startActivity(new Intent(getActivity(), LoginActivity.class));
-                        Bungee.windmill(getActivity());
+                        Bungee.slideUp(getActivity());
                     } else {
                         Toasty.error(getActivity(), task.getException().getLocalizedMessage(), Toasty.LENGTH_SHORT).show();
 

@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.agrify.activity.GlideApp;
+import com.bumptech.glide.Glide;
+
 import com.example.agrify.activity.adapter.StoreAdapter;
 import com.example.agrify.activity.model.Store;
 import com.example.agrify.databinding.CartItemBinding;
@@ -74,7 +75,7 @@ WriteBatch batch;
             }
             // Load image
             if (activity != null) {
-                GlideApp.with(activity)
+               Glide.with(activity)
                         .load(store.getProductImageUrl())
                         .into(binding.productImage);
             }

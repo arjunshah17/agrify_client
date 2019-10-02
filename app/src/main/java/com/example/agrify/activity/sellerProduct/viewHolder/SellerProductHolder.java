@@ -6,7 +6,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.agrify.activity.GlideApp;
+
+import com.bumptech.glide.Glide;
 import com.example.agrify.activity.model.Store;
 import com.example.agrify.activity.sellerProduct.adpater.SellerStoreAdpater;
 
@@ -44,7 +45,7 @@ public class SellerProductHolder extends RecyclerView.ViewHolder {
 
                 // Load image
                 if (activity != null) {
-                    GlideApp.with(activity)
+                    Glide.with(activity)
                             .load(store.getProductImageUrl())
                             .into(binding.productImage);
                 }

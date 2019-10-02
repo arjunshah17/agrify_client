@@ -5,7 +5,8 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.agrify.activity.GlideApp;
+
+import com.bumptech.glide.Glide;
 import com.example.agrify.activity.sellerProduct.CartActivity;
 import com.example.agrify.activity.sellerProduct.adpater.CartAdapter;
 import com.example.agrify.activity.sellerProduct.model.Cart;
@@ -69,7 +70,7 @@ public class cartHolder extends RecyclerView.ViewHolder {
                     try {
 
 
-                        GlideApp.with(activity)
+                        Glide.with(activity)
                                 .load(cart.getProductImageUrl())
                                 .into(itemCartBinding.productImage);
                     } catch (Exception ex) {

@@ -133,7 +133,7 @@ validator=new AwesomeValidation(BASIC);
                                                         if( documentReference.exists())
                                                         {
                                                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                                            Bungee.windmill(LoginActivity.this);
+                                                            Bungee.slideUp(LoginActivity.this);
                                                         }
                                                         else
                                                             {
@@ -205,7 +205,7 @@ validator=new AwesomeValidation(BASIC);
                             else
                                 {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    Bungee.windmill(LoginActivity.this);
+                                    Bungee.slideUp(LoginActivity.this);
 
                             }
                         }
@@ -260,7 +260,7 @@ validator=new AwesomeValidation(BASIC);
         Intent intent=new Intent(LoginActivity.this, editProfile.class);
         intent.putExtra(TAG,"sign_in_for_first_time");
         startActivity(intent);
-        Bungee.windmill(LoginActivity.this);
+        Bungee.slideUp(LoginActivity.this);
     }
 
     @Override

@@ -118,7 +118,7 @@ public class WishFragment extends Fragment implements StoreAdapter.OnStoreSelect
         String transitionName = getString(R.string.store_product_transition);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), SharedView, transitionName);
         startActivity(intent, transitionActivityOptions.toBundle());
-        Bungee.inAndOut(getActivity());
+        Bungee.slideUp(getActivity());
     }
 
     @Override

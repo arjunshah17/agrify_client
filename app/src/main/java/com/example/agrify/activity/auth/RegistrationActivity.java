@@ -84,7 +84,7 @@ validator.addValidation(this,binding.inputPassword.getId(),binding.inputReEnterP
                  {
                      Toasty.success(RegistrationActivity.this,"new account created",Toasty.LENGTH_SHORT).show();
                      startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
-                     Bungee.inAndOut(RegistrationActivity.this);
+                     Bungee.slideUp(RegistrationActivity.this);
                  }
                  else
                  {

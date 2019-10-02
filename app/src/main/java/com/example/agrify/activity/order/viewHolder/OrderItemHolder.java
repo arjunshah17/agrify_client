@@ -5,7 +5,8 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.agrify.activity.GlideApp;
+
+import com.bumptech.glide.Glide;
 import com.example.agrify.activity.order.adapter.OrderItemAdapter;
 import com.example.agrify.activity.order.model.OrderItem;
 import com.example.agrify.databinding.OrderItemBinding;
@@ -41,7 +42,7 @@ public class OrderItemHolder extends RecyclerView.ViewHolder {
             ex.printStackTrace();
         }
         if (activity != null) {
-            GlideApp.with(activity)
+            Glide.with(activity)
                     .load(orderItem.getProductImageUrl())
                     .into(binding.productImage);
         }

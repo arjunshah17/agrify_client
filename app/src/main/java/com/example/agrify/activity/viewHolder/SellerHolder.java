@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.agrify.activity.GlideApp;
+import com.bumptech.glide.Glide;
+
 import com.example.agrify.activity.Utils.RatingUtils;
 import com.example.agrify.activity.adapter.SellerAdapter;
 import com.example.agrify.activity.model.Seller;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class SellerHolder extends RecyclerView.ViewHolder {
             }
             // Load image
             if (activity != null) {
-                GlideApp.with(activity)
+               Glide.with(activity)
                         .load(seller.getProfilePhotoUrl())
                         .into(binding.profilePhoto);
             }

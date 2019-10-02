@@ -4,7 +4,8 @@ import android.app.Activity;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.agrify.activity.GlideApp;
+
+import com.bumptech.glide.Glide;
 import com.example.agrify.activity.order.model.Rating;
 import com.example.agrify.databinding.ItemRatingBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,7 +38,7 @@ public class RatingHolder extends RecyclerView.ViewHolder {
                 @Override
                 public void onSuccess(DocumentSnapshot snapshot) {
                     binding.name.setText(snapshot.getString("name"));
-                    GlideApp.with(activity)
+                    Glide.with(activity)
                             .load(snapshot.getString("profilePhotoUrl"))
                             .into(binding.userImage);
                 }

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.agrify.R;
-import com.example.agrify.activity.GlideApp;
+
 import com.example.agrify.activity.model.Store;
 import com.example.agrify.activity.viewHolder.StoreHolder;
 import com.example.agrify.databinding.ItemStoreProductBinding;

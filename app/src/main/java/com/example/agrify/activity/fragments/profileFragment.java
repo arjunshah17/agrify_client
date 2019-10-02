@@ -12,8 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.agrify.R;
-import com.example.agrify.activity.GlideApp;
+
 import com.example.agrify.activity.editProfile;
 import com.example.agrify.activity.model.User;
 import com.example.agrify.databinding.FragmentProfileBinding;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -96,7 +98,7 @@ public class profileFragment extends Fragment {
                     }
                     if (firebaseUser.getPhotoUrl() != null) {
                         if (getActivity() != null) {
-                            GlideApp.with(getActivity()).load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).into(bind.userProfilePhoto);
+                          Picasso.get().load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).into(bind.userProfilePhoto);
                         }
                     }
 

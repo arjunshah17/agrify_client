@@ -23,6 +23,7 @@ import androidx.databinding.DataBindingUtil;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.basgeekball.awesomevalidation.validators.Validator;
+import com.bumptech.glide.Glide;
 import com.example.agrify.R;
 import com.example.agrify.activity.Utils.internetConnectionUtils;
 import com.example.agrify.activity.address.addressListActivity;
@@ -40,6 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -172,7 +174,7 @@ if(getIntent().getExtras()!=null) {
                     if (firebaseUser.getPhotoUrl() != null) {
 
 
-                        GlideApp.with(editProfile.this).load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).
+                        Picasso.get().load(firebaseUser.getPhotoUrl()).placeholder(R.drawable.add_photo).
                                 into(bind.userProfilePhoto);
                     }
                     bind.name.setText(user.getName());

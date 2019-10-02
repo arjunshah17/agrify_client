@@ -18,8 +18,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.agrify.R;
-import com.example.agrify.activity.GlideApp;
+
 import com.example.agrify.activity.MainActivity;
 import com.example.agrify.activity.model.Seller;
 import com.example.agrify.activity.model.User;
@@ -458,7 +459,7 @@ String s;
                try {
 
 
-                   GlideApp.with(getApplicationContext())
+                   Glide.with(getApplicationContext())
                            .load(seller.getProfilePhotoUrl())
                            .into(binding.profilePhoto);
                } catch (Exception ex) {
