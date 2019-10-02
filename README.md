@@ -1,7 +1,7 @@
 # Agrify, ecommerce app made with firestore(no sql database)
 
 agrify is ecommerce app, which uses google firebase services
-
+**download agrify client release apk** [click here](https://github.com/arjunshah17/agrify_client/releases/download/1.0/agrify_client.1.0.apk)
 
 # Features
 1.login and authentication
@@ -13,8 +13,14 @@ agrify is ecommerce app, which uses google firebase services
 7notification(upcoming)
 
 ## ScreenShots
-![homePage](https://github.com/arjunshah17/agrify_client/blob/master/media_data/images/home_screen.jpg)
+<p>
+<img src="https://media.giphy.com/media/SVIfEttfhDxfDLIH8T/200w_d.gif" width="250" height="400">
+<img src="https://media.giphy.com/media/Q6wwoG3waSXPZHpgK7/200w_d.gif" alt="upload photo example" width="250"  height="400">
+<img src="https://user-images.githubusercontent.com/10066840/45931289-0d7b6880-bf3a-11e8-8d4b-8e4086924a08.gif" alt="go to a profile from feed" width="250">
+<img src="https://user-images.githubusercontent.com/10066840/45931293-166c3a00-bf3a-11e8-8d67-4d89dfeac18d.gif" alt="edit profile example" width="250">
+<img src="https://user-images.githubusercontent.com/10066840/45931251-7e6e5080-bf39-11e8-857b-18e7709b0f0c.gif" alt="comment and activity feed example" width="250">
 
+</p>
 ## Other parts of this project
 1
 2
