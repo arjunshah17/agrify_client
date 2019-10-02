@@ -14,9 +14,9 @@ agrify is ecommerce app, which uses google firebase services
 
 ## ScreenShots
 <p>
-<img src="https://media.giphy.com/media/SVIfEttfhDxfDLIH8T/200w_d.gif" width="250" height="400">
-<img src="https://media.giphy.com/media/Q6wwoG3waSXPZHpgK7/200w_d.gif" alt="upload photo example" width="250"  height="400">
-<img src="https://user-images.githubusercontent.com/10066840/45931289-0d7b6880-bf3a-11e8-8d4b-8e4086924a08.gif" alt="go to a profile from feed" width="250">
+<img src="https://media.giphy.com/media/hSzny24t7J8FeC1WbP/giphy.gif" width="250" height="400">
+<img src="https://media.giphy.com/media/Q6wwoG3waSXPZHpgK7/giphy.gif" alt="upload photo example" width="250"  height="400">
+<img src="https://media.giphy.com/media/j0XSadreGxqYtmeXI3/giphy.gif" alt="go to a profile from feed" width="250">
 <img src="https://user-images.githubusercontent.com/10066840/45931293-166c3a00-bf3a-11e8-8d67-4d89dfeac18d.gif" alt="edit profile example" width="250">
 <img src="https://user-images.githubusercontent.com/10066840/45931251-7e6e5080-bf39-11e8-857b-18e7709b0f0c.gif" alt="comment and activity feed example" width="250">
 
