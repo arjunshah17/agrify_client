@@ -10,7 +10,7 @@ agrify is ecommerce app, which uses google firebase services
  2. cart
  3. diffrent seller for same product
  4. can place order
- 5. rating and review 7notification(upcoming)
+ 5. rating and review notification(upcoming)
 
 ## Screenshots
 <p>
